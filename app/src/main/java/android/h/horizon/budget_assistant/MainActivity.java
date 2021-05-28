@@ -9,22 +9,21 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mExpenseButton;
-    private static final int REQUEST_CODE_EXPENSES = 0;
+    private Button mExpensesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setExpenseButton();
+        setExpensesButton();
     }
 
-    private void setExpenseButton() {
-        mExpenseButton = (Button) findViewById(R.id.expense_button);
-        mExpenseButton.setOnClickListener(new View.OnClickListener() {
+    private void setExpensesButton() {
+        mExpensesButton = (Button) findViewById(R.id.expense_button);
+        mExpensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ExpenseActivity.class);
+                Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                 startActivity(i);
             }
         });

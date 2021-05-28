@@ -7,17 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class ExpenseFragment extends Fragment {
+public class FoodFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View expenseView = inflater.inflate(R.layout.fragment_expenses, container,
+        View expenseView = inflater.inflate(R.layout.fragment_food, container,
                 false);
         return expenseView;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-         }
 }

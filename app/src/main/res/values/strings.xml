@@ -10,5 +10,6 @@
     <string name="subscriptions_button"><![CDATA[Subsciption & Insurance]]></string>
     <string name="other_label">Others</string>
     <string name="back_label"><![CDATA[< Back]]></string>
+    <string name="expense_title">unknown expense</string>
 
 </resources>

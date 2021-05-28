@@ -1,27 +1,24 @@
 package android.h.horizon.budget_assistant;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import androidx.annotation.Nullable;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
-public class ExpenseActivity extends AppCompatActivity {
+public class ExpensesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expense);
+        setContentView(R.layout.activity_expenses);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.expense_fragment_container);
+        Fragment fragment = fragmentManager.findFragmentById(R.id.expenses_fragment_container);
         if (fragment == null) {
-            fragment = new ExpenseFragment();
+            fragment = new ExpensesFragment();
             fragmentManager.beginTransaction()
-                    .add(R.id.expense_fragment_container, fragment)
+                    .add(R.id.expenses_fragment_container, fragment)
                     .commit();
         }
     }
