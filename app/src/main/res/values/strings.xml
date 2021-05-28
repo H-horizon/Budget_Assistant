@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Budget_Assistant</string>
+    <string name="date_label">Date cannot be displayed!</string>
+    <string name="expenses_title">Expenses</string>
+    <string name="food_label">Food</string>
+    <string name="rent_label">Travelling</string>
+    <string name="leisure_label"><![CDATA[Leisure & Entertainment]]></string>
+    <string name="education_label">Education</string>
+    <string name="health_label">Health</string>
+    <string name="subscriptions_button"><![CDATA[Subsciption & Insurance]]></string>
+    <string name="other_label">Others</string>
+    <string name="back_label"><![CDATA[< Back]]></string>
+
 </resources>
