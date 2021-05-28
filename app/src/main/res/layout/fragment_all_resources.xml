@@ -22,43 +22,43 @@
 
     <Button
         android:id="@+id/food_button"
-        android:layout_width="258dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/food_label" />
 
     <Button
         android:id="@+id/rent_button"
-        android:layout_width="258dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/rent_label" />
 
     <Button
         android:id="@+id/leisure_button"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/leisure_label" />
 
     <Button
         android:id="@+id/education_button"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/education_label" />
 
     <Button
         android:id="@+id/health_button"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/health_label" />
 
     <Button
         android:id="@+id/subscription_button"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/subscriptions_button" />
 
     <Button
         android:id="@+id/other_button"
-        android:layout_width="262dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/other_label" />
 
