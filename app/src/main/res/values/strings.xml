@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Budget_Assistant</string>
+    <string name="app_name">Budget Assistant</string>
     <string name="date_label">Date cannot be displayed!</string>
     <string name="expenses_title">Expenses</string>
     <string name="food_label">Food</string>
