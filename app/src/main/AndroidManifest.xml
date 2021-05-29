@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExpensesActivity"
+            android:name=".dashboard.ExpensesActivity"
             android:label="@string/expenses_title" >
         </activity>
         <activity
-            android:name=".FoodActivity"
+            android:name=".expenses_layer.FoodActivity"
             android:label="@string/expense_title" >
         </activity>
     </application>

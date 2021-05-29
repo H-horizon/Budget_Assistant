@@ -1,6 +1,7 @@
-package android.h.horizon.budget_assistant;
+package android.h.horizon.budget_assistant.dashboard;
 
 
+import android.h.horizon.budget_assistant.R;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,6 +1,8 @@
-package android.h.horizon.budget_assistant;
+package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
+import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.expenses_layer.FoodActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

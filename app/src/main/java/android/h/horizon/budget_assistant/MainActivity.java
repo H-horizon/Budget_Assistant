@@ -3,6 +3,7 @@ package android.h.horizon.budget_assistant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.h.horizon.budget_assistant.dashboard.ExpensesActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
