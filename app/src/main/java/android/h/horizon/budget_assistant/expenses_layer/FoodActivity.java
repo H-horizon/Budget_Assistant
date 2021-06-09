@@ -12,18 +12,4 @@ public class FoodActivity extends ExpenseActivity {
     protected void setActivityTitle() {
         setTitle("Food");
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_expense);
-//        setTitle("Food");
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        Fragment fragment = fragmentManager.findFragmentById(R.id.expense_fragment_container);
-//        if (fragment == null) {
-//            fragment = new FoodFragment();
-//            fragmentManager.beginTransaction()
-//                    .add(R.id.expense_fragment_container, fragment)
-//                    .commit();
-//        }
-//    }
 }

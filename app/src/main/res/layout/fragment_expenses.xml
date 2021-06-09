@@ -19,6 +19,12 @@
         android:text="@string/food_label" />
 
     <Button
+        android:id="@+id/travel_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/travel_label" />
+
+    <Button
         android:id="@+id/rent_button"
         android:layout_width="260dp"
         android:layout_height="wrap_content"

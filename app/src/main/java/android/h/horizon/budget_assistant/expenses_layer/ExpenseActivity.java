@@ -13,11 +13,11 @@ public abstract class ExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-        setTitle("Food");
+        setActivityTitle();
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.expense_fragment_container);
         if (fragment == null) {
-            fragment = new FoodFragment();
+            fragment = new ExpenseFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.expense_fragment_container, fragment)
                     .commit();

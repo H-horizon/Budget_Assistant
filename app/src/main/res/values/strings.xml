@@ -3,11 +3,11 @@
     <string name="date_label">Date cannot be displayed!</string>
     <string name="expenses_title">Expenses</string>
     <string name="food_label">Food</string>
-    <string name="rent_label">Travelling</string>
+    <string name="rent_label">Rent</string>
     <string name="leisure_label"><![CDATA[Leisure & Entertainment]]></string>
     <string name="education_label">Education</string>
     <string name="health_label">Health</string>
-    <string name="subscriptions_button"><![CDATA[Subsciption & Insurance]]></string>
+    <string name="subscriptions_button"><![CDATA[Subscription & Insurance]]></string>
     <string name="other_label">Others</string>
     <string name="back_label"><![CDATA[< Back]]></string>
     <string name="expense_title">unknown expense</string>
@@ -15,5 +15,6 @@
     <string name="amount_spent">Amount spent:</string>
     <string name="save_label">Save</string>
     <string name="cancel_label">Cancel</string>
+    <string name="travel_label">Travelling</string>
 
 </resources>
