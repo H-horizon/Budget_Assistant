@@ -11,5 +11,9 @@
     <string name="other_label">Others</string>
     <string name="back_label"><![CDATA[< Back]]></string>
     <string name="expense_title">unknown expense</string>
+    <string name="expense_description">Description field:</string>
+    <string name="amount_spent">Amount spent:</string>
+    <string name="save_label">Save</string>
+    <string name="cancel_label">Cancel</string>
 
 </resources>
