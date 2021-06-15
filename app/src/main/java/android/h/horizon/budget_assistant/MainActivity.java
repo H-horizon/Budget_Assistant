@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setExpensesButton() {
         mExpensesButton = (Button) findViewById(R.id.expense_button);
-        Log.d(TAG, "Expense button has been set");
+        Log.d(TAG, "Expenses button has been set");
         mExpensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Expense button has been clicked");
+                Log.d(TAG, "Expenses button has been clicked");
                 Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                 startActivity(i);
             }
