@@ -1,11 +1,6 @@
 package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
-import android.h.horizon.budget_assistant.Expenses.Education;
-import android.h.horizon.budget_assistant.Expenses.Health;
-import android.h.horizon.budget_assistant.Expenses.Leisure;
-import android.h.horizon.budget_assistant.Expenses.Others;
-import android.h.horizon.budget_assistant.Expenses.Travel;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.expenses_layer.EducationActivity;
 import android.h.horizon.budget_assistant.expenses_layer.FoodActivity;
@@ -16,6 +11,7 @@ import android.h.horizon.budget_assistant.expenses_layer.RentActivity;
 import android.h.horizon.budget_assistant.expenses_layer.SubscriptionActivity;
 import android.h.horizon.budget_assistant.expenses_layer.TravelActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExpensesFragment extends Fragment {
+    private static final String TAG = "ExpensesFragment";
     private Button mDateButton;
     private Button mFoodButton;
     private Button mEducationButton;
@@ -43,12 +40,13 @@ public class ExpensesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View expenseView = inflater.inflate(R.layout.fragment_expenses, container,
                 false);
+        Log.d(TAG, "onCreateView(LayoutInflater, Container, Bundle) called");
         setDateButton(expenseView);
         setFoodButton(expenseView);
         setEducationButton(expenseView);
         setTravelButton(expenseView);
         setHealthButton(expenseView);
-        setLeisureButthon(expenseView);
+        setLeisureButton(expenseView);
         setOthersButton(expenseView);
         setRentButton(expenseView);
         setSubscriptionButton(expenseView);
@@ -56,10 +54,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setSubscriptionButton(View expenseView) {
+        Log.d(TAG, "setSubscriptionButton called");
         mSubscriptionButton = (Button) expenseView.findViewById(R.id.subscription_button);
         mSubscriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Subscription Button clicked");
                 Intent i = new Intent(getActivity(), SubscriptionActivity.class);
                 startActivity(i);
             }
@@ -67,10 +67,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setRentButton(View expenseView) {
+        Log.d(TAG, "setRentButton called");
         mRentButton = (Button) expenseView.findViewById(R.id.rent_button);
         mRentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Rent Button clicked");
                 Intent i = new Intent(getActivity(), RentActivity.class);
                 startActivity(i);
             }
@@ -78,21 +80,25 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setOthersButton(View expenseView) {
+        Log.d(TAG, "setOthersButton called");
         mOthersButton = (Button) expenseView.findViewById(R.id.other_button);
         mOthersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Others Button clicked");
                 Intent i = new Intent(getActivity(), OthersActivity.class);
                 startActivity(i);
             }
         });
     }
 
-    private void setLeisureButthon(View expenseView) {
+    private void setLeisureButton(View expenseView) {
+        Log.d(TAG, "setLeisureButton called");
         mLeisureButton = (Button) expenseView.findViewById(R.id.leisure_button);
         mLeisureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Leisure Button clicked");
                 Intent i = new Intent(getActivity(), LeisureActivity.class);
                 startActivity(i);
             }
@@ -100,10 +106,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setHealthButton(View expenseView) {
+        Log.d(TAG, "setHeathButton called");
         mHealthButton = (Button) expenseView.findViewById(R.id.health_button);
         mHealthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Health Button clicked");
                 Intent i = new Intent(getActivity(), HealthActivity.class);
                 startActivity(i);
             }
@@ -111,10 +119,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setTravelButton(View expenseView) {
+        Log.d(TAG, "setTravelButton called");
         mTravelButton = (Button) expenseView.findViewById(R.id.travel_button);
         mTravelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Travel Button clicked");
                 Intent i = new Intent(getActivity(), TravelActivity.class);
                 startActivity(i);
             }
@@ -122,10 +132,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setEducationButton(View expenseView) {
+        Log.d(TAG, "setEducationButton called");
         mEducationButton = (Button) expenseView.findViewById(R.id.education_button);
         mEducationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Education Button clicked");
                 Intent i = new Intent(getActivity(), EducationActivity.class);
                 startActivity(i);
             }
@@ -133,10 +145,12 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setFoodButton(View expenseView) {
+        Log.d(TAG, "setFoodButton called");
         mFoodButton = (Button) expenseView.findViewById(R.id.food_button);
         mFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Food Button clicked");
                 Intent i = new Intent(getActivity(), FoodActivity.class);
                 startActivity(i);
             }
@@ -144,6 +158,7 @@ public class ExpensesFragment extends Fragment {
     }
 
     private void setDateButton(View expenseView) {
+        Log.d(TAG, "setDateButton called");
         mDateButton = (Button) expenseView.findViewById(R.id.date_button);
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
