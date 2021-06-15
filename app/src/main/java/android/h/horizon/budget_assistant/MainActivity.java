@@ -24,15 +24,45 @@ public class MainActivity extends AppCompatActivity {
 
     private void setExpensesButton() {
         mExpensesButton = (Button) findViewById(R.id.expense_button);
-        Log.d(TAG, "Expense button has been set");
+        Log.d(TAG, "Expenses button has been set");
         mExpensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Expense button has been clicked");
+                Log.d(TAG, "Expenses button has been clicked");
                 Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 
 }
