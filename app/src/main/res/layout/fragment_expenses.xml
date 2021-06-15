@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_label"
+        app:backgroundTint="#A39E9E" />
+
+    <Button
+        android:id="@+id/food_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/food_label" />
+
+    <Button
+        android:id="@+id/travel_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/travel_label" />
+
+    <Button
+        android:id="@+id/rent_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/rent_label" />
+
+    <Button
+        android:id="@+id/leisure_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/leisure_label" />
+
+    <Button
+        android:id="@+id/education_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/education_label" />
+
+    <Button
+        android:id="@+id/health_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/health_label" />
+
+    <Button
+        android:id="@+id/subscription_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/subscriptions_button" />
+
+    <Button
+        android:id="@+id/other_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="@string/other_label" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_label" />
+
+</LinearLayout>

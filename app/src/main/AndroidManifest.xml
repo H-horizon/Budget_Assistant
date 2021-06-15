@@ -16,6 +16,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".dashboard.ExpensesActivity"
+            android:label="@string/expenses_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.FoodActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.EducationActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.HealthActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.TravelActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.RentActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.LeisureActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.OthersActivity"
+            android:label="@string/expense_title" >
+        </activity>
+        <activity
+            android:name=".expenses_layer.SubscriptionActivity"
+            android:label="@string/expense_title" >
+        </activity>
+
     </application>
 
 </manifest>
