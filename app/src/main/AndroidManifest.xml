@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".dashboard.IncomesActivity"
-            android:label="@string/expenses_title">
+            android:label="@string/incomes_title">
         </activity>
         <activity
             android:name=".expenses_layer.FoodActivity"

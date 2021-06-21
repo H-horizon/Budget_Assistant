@@ -68,7 +68,7 @@ public class IncomesFragment extends Fragment {
 
     private void setOthersButton(View incomeView) {
         Log.d(TAG, "setOthersButton called");
-        mOthersButton = (Button) incomeView.findViewById(R.id.other_button);
+        mOthersButton = (Button) incomeView.findViewById(R.id.others_button);
         mOthersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

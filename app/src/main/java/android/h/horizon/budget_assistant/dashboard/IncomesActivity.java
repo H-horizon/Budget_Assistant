@@ -9,23 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public abstract class IncomesActivity extends AppCompatActivity {
-    private static final String TAG = "IncomeActivity";
-
-    protected abstract void setActivityTitle();
+public class IncomesActivity extends AppCompatActivity {
+    private static final String TAG = "IncomesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_incomes);
-        setActivityTitle();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.income_fragment_container);
+        Fragment fragment = fragmentManager.findFragmentById(R.id.incomes_fragment_container);
         if (fragment == null) {
             fragment = new IncomesFragment();//Bind fragment to activity
             fragmentManager.beginTransaction()
-                    .add(R.id.income_fragment_container, fragment)
+                    .add(R.id.incomes_fragment_container, fragment)
                     .commit();
         }
     }
