@@ -12,6 +12,7 @@ public abstract class ExpenseActivity extends AppCompatActivity {
     private static final String TAG = "ExpenseActivity";
 
     protected abstract void setActivityTitle();
+    protected abstract Fragment setFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public abstract class ExpenseActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.expense_fragment_container);
         if (fragment == null) {
-            fragment = new ExpenseFragment();
+            fragment = setFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.expense_fragment_container, fragment)
                     .commit();

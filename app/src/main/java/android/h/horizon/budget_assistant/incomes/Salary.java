@@ -1,4 +1,4 @@
-package android.h.horizon.budget_assistant.Income;
+package android.h.horizon.budget_assistant.incomes;
 
 public class Salary extends Income {
     public Salary(String descriptionArg, float amountArg) {

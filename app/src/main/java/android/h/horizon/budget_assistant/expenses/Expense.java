@@ -1,16 +1,23 @@
-package android.h.horizon.budget_assistant.Expenses;
+package android.h.horizon.budget_assistant.expenses;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Expense {
-    protected static String EXPENSE_TITLE;
+    protected String mExpenseTitle;
     protected String mDescription;
-    protected float mAmount;
+    protected double mAmount;
     protected Date mDate;
+    protected static UUID mId;
 
-    public Expense(String descriptionArg, float amountArg) {
+    public Expense(String descriptionArg, double amountArg) {
         mDescription = descriptionArg;
         mAmount = amountArg;
+        mId = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return mId;
     }
 
     public String getDescription() {
@@ -21,11 +28,19 @@ public class Expense {
         this.mDescription = description;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return mAmount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.mAmount = amount;
+    }
+
+    public void setExpenseTitle(String expenseTitle) {
+        mExpenseTitle = expenseTitle;
+    }
+
+    public String getExpenseTitle() {
+        return mExpenseTitle;
     }
 }

@@ -1,8 +1,8 @@
-package android.h.horizon.budget_assistant.Expenses;
+package android.h.horizon.budget_assistant.expenses;
 
 public class Travel extends Expense{
     public Travel(String descriptionArg, float amountArg) {
         super(descriptionArg, amountArg);
-        EXPENSE_TITLE = "Travelling";
+        mExpenseTitle = "Travelling";
     }
 }

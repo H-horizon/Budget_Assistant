@@ -1,16 +1,24 @@
-package android.h.horizon.budget_assistant.Income;
+package android.h.horizon.budget_assistant.incomes;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Income {
     protected static String Income_TITLE;
     protected String mDescription;
-    protected float mAmount;
+    protected double mAmount;
     protected Date mDate;
+    protected static UUID mId;
 
-    public Income(String descriptionArg, float amountArg) {
+
+    public Income(String descriptionArg, double amountArg) {
         mDescription = descriptionArg;
         mAmount = amountArg;
+        mId = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return mId;
     }
 
     public String getDescription() {
@@ -21,11 +29,11 @@ public class Income {
         this.mDescription = description;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return mAmount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.mAmount = amount;
     }
 }
