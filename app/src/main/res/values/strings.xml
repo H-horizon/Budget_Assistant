@@ -19,5 +19,6 @@
     <string name="income_button">Income</string>
     <string name="salary_label">Salary</string>
     <string name="allowance_label">Allowance</string>
+    <string name="income_title">unknown income</string>
 
 </resources>
