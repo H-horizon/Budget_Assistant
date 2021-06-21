@@ -2,7 +2,10 @@ package android.h.horizon.budget_assistant.recycler_view;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.h.horizon.budget_assistant.database.TransactionCursorWrapper;
+import android.h.horizon.budget_assistant.database.TransactionDbSchema;
 import android.h.horizon.budget_assistant.database.TransactionsBaseHelper;
 
 
@@ -10,89 +13,95 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TransactionList {
+public class TransactionContainer {
 
-    private static TransactionList sTransactionList;
-    
+    private static TransactionContainer sTransactionList;
+
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
-    public static TransactionList get(Context context) {
+    public static TransactionContainer get(Context context) {
         if (sTransactionList == null) {
-            sTransactionList = new TransactionList(context);
+            sTransactionList = new TransactionContainer(context);
         }
         return sTransactionList;
     }
 
-    private TransactionList(Context context) {
-        mTransactionList = new ArrayList<>();
-        mIncomeList = new ArrayList<>();
+    private TransactionContainer(Context context) {
         mContext = context.getApplicationContext();
         mDatabase = new TransactionsBaseHelper(mContext)
                 .getWritableDatabase();
-        setTestData("Education");
-        setTestData("Rent");
     }
 
-    private void setTestData(String title) {
-        for (int i = 0; i < 2; i++) {
-            Transaction expense = new Transaction("Expense #" + i, (i + 1) * 10.1);
-            expense.setExpenseTitle(title);
-            mTransactionList.add(expense);
-            Income income = new Income("Income #" + i, (i + 1) * 20.2);
-            mIncomeList.add(income);
-        }
+    public void addTransaction(Transaction transaction) {
+        ContentValues values = getContentValues(transaction);
+        mDatabase.insert(TransactionDbSchema.NAME, null, values);
     }
-
 
     public List<Transaction> getTransactionList() {
-        return mTransactionList;
-    }
-
-    public List<Transaction> getExpenseList(String title) {
-        List<Transaction> expenses = getTransactionList();
-        int i = 0;
-
-
-        for (Transaction expense : expenses) {
-            if (!(expense.getExpenseTitle().equals(title))) {
-                expenses.remove(i);
-                continue;
+        List<Transaction> transactions = new ArrayList<>();
+        TransactionCursorWrapper cursorWrapper = queryCrimes(null, null);
+        try {
+            cursorWrapper.moveToFirst();
+            while (!cursorWrapper.isAfterLast()) {
+                transactions.add(cursorWrapper.getTransaction());
+                cursorWrapper.moveToNext();
             }
-            i++;
+        } finally {
+            cursorWrapper.close();
         }
-        return expenses;
+        return new ArrayList<>();
     }
 
-    public List<Income> getIncomeList() {
-        return mIncomeList;
-    }
 
-    public Transaction getTransactionFromExpenseList(UUID id) {
-        for (Transaction expense : mTransactionList) {
-            if (expense.getId().equals(id)) {
-                return expense;
+    public Transaction getTransaction(UUID id) {
+        TransactionCursorWrapper cursor = queryCrimes(
+                TransactionDbSchema.Columns.UUID + " = ?",
+                new String[]{id.toString()}
+        );
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
             }
+            cursor.moveToFirst();
+            return cursor.getTransaction();
+        } finally {
+            cursor.close();
         }
-        return null;
     }
 
-    public Income getTransactionFromIncomeList(UUID id) {
-        for (Income income : mIncomeList) {
-            if (income.getId().equals(id)) {
-                return income;
-            }
-        }
-        return null;
-    }
 
-    private static ContentValues getContentValues(Crime crime) {
+    private static ContentValues getContentValues(Transaction transaction) {
         ContentValues values = new ContentValues();
-        values.put(CrimeTable.Cols.UUID, crime.getId().toString());
-        values.put(CrimeTable.Cols.TITLE, crime.getTitle());
-        values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
-        values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(TransactionDbSchema.Columns.UUID, transaction.getId().toString());
+        values.put(TransactionDbSchema.Columns.TITLE, transaction.getTitle());
+        values.put(TransactionDbSchema.Columns.DATE, transaction.getDate().getTime());
+        values.put(TransactionDbSchema.Columns.DESCRIPTION, transaction.getDescription());
+        values.put(TransactionDbSchema.Columns.AMOUNT, transaction.getAmount());
         return values;
     }
+
+    public void updateCrime(Transaction transaction) {
+        String uuidString = transaction.getId().toString();
+        ContentValues values = getContentValues(transaction);
+        mDatabase.update(TransactionDbSchema.NAME, values,
+                TransactionDbSchema.Columns.UUID + " = ?",
+                new String[]{uuidString});
+    }
+
+    private TransactionCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                TransactionDbSchema.NAME,
+                null, // Columns - null selects all columns
+                whereClause,
+                whereArgs,
+                null, // groupBy
+                null, // having
+                null // orderBy
+        );
+        return new TransactionCursorWrapper(cursor);
+    }
+
+
 }
 
