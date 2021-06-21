@@ -18,39 +18,55 @@
         </activity>
         <activity
             android:name=".dashboard.ExpensesActivity"
-            android:label="@string/expenses_title" >
+            android:label="@string/expenses_title">
+        </activity>
+        <activity
+            android:name=".dashboard.IncomesActivity"
+            android:label="@string/incomes_title">
         </activity>
         <activity
             android:name=".expenses_layer.FoodActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.EducationActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.HealthActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.TravelActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.RentActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.LeisureActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.OthersActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
         </activity>
         <activity
             android:name=".expenses_layer.SubscriptionActivity"
-            android:label="@string/expense_title" >
+            android:label="@string/expense_title">
+        </activity>
+        <activity
+            android:name=".income_layer.SalaryActivity"
+            android:label="@string/income_title">
+        </activity>
+        <activity
+            android:name=".income_layer.OthersActivity"
+            android:label="@string/income_title">
+        </activity>
+        <activity
+            android:name=".income_layer.AllowanceActivity"
+            android:label="@string/income_title">
         </activity>
 
     </application>

@@ -16,5 +16,10 @@
     <string name="save_label">Save</string>
     <string name="cancel_label">Cancel</string>
     <string name="travel_label">Travelling</string>
+    <string name="income_button">Income</string>
+    <string name="salary_label">Salary</string>
+    <string name="allowance_label">Allowance</string>
+    <string name="income_title">unknown income</string>
+    <string name="incomes_title">Incomes</string>
 
 </resources>
