@@ -29,6 +29,10 @@
             android:label="@string/expense_title">
         </activity>
         <activity
+            android:name=".recycler_view.TransactionListActivity"
+            android:label="@string/Transaction">
+        </activity>
+        <activity
             android:name=".expenses_layer.EducationActivity"
             android:label="@string/expense_title">
         </activity>
