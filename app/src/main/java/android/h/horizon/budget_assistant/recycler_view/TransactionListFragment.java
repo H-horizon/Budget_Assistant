@@ -19,7 +19,6 @@ public class TransactionListFragment extends Fragment {
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
     private String mTitle;
-    private List<Transaction> mTransactions;
 
     public TransactionListFragment(String title) {
         mTitle = title;
@@ -47,29 +46,29 @@ public class TransactionListFragment extends Fragment {
 
     private class TransactionAdapter extends RecyclerView.Adapter<TransactionHolder> {
 
-        private List<Transaction> mExpenseList;
+        private List<Transaction> mTransactionList;
 
-        public TransactionAdapter(List<Transaction> expenses) {
-            mExpenseList = expenses;
+        public TransactionAdapter(List<Transaction> transactions) {
+            mTransactionList = transactions;
         }
 
         @Override
         public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
-                    .inflate(android.R.layout.simple_list_item_1, parent, false);
+                    .inflate(android.R.layout., parent, false);
             return new TransactionHolder(view);
         }
 
         @Override
         public void onBindViewHolder(TransactionHolder holder, int position) {
-            Transaction expense = mExpenseList.get(position);
+            Transaction expense = mTransactionList.get(position);
             holder.mTitleTextView.setText(expense.getDescription());
         }
 
         @Override
         public int getItemCount() {
-            return mExpenseList.size();
+            return mTransactionList.size();
         }
 
         public void setTransaction(List<Transaction> transactions) {

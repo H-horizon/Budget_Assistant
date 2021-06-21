@@ -22,5 +22,8 @@
     <string name="income_title">unknown income</string>
     <string name="incomes_title">Incomes</string>
     <string name="Transaction">Transactions</string>
+    <string name="transaction_description">Description</string>
+    <string name="transaction_amount">Amount</string>
+    <string name="transaction_date">Date</string>
 
 </resources>
