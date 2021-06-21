@@ -1,83 +1,59 @@
 package android.h.horizon.budget_assistant.recycler_view;
 
-import android.content.Context;
-import android.h.horizon.budget_assistant.expenses.Expense;
-import android.h.horizon.budget_assistant.incomes.Income;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.UUID;
 
 public class Transaction {
+    protected String mTitle;
+    protected String mDescription;
+    protected double mAmount;
+    protected Date mDate;
+    protected static UUID mId;
 
-    private static Transaction sTransaction;
-    private List<Expense> mExpenseList;
-    private List<Income> mIncomeList;
-
-    public static Transaction get(Context context) {
-        if (sTransaction == null) {
-            sTransaction = new Transaction(context);
-        }
-        return sTransaction;
+    public Transaction(String descriptionArg, double amountArg) {
+        mDescription = descriptionArg;
+        mAmount = amountArg;
+        mId = UUID.randomUUID();
+        mDate = new Date();
     }
 
-    private Transaction(Context context) {
-        mExpenseList = new ArrayList<>();
-        mIncomeList = new ArrayList<>();
-        setTestData("Education");
-        setTestData("Rent");
+    public Transaction(UUID id) {
+        mId = id;
     }
 
-    private void setTestData(String title) {
-        for (int i = 0; i < 2; i++) {
-            Expense expense = new Expense("Expense #" + i, (i + 1) * 10.1);
-            expense.setExpenseTitle(title);
-            mExpenseList.add(expense);
-            Income income = new Income("Income #" + i, (i + 1) * 20.2);
-            mIncomeList.add(income);
-        }
+    public UUID getId() {
+        return mId;
     }
 
-
-    public List<Expense> getExpenseList() {
-        return mExpenseList;
+    public String getDescription() {
+        return mDescription;
     }
 
-    public List<Expense> getExpenseList(String title) {
-        List<Expense> expenses = getExpenseList();
-        int i = 0;
-
-
-        for (Expense expense : expenses) {
-            if (!(expense.getExpenseTitle().equals(title))) {
-                expenses.remove(i);
-                continue;
-            }
-            i++;
-        }
-        return expenses;
+    public Date getDate() {
+        return mDate;
     }
 
-    public List<Income> getIncomeList() {
-        return mIncomeList;
+    public void setDate(Date date) {
+        mDate = date;
     }
 
-    public Expense getTransactionFromExpenseList(UUID id) {
-        for (Expense expense : mExpenseList) {
-            if (expense.getId().equals(id)) {
-                return expense;
-            }
-        }
-        return null;
+    public void setDescription(String description) {
+        this.mDescription = description;
     }
 
-    public Income getTransactionFromIncomeList(UUID id) {
-        for (Income income : mIncomeList) {
-            if (income.getId().equals(id)) {
-                return income;
-            }
-        }
-        return null;
+    public double getAmount() {
+        return mAmount;
+    }
+
+    public void setAmount(double amount) {
+        this.mAmount = amount;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public String getTitle() {
+        return mTitle;
     }
 }
-
