@@ -26,5 +26,6 @@
     <string name="transaction_amount">Amount</string>
     <string name="transaction_date">Date</string>
     <string name="TransactionList">Transaction list</string>
+    <string name="pager">Pager</string>
 
 </resources>

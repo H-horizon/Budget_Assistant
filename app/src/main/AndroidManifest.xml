@@ -77,6 +77,10 @@
             android:label="@string/TransactionList">
         </activity>
 
+        <activity android:name=".pager.TransactionPagerActivity"
+            android:label="@string/pager">
+        </activity>
+
     </application>
 
 </manifest>
