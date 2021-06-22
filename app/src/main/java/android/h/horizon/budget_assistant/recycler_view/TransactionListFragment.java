@@ -1,5 +1,8 @@
 package android.h.horizon.budget_assistant.recycler_view;
 
+import android.content.Intent;
+import android.h.horizon.budget_assistant.expenses_layer.ExpenseActivity;
+import android.h.horizon.budget_assistant.expenses_layer.FoodActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,16 +34,36 @@ public class TransactionListFragment extends Fragment {
         mTransactionRecyclerView = (RecyclerView) view
                 .findViewById(R.id.transactions_recycler_view);
         mTransactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        TransactionContainer.setTestData();
         updateUI();
         return view;
     }
 
-    private class TransactionHolder extends RecyclerView.ViewHolder {
-        public TextView mTitleTextView;
+    private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mDescriptionTextView;
+        private TextView mDateTextView;
+        private TextView mAmountTextView;
+        private Transaction mTransaction;
 
         public TransactionHolder(View itemView) {
             super(itemView);
-            mTitleTextView = (TextView) itemView;
+            itemView.setOnClickListener(this);
+            mDescriptionTextView = (TextView) itemView.findViewById(R.id.list_transaction_description);
+            mDateTextView = (TextView) itemView.findViewById(R.id.list_transaction_date);
+            mAmountTextView = (TextView) itemView.findViewById(R.id.list_transaction_amount);
+        }
+
+        public void bindTransaction(Transaction transaction) {
+            mTransaction = transaction;
+            mDescriptionTextView.setText(mTransaction.getDescription());
+            mDateTextView.setText(mTransaction.getDate().toString());
+            mAmountTextView.setText(Double.toString(mTransaction.getAmount()));
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = FoodActivity.newIntent(getActivity(), mTransaction.getId());
+            startActivity(intent);
         }
     }
 
@@ -56,14 +79,14 @@ public class TransactionListFragment extends Fragment {
         public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
-                    .inflate(android.R.layout., parent, false);
+                    .inflate(R.layout.list_item_transaction, parent, false);
             return new TransactionHolder(view);
         }
 
         @Override
         public void onBindViewHolder(TransactionHolder holder, int position) {
-            Transaction expense = mTransactionList.get(position);
-            holder.mTitleTextView.setText(expense.getDescription());
+            Transaction transaction = mTransactionList.get(position);
+            holder.bindTransaction(transaction);
         }
 
         @Override
@@ -72,7 +95,7 @@ public class TransactionListFragment extends Fragment {
         }
 
         public void setTransaction(List<Transaction> transactions) {
-            mTransactions = transactions;
+            mTransactionList = transactions;
         }
     }
 
@@ -88,6 +111,7 @@ public class TransactionListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
     }
+
 
 
 }

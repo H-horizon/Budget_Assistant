@@ -5,10 +5,10 @@ import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 
-import java.lang.annotation.Target;
+import java.util.UUID;
 
 public class TransactionListActivity extends SingleFragmentActivity {
-    private static String TAG = "TransactionListActivity";
+
     @Override
     protected Fragment createFragment() {
         return new TransactionListFragment("Transaction");

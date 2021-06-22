@@ -72,6 +72,10 @@
             android:name=".income_layer.AllowanceActivity"
             android:label="@string/income_title">
         </activity>
+        <activity
+            android:name=".transactions.TransactionListActivity"
+            android:label="@string/TransactionList">
+        </activity>
 
     </application>
 

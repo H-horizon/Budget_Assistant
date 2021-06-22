@@ -10,6 +10,7 @@ import android.h.horizon.budget_assistant.database.TransactionsBaseHelper;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,8 +24,29 @@ public class TransactionContainer {
     public static TransactionContainer get(Context context) {
         if (sTransactionList == null) {
             sTransactionList = new TransactionContainer(context);
+
         }
         return sTransactionList;
+    }
+
+    public  static void setTestData() {
+        setOneTestData(10.1, "Education", "Tuition fee", new Date());
+        setOneTestData(11.1, "Food", "Lunch", new Date());
+        setOneTestData(12.1, "Health", "Medicines", new Date());
+        setOneTestData(13.1, "Leisure", "Movies", new Date());
+        setOneTestData(14.1, "Others", "Gift", new Date());
+        setOneTestData(15.1, "Rent", "Monthly Rent", new Date());
+        setOneTestData(16.1, "Subscription", "Netflix", new Date());
+        setOneTestData(19.1, "Travelling", "Clementi", new Date());
+    }
+
+    private static void setOneTestData(double amount, String title, String description, Date date) {
+        Transaction transaction = new Transaction(UUID.randomUUID());
+        transaction.setAmount(amount);
+        transaction.setTitle(title);
+        transaction.setDescription(description);
+        transaction.setDate(date);
+        sTransactionList.addTransaction(transaction);
     }
 
     private TransactionContainer(Context context) {
@@ -70,7 +92,6 @@ public class TransactionContainer {
         }
     }
 
-
     private static ContentValues getContentValues(Transaction transaction) {
         ContentValues values = new ContentValues();
         values.put(TransactionDbSchema.Columns.UUID, transaction.getId().toString());
@@ -81,7 +102,7 @@ public class TransactionContainer {
         return values;
     }
 
-    public void updateCrime(Transaction transaction) {
+    public void updateTransaction(Transaction transaction) {
         String uuidString = transaction.getId().toString();
         ContentValues values = getContentValues(transaction);
         mDatabase.update(TransactionDbSchema.NAME, values,
