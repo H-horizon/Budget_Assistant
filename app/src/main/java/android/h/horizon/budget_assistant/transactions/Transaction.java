@@ -8,7 +8,7 @@ public class Transaction {
     protected String mDescription;
     protected double mAmount;
     protected Date mDate;
-    protected static UUID mId;
+    protected UUID mId;
 
     public Transaction(String descriptionArg, double amountArg) {
         mDescription = descriptionArg;

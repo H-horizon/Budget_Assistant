@@ -21,7 +21,7 @@ public class TransactionContainer {
     private TransactionContainer(Context context) {
         mTransactions = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            Transaction transaction = new Transaction("Expense"+i,10.1*2);
+            Transaction transaction = new Transaction("Expense "+i,10.1*i);
             mTransactions.add(transaction);
         }
     }

@@ -9,8 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.UUID;
+
 public abstract class IncomeActivity extends AppCompatActivity {
     private static final String TAG = "IncomeActivity";
+    public static final String EXTRA_TRANSACTION_ID =
+            "transaction_id";
 
     protected abstract void setActivityTitle();
 
@@ -23,7 +27,9 @@ public abstract class IncomeActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.income_fragment_container);
         if (fragment == null) {
-            fragment = new IncomeFragment();
+            UUID transactionId = (UUID) getIntent()
+                    .getSerializableExtra(EXTRA_TRANSACTION_ID);
+            fragment = IncomeFragment.newInstance(transactionId);
             fragmentManager.beginTransaction()
                     .add(R.id.income_fragment_container, fragment)
                     .commit();
