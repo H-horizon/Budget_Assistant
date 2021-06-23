@@ -70,7 +70,9 @@ public class IncomeFragment extends Fragment {
             @Override
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
-                mTransaction.setAmount(Double.parseDouble(s.toString()) );
+                if (!s.toString().isEmpty()) {
+                    mTransaction.setAmount(Double.parseDouble(s.toString()));
+                }
             }
 
             @Override
