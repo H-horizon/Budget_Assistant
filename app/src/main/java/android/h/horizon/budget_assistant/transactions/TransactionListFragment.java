@@ -1,6 +1,8 @@
 package android.h.horizon.budget_assistant.transactions;
 
+import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.income_layer.SalaryActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import java.util.List;
 public class TransactionListFragment extends Fragment {
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,11 +36,15 @@ public class TransactionListFragment extends Fragment {
     private void updateUI() {
         TransactionContainer transactionContainer = TransactionContainer.get(getActivity());
         List<Transaction> transactions = transactionContainer.getTransactions();
-        mAdapter = new TransactionAdapter(transactions);
-        mTransactionRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new TransactionAdapter(transactions);
+            mTransactionRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
-    private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mDescriptionTextView;
         private TextView mAmountTextView;
         private TextView mDateTextView;
@@ -67,17 +74,21 @@ public class TransactionListFragment extends Fragment {
             Toast.makeText(getActivity(),
                     mTransaction.getDescription() + " clicked!", Toast.LENGTH_SHORT)
                     .show();
+            //Intent intent = new Intent(getActivity(), SalaryActivity.class);
+            Intent intent = SalaryActivity.newIntent(getActivity(), mTransaction.getId());
+            startActivity(intent);
         }
     }
 
     private class TransactionAdapter extends RecyclerView.Adapter<TransactionHolder> {
         private List<Transaction> mTransactions;
+
         public TransactionAdapter(List<Transaction> transactions) {
             mTransactions = transactions;
         }
 
         @Override
-        public TransactionHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+        public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
                     .inflate(R.layout.list_item_transaction, parent, false);
@@ -94,5 +105,11 @@ public class TransactionListFragment extends Fragment {
         public int getItemCount() {
             return mTransactions.size();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 }
