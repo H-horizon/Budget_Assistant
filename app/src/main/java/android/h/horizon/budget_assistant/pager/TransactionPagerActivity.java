@@ -8,6 +8,7 @@ import android.h.horizon.budget_assistant.transactions.Transaction;
 import android.h.horizon.budget_assistant.transactions.TransactionContainer;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -17,7 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class TransactionPagerActivity extends FragmentActivity {
+public class TransactionPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private List<Transaction> mTransactionList;
     private static final String EXTRA_TRANSACTION_ID =

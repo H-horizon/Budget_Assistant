@@ -19,6 +19,7 @@ public class Transaction {
 
     public Transaction(UUID id) {
         mId = id;
+        mDate = new Date();
     }
 
     public UUID getId() {
