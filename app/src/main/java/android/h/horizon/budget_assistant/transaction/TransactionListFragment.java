@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.transaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 public class TransactionListFragment extends Fragment {
     private static final String ARG_TRANSACTION_TITLE = "transaction_title";
+    private static final int REQUEST_CODE_TITLE = 0;
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
     private String mTransactionTitle;
@@ -83,7 +85,7 @@ public class TransactionListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId(), mTransactionTitle);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_TITLE);
         }
     }
 
@@ -148,4 +150,18 @@ public class TransactionListFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_TITLE) {
+            if (data == null) {
+                return;
+            }
+            mTransactionTitle = TransactionPagerActivity.decodeTitle(data);
+        }
+    }
+
 }
