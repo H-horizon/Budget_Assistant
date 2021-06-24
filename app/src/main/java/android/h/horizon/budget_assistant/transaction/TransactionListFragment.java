@@ -53,6 +53,7 @@ public class TransactionListFragment extends Fragment {
             mAdapter = new TransactionAdapter(transactions);
             mTransactionRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setTransactions(transactions);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -113,6 +114,10 @@ public class TransactionListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mTransactions.size();
+        }
+
+        public void setTransactions(List<Transaction> transactions) {
+            mTransactions = transactions;
         }
     }
 

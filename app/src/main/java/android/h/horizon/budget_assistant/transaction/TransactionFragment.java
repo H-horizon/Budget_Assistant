@@ -98,6 +98,7 @@ public class TransactionFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
+        TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
     }
 
     @Override
