@@ -1,4 +1,4 @@
-package android.h.horizon.budget_assistant.transactions;
+package android.h.horizon.budget_assistant.transaction;
 
 import android.content.Context;
 

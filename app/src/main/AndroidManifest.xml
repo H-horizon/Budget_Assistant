@@ -24,15 +24,15 @@
             android:name=".dashboard.IncomesActivity"
             android:label="@string/incomes_title">
         </activity>
-        
+
         <activity
-            android:name=".transactions.TransactionListActivity"
+            android:name=".transaction.TransactionListActivity"
             android:label="@string/TransactionList">
         </activity>
 
-        <activity android:name=".pager.TransactionPagerActivity"
+        <activity android:name=".transaction.TransactionPagerActivity"
             android:label="@string/pager"
-            android:parentActivityName=".transactions.TransactionListActivity">
+            android:parentActivityName=".transaction.TransactionListActivity">
         </activity>
 
     </application>

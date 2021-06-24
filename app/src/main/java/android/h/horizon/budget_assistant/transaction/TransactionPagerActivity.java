@@ -1,11 +1,8 @@
-package android.h.horizon.budget_assistant.pager;
+package android.h.horizon.budget_assistant.transaction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.income_layer.TransactionFragment;
-import android.h.horizon.budget_assistant.transactions.Transaction;
-import android.h.horizon.budget_assistant.transactions.TransactionContainer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;

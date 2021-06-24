@@ -2,7 +2,7 @@ package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.transactions.TransactionListActivity;
+import android.h.horizon.budget_assistant.transaction.TransactionListActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

@@ -1,8 +1,6 @@
-package android.h.horizon.budget_assistant.income_layer;
+package android.h.horizon.budget_assistant.transaction;
 
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.transactions.Transaction;
-import android.h.horizon.budget_assistant.transactions.TransactionContainer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
