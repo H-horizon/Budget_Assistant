@@ -1,4 +1,4 @@
-package android.h.horizon.budget_assistant.transactions;
+package android.h.horizon.budget_assistant.abstract_classes;
 
 import android.h.horizon.budget_assistant.R;
 import android.os.Bundle;
