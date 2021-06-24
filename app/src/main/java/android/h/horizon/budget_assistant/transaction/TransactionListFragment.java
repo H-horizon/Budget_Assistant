@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.transaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
 import android.os.Bundle;
@@ -20,8 +21,19 @@ import java.util.UUID;
 
 
 public class TransactionListFragment extends Fragment {
+    private static final String ARG_TRANSACTION_TITLE = "transaction_title";
+    private static final int REQUEST_CODE_TITLE = 0;
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
+    private String mTransactionTitle;
+
+    public static TransactionListFragment newInstance(String transactionTitle) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_TRANSACTION_TITLE, transactionTitle);
+        TransactionListFragment fragment = new TransactionListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,8 +84,8 @@ public class TransactionListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId());
-            startActivity(intent);
+            Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId(), mTransactionTitle);
+            startActivityForResult(intent, REQUEST_CODE_TITLE);
         }
     }
 
@@ -113,6 +125,7 @@ public class TransactionListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mTransactionTitle = (String) getArguments().getSerializable(ARG_TRANSACTION_TITLE);
         setHasOptionsMenu(true);
     }
 
@@ -121,9 +134,10 @@ public class TransactionListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_new_transaction:
                 Transaction transaction = new Transaction(UUID.randomUUID());
+                transaction.setTitle(mTransactionTitle);
                 TransactionContainer.get(getActivity()).addTransaction(transaction);
                 Intent intent = TransactionPagerActivity
-                        .newIntent(getActivity(), transaction.getId());
+                        .newIntent(getActivity(), transaction.getId(), mTransactionTitle);
                 startActivity(intent);
                 return true;
             default:
@@ -136,4 +150,18 @@ public class TransactionListFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_TITLE) {
+            if (data == null) {
+                return;
+            }
+            mTransactionTitle = TransactionPagerActivity.decodeTitle(data);
+        }
+    }
+
 }

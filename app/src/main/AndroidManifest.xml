@@ -18,10 +18,12 @@
         </activity>
         <activity
             android:name=".dashboard.ExpensesActivity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/expenses_title">
         </activity>
         <activity
             android:name=".dashboard.IncomesActivity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/incomes_title">
         </activity>
 

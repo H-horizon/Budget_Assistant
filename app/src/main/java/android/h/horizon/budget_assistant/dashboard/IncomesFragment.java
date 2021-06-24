@@ -16,6 +16,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.h.horizon.budget_assistant.transaction.TransactionNames.ALLOWANCE;
+import static android.h.horizon.budget_assistant.transaction.TransactionNames.OTHER_INCOME;
+import static android.h.horizon.budget_assistant.transaction.TransactionNames.SALARY;
+
 public class IncomesFragment extends Fragment {
     private static final String TAG = "IncomesFragment";
     private Button mDateButton;
@@ -43,10 +47,8 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Salary Button clicked");
-                Intent i = new Intent(getActivity(), TransactionListActivity.class);
-                //Make everything call transaction list but pass title as parameter
+                Intent i = TransactionListActivity.newIntent(getActivity(), SALARY);
                 startActivity(i);
-                //Implement RecyclerView
             }
         });
     }
@@ -58,7 +60,7 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Allowance Button clicked");
-                Intent i = new Intent(getActivity(), TransactionListActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), ALLOWANCE);
                 startActivity(i);
                 //Implement RecyclerView
             }
@@ -72,7 +74,7 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Others Button clicked");
-                Intent i = new Intent(getActivity(), TransactionListActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_INCOME);
                 startActivity(i);
             }
         });
