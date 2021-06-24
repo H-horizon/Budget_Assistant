@@ -2,9 +2,7 @@ package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.income_layer.OthersActivity;
-import android.h.horizon.budget_assistant.income_layer.AllowanceActivity;
-import android.h.horizon.budget_assistant.income_layer.SalaryActivity;
+import android.h.horizon.budget_assistant.transaction.TransactionListActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +43,8 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Salary Button clicked");
-                Intent i = new Intent(getActivity(), SalaryActivity.class);
+                Intent i = new Intent(getActivity(), TransactionListActivity.class);
+                //Make everything call transaction list but pass title as parameter
                 startActivity(i);
                 //Implement RecyclerView
             }
@@ -59,7 +58,7 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Allowance Button clicked");
-                Intent i = new Intent(getActivity(), AllowanceActivity.class);
+                Intent i = new Intent(getActivity(), TransactionListActivity.class);
                 startActivity(i);
                 //Implement RecyclerView
             }
@@ -73,7 +72,7 @@ public class IncomesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Others Button clicked");
-                Intent i = new Intent(getActivity(), OthersActivity.class);
+                Intent i = new Intent(getActivity(), TransactionListActivity.class);
                 startActivity(i);
             }
         });

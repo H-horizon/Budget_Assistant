@@ -1,31 +1,29 @@
-package android.h.horizon.budget_assistant.income_layer;
+package android.h.horizon.budget_assistant.abstract_classes;
 
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.expenses_layer.ExpenseFragment;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-public abstract class IncomeActivity extends AppCompatActivity {
-    private static final String TAG = "IncomeActivity";
+public abstract class SingleFragmentActivity extends AppCompatActivity {
+    protected abstract Fragment createFragment();
 
-    protected abstract void setActivityTitle();
+    private static String TAG = "SingleFragmentActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate(Bundle) called");
-        setContentView(R.layout.activity_income);
-        setActivityTitle();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.income_fragment_container);
+        setContentView(R.layout.activity_single_frame);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.single_fragment_container);
         if (fragment == null) {
-            fragment = new IncomeFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.income_fragment_container, fragment)
+            fragment = createFragment();
+            fm.beginTransaction()
+                    .add(R.id.single_fragment_container, fragment)
                     .commit();
         }
     }
