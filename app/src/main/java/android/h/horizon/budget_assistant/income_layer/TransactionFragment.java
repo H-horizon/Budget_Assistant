@@ -16,17 +16,17 @@ import androidx.fragment.app.Fragment;
 
 import java.util.UUID;
 
-public class IncomeFragment extends Fragment {
-    private static final String TAG = "IncomeFragment";
+public class TransactionFragment extends Fragment {
+    private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
     private Transaction mTransaction;
     private EditText mDescriptionField;
     private EditText mAmountField;
 
-    public static IncomeFragment newInstance(UUID transactionId) {
+    public static TransactionFragment newInstance(UUID transactionId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_TRANSACTION_ID, transactionId);
-        IncomeFragment fragment = new IncomeFragment();
+        TransactionFragment fragment = new TransactionFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,7 +34,7 @@ public class IncomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View incomeView = inflater.inflate(R.layout.fragment_income, container,
+        View incomeView = inflater.inflate(R.layout.fragment_transaction_details, container,
                 false);
         Log.d(TAG, "onCreateView(Bundle) called");
         mDescriptionField = (EditText) incomeView.findViewById(R.id.description_field);

@@ -3,14 +3,13 @@ package android.h.horizon.budget_assistant.pager;
 import android.content.Context;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.income_layer.IncomeFragment;
+import android.h.horizon.budget_assistant.income_layer.TransactionFragment;
 import android.h.horizon.budget_assistant.transactions.Transaction;
 import android.h.horizon.budget_assistant.transactions.TransactionContainer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -38,7 +37,7 @@ public class TransactionPagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Transaction transaction = mTransactionList.get(position);
-                return IncomeFragment.newInstance(transaction.getId());
+                return TransactionFragment.newInstance(transaction.getId());
             }
 
             @Override
