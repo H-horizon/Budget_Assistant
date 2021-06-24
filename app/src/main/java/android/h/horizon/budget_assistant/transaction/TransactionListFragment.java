@@ -20,8 +20,18 @@ import java.util.UUID;
 
 
 public class TransactionListFragment extends Fragment {
+    private static final String ARG_TRANSACTION_TITLE = "transaction_title";
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
+    private String mTransactionTitle;
+
+    public static TransactionListFragment newInstance(String transactionTitle) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_TRANSACTION_TITLE, transactionTitle);
+        TransactionListFragment fragment = new TransactionListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +82,7 @@ public class TransactionListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId());
+            Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId(), mTransactionTitle);
             startActivity(intent);
         }
     }
@@ -113,6 +123,7 @@ public class TransactionListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mTransactionTitle = (String) getArguments().getSerializable(ARG_TRANSACTION_TITLE);
         setHasOptionsMenu(true);
     }
 
@@ -121,9 +132,10 @@ public class TransactionListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_new_transaction:
                 Transaction transaction = new Transaction(UUID.randomUUID());
+                transaction.setTitle(mTransactionTitle);
                 TransactionContainer.get(getActivity()).addTransaction(transaction);
                 Intent intent = TransactionPagerActivity
-                        .newIntent(getActivity(), transaction.getId());
+                        .newIntent(getActivity(), transaction.getId(), mTransactionTitle);
                 startActivity(intent);
                 return true;
             default:

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class TransactionPagerActivity extends AppCompatActivity {
+    private static final String EXTRA_TRANSACTION_TITLE = "transaction_title";
     private ViewPager mViewPager;
     private List<Transaction> mTransactionList;
     private static final String EXTRA_TRANSACTION_ID =
@@ -26,7 +27,9 @@ public class TransactionPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_pager);
         UUID transactionId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_ID);
-
+        String transactionTitle = (String) getIntent()
+                .getSerializableExtra(EXTRA_TRANSACTION_TITLE);
+        setTitle(transactionTitle);
         mViewPager = (ViewPager) findViewById(R.id.activity_transaction_pager_view_pager);
         mTransactionList = TransactionContainer.get(this).getTransactions();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -51,9 +54,11 @@ public class TransactionPagerActivity extends AppCompatActivity {
         }
     }
 
-    public static Intent newIntent(Context packageContext, UUID transactionId) {
+    public static Intent newIntent(Context packageContext, UUID transactionId,
+                                   String transactionTitle) {
         Intent intent = new Intent(packageContext, TransactionPagerActivity.class);
         intent.putExtra(EXTRA_TRANSACTION_ID, transactionId);
+        intent.putExtra(EXTRA_TRANSACTION_TITLE, transactionTitle);
         return intent;
     }
 
