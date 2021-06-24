@@ -2,7 +2,6 @@ package android.h.horizon.budget_assistant.transactions;
 
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.income_layer.SalaryActivity;
 import android.h.horizon.budget_assistant.pager.TransactionPagerActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -76,7 +75,6 @@ public class TransactionListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-//            Intent intent = SalaryActivity.newIntent(getActivity(), mTransaction.getId());
             Intent intent = TransactionPagerActivity.newIntent(getActivity(), mTransaction.getId());
             startActivity(intent);
         }

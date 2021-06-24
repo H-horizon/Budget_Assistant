@@ -2,7 +2,7 @@ package android.h.horizon.budget_assistant.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.h.horizon.budget_assistant.recycler_view.Transaction;
+import android.h.horizon.budget_assistant.transactions.Transaction;
 
 import java.sql.Date;
 import java.util.UUID;
