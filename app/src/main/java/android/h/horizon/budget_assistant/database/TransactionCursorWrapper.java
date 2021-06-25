@@ -23,12 +23,14 @@ public class TransactionCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(TransactionDbSchema.Columns.DATE));
         String description = getString(getColumnIndex(TransactionDbSchema.Columns.DESCRIPTION));
         double amount = getDouble(getColumnIndex(TransactionDbSchema.Columns.AMOUNT));
+        String newValue = getString(getColumnIndex(TransactionDbSchema.Columns.NEW));
 
         Transaction transaction = new Transaction(UUID.fromString(uuidString));
         transaction.setTitle(title);
         transaction.setDate(new Date(date));
         transaction.setDescription(description);
         transaction.setAmount(amount);
+        transaction.setNew(newValue);
         return transaction;
     }
 }

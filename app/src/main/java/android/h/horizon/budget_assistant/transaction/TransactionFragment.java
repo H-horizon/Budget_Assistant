@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
@@ -17,9 +18,11 @@ import java.util.UUID;
 public class TransactionFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
+    public static final String NOT_NEW = "NOT";
     private Transaction mTransaction;
     private EditText mDescriptionField;
     private EditText mAmountField;
+    private Button mSaveButton;
 
     public static TransactionFragment newInstance(UUID transactionId) {
         Bundle args = new Bundle();
@@ -35,6 +38,14 @@ public class TransactionFragment extends Fragment {
         View incomeView = inflater.inflate(R.layout.fragment_transaction_details, container,
                 false);
         Log.d(TAG, "onCreateView(Bundle) called");
+        mSaveButton = (Button) incomeView.findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTransaction.setNew(NOT_NEW);
+            }
+        });
+
         mDescriptionField = (EditText) incomeView.findViewById(R.id.description_field);
         mDescriptionField.setText(mTransaction.getDescription());
         mDescriptionField.addTextChangedListener(new TextWatcher() {
@@ -116,6 +127,9 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (!(mTransaction.getNew().equals(NOT_NEW))) {
+            TransactionContainer.get(getActivity()).deleteTransaction(mTransaction);
+        }
         Log.d(TAG, "onDestroy() called");
     }
 }

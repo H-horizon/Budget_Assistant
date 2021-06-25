@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Transaction {
+    public static final String NEW = "NEW";
     protected String mTitle;
     protected String mDescription;
     protected double mAmount;
     protected Date mDate;
     protected UUID mId;
+    protected String mNew;
 
     public Transaction(String descriptionArg, double amountArg) {
         mDescription = descriptionArg;
@@ -20,6 +22,15 @@ public class Transaction {
     public Transaction(UUID id) {
         mId = id;
         mDate = new Date();
+        mNew = NEW;
+    }
+
+    public String getNew() {
+        return mNew;
+    }
+
+    public void setNew(String aNew) {
+        mNew = aNew;
     }
 
     public UUID getId() {

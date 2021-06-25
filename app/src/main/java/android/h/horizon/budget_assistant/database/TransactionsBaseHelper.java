@@ -21,7 +21,8 @@ public class TransactionsBaseHelper extends SQLiteOpenHelper {
                 TransactionDbSchema.Columns.TITLE + ", " +
                 TransactionDbSchema.Columns.DATE + ", " +
                 TransactionDbSchema.Columns.DESCRIPTION + ", " +
-                TransactionDbSchema.Columns.AMOUNT +
+                TransactionDbSchema.Columns.AMOUNT + ", " +
+                TransactionDbSchema.Columns.NEW +
                 ")");
     }
 
