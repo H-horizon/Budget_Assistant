@@ -104,6 +104,7 @@ public class TransactionFragment extends Fragment {
         mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();

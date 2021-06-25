@@ -86,9 +86,11 @@ public class TransactionListFragment extends Fragment {
         public void bindTransaction(Transaction transaction) {
             Log.d(TAG, "bindTransaction(Transaction transaction) called");
             mTransaction = transaction;
+
             mDescriptionTextView.setText(mTransaction.getDescription());
             mDateTextView.setText(mTransaction.getDate().toString());
             mAmountTextView.setText(Double.toString(mTransaction.getAmount()));
+
         }
 
         @Override
@@ -118,12 +120,13 @@ public class TransactionListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(TransactionListFragment.TransactionHolder holder, int position)
-        {
+        public void onBindViewHolder(TransactionListFragment.TransactionHolder holder, int position) {
             Log.d(TAG, "onBindViewHolder(TransactionListFragment.TransactionHolder holder, " +
                     "int position) called");
             Transaction transaction = mTransactions.get(position);
-            holder.bindTransaction(transaction);
+            if (!transaction.getNew().equals(Transaction.NEW)) {
+                holder.bindTransaction(transaction);
+            }
         }
 
         @Override
