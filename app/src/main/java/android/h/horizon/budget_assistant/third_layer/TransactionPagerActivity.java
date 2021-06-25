@@ -17,6 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Contains the fragment that operates the ViewPager
+ */
 public class TransactionPagerActivity extends AppCompatActivity {
     private static final String EXTRA_TRANSACTION_TITLE = "transaction_title";
     private static final String TAG = "TransactionPager";
@@ -31,12 +34,59 @@ public class TransactionPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle savedInstanceState) called");
         setContentView(R.layout.activity_transaction_pager);
-        UUID transactionId = (UUID) getIntent()
+        UUID transactionId = getTransactionIdFromArguments();
+        setArgumentTo_mTransactionTitle();
+        setTitle(mTransactionTitle);//Set title of frame
+        setDataToReturnToParent();
+        setsViewPager(transactionId);
+    }
+
+    /**
+     * Gets arguments from the second layer
+     *
+     * @param packageContext   is the current state of the application
+     * @param transactionId    is the id of a Transaction object to display
+     * @param transactionTitle is type of the transaction the object belongs to
+     * @return the mechanism that allows this activity to operate
+     */
+    public static Intent newIntent(Context packageContext, UUID transactionId,
+                                   String transactionTitle) {
+        Log.d(TAG, "newIntent(Context packageContext, UUID transactionId,\n" +
+                "                                   String transactionTitle) called");
+        Intent intent = new Intent(packageContext, TransactionPagerActivity.class);
+        intent.putExtra(EXTRA_TRANSACTION_ID, transactionId);
+        intent.putExtra(EXTRA_TRANSACTION_TITLE, transactionTitle);
+        return intent;
+    }
+
+    /**
+     * @param result is the mechanism that allows this layer to send data to the second layer
+     *               (previous layer)
+     * @return the argument (title)
+     */
+    public static String returnArgumentTitle(Intent result) {
+        Log.d(TAG, "decodeTitle(Intent result) called");
+        return result.getStringExtra(EXTRA_TRANSACTION_TITLE);
+    }
+
+    private UUID getTransactionIdFromArguments() {
+        return (UUID) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_ID);
+    }
+
+    private void setArgumentTo_mTransactionTitle() {
         mTransactionTitle = (String) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_TITLE);
-        setTitle(mTransactionTitle);
-        setDataToReturnToParent();
+    }
+
+    private void setDataToReturnToParent() {
+        Log.d(TAG, "setDataToReturnToParent() called");
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TRANSACTION_TITLE, mTransactionTitle);
+        setResult(RESULT_OK, data);
+    }
+
+    private void setsViewPager(UUID transactionId) {
         mViewPager = (ViewPager) findViewById(R.id.activity_transaction_pager_view_pager);
         mTransactionList = TransactionContainer.get(this).getTransactions();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -46,6 +96,7 @@ public class TransactionPagerActivity extends AppCompatActivity {
                 Log.d(TAG, "getItem(int position) called");
                 Transaction transaction = mTransactionList.get(position);
                 return TransactionPagerFragment.newInstance(transaction.getId());
+                // calls the fragment
             }
 
             @Override
@@ -61,29 +112,6 @@ public class TransactionPagerActivity extends AppCompatActivity {
                 break;
             }
         }
-    }
-
-    public static Intent newIntent(Context packageContext, UUID transactionId,
-                                   String transactionTitle) {
-        Log.d(TAG, "newIntent(Context packageContext, UUID transactionId,\n" +
-                "                                   String transactionTitle) called");
-        Intent intent = new Intent(packageContext, TransactionPagerActivity.class);
-        intent.putExtra(EXTRA_TRANSACTION_ID, transactionId);
-        intent.putExtra(EXTRA_TRANSACTION_TITLE, transactionTitle);
-        return intent;
-    }
-
-    private void setDataToReturnToParent() {
-        Log.d(TAG, "setDataToReturnToParent() called");
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TRANSACTION_TITLE, mTransactionTitle);
-        setResult(RESULT_OK, data);
-    }
-
-    //decoding result
-    public static String decodeTitle(Intent result) {
-        Log.d(TAG, "decodeTitle(Intent result) called");
-        return result.getStringExtra(EXTRA_TRANSACTION_TITLE);
     }
 
     @Override

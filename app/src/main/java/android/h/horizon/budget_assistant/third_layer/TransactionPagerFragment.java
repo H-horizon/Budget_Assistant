@@ -22,13 +22,16 @@ public class TransactionPagerFragment extends Fragment {
     private static final String ARG_TRANSACTION_ID = "crime_id";
     public static final String NOT_NEW = "NOT";
     private Transaction mTransaction;
-    private EditText mDescriptionField;
-    private EditText mAmountField;
-    private Button mSaveButton;
-    private Button mCancelButton;
     private String tempDescription;
     private double tempAmount;
 
+    /**
+     * Gets arguments from TransactionPagerActivity when created
+     *
+     * @param transactionId is the argument that corresponds to the Transaction object that needs
+     *                      to be displayed
+     * @return a new fragment
+     */
     public static TransactionPagerFragment newInstance(UUID transactionId) {
         Log.d(TAG, "newInstance(UUID transactionId) called");
         Bundle args = new Bundle();
@@ -36,6 +39,14 @@ public class TransactionPagerFragment extends Fragment {
         TransactionPagerFragment fragment = new TransactionPagerFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate(Bundle savedInstanceState)");
+        UUID transactionId = getTransactionIdFromArguments();
+        mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
     }
 
     @Override
@@ -51,10 +62,14 @@ public class TransactionPagerFragment extends Fragment {
         return view;
     }
 
+    private UUID getTransactionIdFromArguments() {
+        return (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
+    }
+
     private void setSaveButton(View view) {
         Log.d(TAG, "setSaveButton(View view) called");
-        mSaveButton = (Button) view.findViewById(R.id.save_button);
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
+        Button saveButton = (Button) view.findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Save Button clicked");
@@ -64,16 +79,10 @@ public class TransactionPagerFragment extends Fragment {
         });
     }
 
-    private void saveTransaction() {
-        mTransaction.setNew(NOT_NEW);
-        mTransaction.setDescription(tempDescription);
-        mTransaction.setAmount(tempAmount);
-    }
-
     private void setCancelButton(View view) {
         Log.d(TAG, "setCancelButton(View view) called");
-        mCancelButton = (Button) view.findViewById(R.id.cancel);
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
+        Button cancelButton = (Button) view.findViewById(R.id.cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Cancel Button clicked");
@@ -82,15 +91,40 @@ public class TransactionPagerFragment extends Fragment {
         });
     }
 
-    private void setAmountField(View view) {
-        Log.d(TAG, "setAmountField(View view) called");
-        mAmountField = (EditText) view.findViewById(R.id.amount_field);
-        mAmountField.setText(Double.toString(mTransaction.getAmount()));
-        mAmountField.addTextChangedListener(new TextWatcher() {
+    private void setDescriptionField(View view) {
+        Log.d(TAG, "setDescriptionField(View view) called");
+        EditText descriptionField = (EditText) view.findViewById(R.id.description_field);
+        descriptionField.setText(mTransaction.getDescription());
+        descriptionField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
                     CharSequence s, int start, int count, int after) {
-// This space intentionally left blank
+                // This space intentionally left blank
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "Description changed");
+                tempDescription = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // This one too
+            }
+        });
+    }
+
+    private void setAmountField(View view) {
+        Log.d(TAG, "setAmountField(View view) called");
+        EditText amountField = (EditText) view.findViewById(R.id.amount_field);
+        amountField.setText(Double.toString(mTransaction.getAmount()));
+        amountField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {
+                // This space intentionally left blank
             }
 
             @Override
@@ -104,44 +138,16 @@ public class TransactionPagerFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-// This one too
+                // This one too
             }
         });
     }
 
-    private void setDescriptionField(View view) {
-        Log.d(TAG, "setDescriptionField(View view) called");
-        mDescriptionField = (EditText) view.findViewById(R.id.description_field);
-        mDescriptionField.setText(mTransaction.getDescription());
-        mDescriptionField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s, int start, int count, int after) {
-// This space intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(
-                    CharSequence s, int start, int before, int count) {
-                Log.d(TAG, "Description changed");
-                tempDescription = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-// This one too
-            }
-        });
+    private void saveTransaction() {
+        mTransaction.setNew(NOT_NEW);
+        mTransaction.setDescription(tempDescription);
+        mTransaction.setAmount(tempAmount);
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate(Bundle savedInstanceState)");
-        UUID transactionId = (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
-        mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
-    }
-
 
     @Override
     public void onStart() {
@@ -153,7 +159,7 @@ public class TransactionPagerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
-        TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
+        //TransactionContainer.get(getActivity()).updateTransaction(mTransaction);[To be deleted]
     }
 
     @Override
@@ -171,9 +177,13 @@ public class TransactionPagerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        deleteTransactionIfNotSaved();
+        Log.d(TAG, "onDestroy() called");
+    }
+
+    private void deleteTransactionIfNotSaved() {
         if (!(mTransaction.getNew().equals(NOT_NEW))) {
             TransactionContainer.get(getActivity()).deleteTransaction(mTransaction);
         }
-        Log.d(TAG, "onDestroy() called");
     }
 }

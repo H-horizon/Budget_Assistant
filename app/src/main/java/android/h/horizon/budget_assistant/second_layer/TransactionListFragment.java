@@ -98,7 +98,7 @@ public class TransactionListFragment extends Fragment {
             if (data == null) {
                 return;
             }
-            mTransactionTitle = TransactionPagerActivity.decodeTitle(data);//Gets argument from
+            mTransactionTitle = TransactionPagerActivity.returnArgumentTitle(data);//Gets argument from
             // third layer
         }
     }
