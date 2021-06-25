@@ -74,6 +74,7 @@ public class TransactionContainer {
         values.put(TransactionDbSchema.Columns.DATE, transaction.getDate().getTime());
         values.put(TransactionDbSchema.Columns.DESCRIPTION, transaction.getDescription());
         values.put(TransactionDbSchema.Columns.AMOUNT, transaction.getAmount());
+        values.put(TransactionDbSchema.Columns.NEW, transaction.getNew());
         return values;
     }
 
@@ -81,6 +82,13 @@ public class TransactionContainer {
         String uuidString = transaction.getId().toString();
         ContentValues values = getContentValues(transaction);
         mDatabase.update(TransactionDbSchema.NAME, values,
+                TransactionDbSchema.Columns.UUID + " = ?",
+                new String[]{uuidString});
+    }
+
+    public void deleteTransaction(Transaction transaction) {
+        String uuidString = transaction.getId().toString();
+        mDatabase.delete(TransactionDbSchema.NAME,
                 TransactionDbSchema.Columns.UUID + " = ?",
                 new String[]{uuidString});
     }
