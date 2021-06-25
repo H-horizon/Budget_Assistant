@@ -119,7 +119,7 @@ public class TransactionListFragment extends Fragment {
         Log.d(TAG, "updateUI() called");
         TransactionContainer transactionContainer = TransactionContainer.get(getActivity());
         //Update the following line to get list based on title[Delete afterwards]
-        List<Transaction> transactions = transactionContainer.getTransactions();
+        List<Transaction> transactions = transactionContainer.getTransactions(mTransactionTitle);
         if (mAdapter == null) {
             mAdapter = new TransactionAdapter(transactions);
             mTransactionRecyclerView.setAdapter(mAdapter);

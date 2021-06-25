@@ -77,6 +77,23 @@ public class TransactionContainer {
     }
 
     /**
+     * Searches for transactions record based on their title
+     *
+     * @param title is the filter
+     * @return a list of transactions having the required title
+     */
+    public List<Transaction> getTransactions(String title) {
+        List<Transaction> initialTransactionList = getTransactions();
+        List<Transaction> transactionList = new ArrayList<>();
+        for (Transaction transaction : initialTransactionList) {
+            if (transaction.getTitle().equals(title)) {
+                transactionList.add(transaction);
+            }
+        }
+        return transactionList;
+    }
+
+    /**
      * Adds a Transaction object to the database
      *
      * @param transaction is the object to be added
