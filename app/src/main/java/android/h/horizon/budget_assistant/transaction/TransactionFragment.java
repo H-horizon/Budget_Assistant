@@ -23,6 +23,9 @@ public class TransactionFragment extends Fragment {
     private EditText mDescriptionField;
     private EditText mAmountField;
     private Button mSaveButton;
+    private Button mCancelButton;
+    private String tempDescription;
+    private double tempAmount;
 
     public static TransactionFragment newInstance(UUID transactionId) {
         Log.d(TAG, "newInstance(UUID transactionId) called");
@@ -36,41 +39,50 @@ public class TransactionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View incomeView = inflater.inflate(R.layout.fragment_transaction_details, container,
+        View view = inflater.inflate(R.layout.fragment_transaction_details, container,
                 false);
         Log.d(TAG, "onCreateView(Bundle) called");
-        mSaveButton = (Button) incomeView.findViewById(R.id.save_button);
+        setSaveButton(view);
+        setCancelButton(view);
+        setDescriptionField(view);
+        setAmountField(view);
+        return view;
+    }
+
+    private void setSaveButton(View view) {
+        Log.d(TAG, "setSaveButton(View view) called");
+        mSaveButton = (Button) view.findViewById(R.id.save_button);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Save Button clicked");
-                mTransaction.setNew(NOT_NEW);
+                saveTransaction();
+                getActivity().finish();
             }
         });
+    }
 
-        mDescriptionField = (EditText) incomeView.findViewById(R.id.description_field);
-        mDescriptionField.setText(mTransaction.getDescription());
-        mDescriptionField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s, int start, int count, int after) {
-// This space intentionally left blank
-            }
+    private void saveTransaction() {
+        mTransaction.setNew(NOT_NEW);
+        mTransaction.setDescription(tempDescription);
+        mTransaction.setAmount(tempAmount);
+    }
 
+    private void setCancelButton(View view) {
+        Log.d(TAG, "setCancelButton(View view) called");
+        mCancelButton = (Button) view.findViewById(R.id.cancel);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(
-                    CharSequence s, int start, int before, int count) {
-                Log.d(TAG, "Description changed");
-                mTransaction.setDescription(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-// This one too
+            public void onClick(View v) {
+                Log.d(TAG, "Cancel Button clicked");
+                getActivity().finish();
             }
         });
+    }
 
-        mAmountField = (EditText) incomeView.findViewById(R.id.amount_field);
+    private void setAmountField(View view) {
+        Log.d(TAG, "setAmountField(View view) called");
+        mAmountField = (EditText) view.findViewById(R.id.amount_field);
         mAmountField.setText(Double.toString(mTransaction.getAmount()));
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,7 +95,7 @@ public class TransactionFragment extends Fragment {
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
-                    mTransaction.setAmount(Double.parseDouble(s.toString()));
+                    tempAmount = Double.parseDouble(s.toString());
                 }
                 Log.d(TAG, "Amount changed");
             }
@@ -93,7 +105,31 @@ public class TransactionFragment extends Fragment {
 // This one too
             }
         });
-        return incomeView;
+    }
+
+    private void setDescriptionField(View view) {
+        Log.d(TAG, "setDescriptionField(View view) called");
+        mDescriptionField = (EditText) view.findViewById(R.id.description_field);
+        mDescriptionField.setText(mTransaction.getDescription());
+        mDescriptionField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {
+// This space intentionally left blank
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "Description changed");
+                tempDescription = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+// This one too
+            }
+        });
     }
 
     @Override
