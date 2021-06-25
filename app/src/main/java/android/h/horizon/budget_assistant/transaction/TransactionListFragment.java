@@ -143,7 +143,7 @@ public class TransactionListFragment extends Fragment {
                 TransactionContainer.get(getActivity()).addTransaction(transaction);
                 Intent intent = TransactionPagerActivity
                         .newIntent(getActivity(), transaction.getId(), mTransactionTitle);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_TITLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

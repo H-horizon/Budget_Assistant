@@ -31,6 +31,7 @@ public class TransactionPagerActivity extends AppCompatActivity {
         mTransactionTitle = (String) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_TITLE);
         setTitle(mTransactionTitle);
+        setDataToReturnToParent();
         mViewPager = (ViewPager) findViewById(R.id.activity_transaction_pager_view_pager);
         mTransactionList = TransactionContainer.get(this).getTransactions();
         FragmentManager fragmentManager = getSupportFragmentManager();
