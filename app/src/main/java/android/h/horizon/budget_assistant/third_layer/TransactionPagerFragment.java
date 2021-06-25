@@ -145,8 +145,14 @@ public class TransactionPagerFragment extends Fragment {
 
     private void saveTransaction() {
         mTransaction.setNew(NOT_NEW);
-        mTransaction.setDescription(tempDescription);
-        mTransaction.setAmount(tempAmount);
+        if (tempDescription != null && !tempDescription.isEmpty()) {
+            mTransaction.setDescription(tempDescription);
+        }
+        if (tempAmount > 0) {
+            mTransaction.setAmount(tempAmount);
+        }
+        //Handle null inputs here
+        TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
     }
 
     @Override
