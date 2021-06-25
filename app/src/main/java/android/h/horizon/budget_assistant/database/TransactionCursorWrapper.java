@@ -18,6 +18,9 @@ public class TransactionCursorWrapper extends CursorWrapper {
         super(cursor);
     }
 
+    /**
+     * @return a Transaction record from the database
+     */
     public Transaction getTransaction() {
         String uuidString = getString(getColumnIndex(TransactionDbSchema.Columns.UUID));
         String title = getString(getColumnIndex(TransactionDbSchema.Columns.TITLE));

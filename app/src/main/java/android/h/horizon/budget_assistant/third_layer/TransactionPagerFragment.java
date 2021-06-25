@@ -1,6 +1,8 @@
-package android.h.horizon.budget_assistant.transaction;
+package android.h.horizon.budget_assistant.third_layer;
 
 import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.transaction.Transaction;
+import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.UUID;
 
-public class TransactionFragment extends Fragment {
+public class TransactionPagerFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
     public static final String NOT_NEW = "NOT";
@@ -27,11 +29,11 @@ public class TransactionFragment extends Fragment {
     private String tempDescription;
     private double tempAmount;
 
-    public static TransactionFragment newInstance(UUID transactionId) {
+    public static TransactionPagerFragment newInstance(UUID transactionId) {
         Log.d(TAG, "newInstance(UUID transactionId) called");
         Bundle args = new Bundle();
         args.putSerializable(ARG_TRANSACTION_ID, transactionId);
-        TransactionFragment fragment = new TransactionFragment();
+        TransactionPagerFragment fragment = new TransactionPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }

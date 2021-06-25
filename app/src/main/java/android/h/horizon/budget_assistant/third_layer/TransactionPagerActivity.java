@@ -1,8 +1,10 @@
-package android.h.horizon.budget_assistant.transaction;
+package android.h.horizon.budget_assistant.third_layer;
 
 import android.content.Context;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.transaction.Transaction;
+import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -43,7 +45,7 @@ public class TransactionPagerActivity extends AppCompatActivity {
             public Fragment getItem(int position) {
                 Log.d(TAG, "getItem(int position) called");
                 Transaction transaction = mTransactionList.get(position);
-                return TransactionFragment.newInstance(transaction.getId());
+                return TransactionPagerFragment.newInstance(transaction.getId());
             }
 
             @Override

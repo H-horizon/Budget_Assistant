@@ -2,7 +2,7 @@ package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.transaction.TransactionListActivity;
+import android.h.horizon.budget_assistant.second_layer.TransactionListActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +16,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.h.horizon.budget_assistant.transaction.TransactionNames.*;
+import static android.h.horizon.budget_assistant.transaction.TransactionTitles.*;
 
+/**
+ * This class represents the fragment that sets up the layout of the Expenses frame
+ */
 public class ExpensesFragment extends Fragment {
     private static final String TAG = "ExpensesFragment";
 

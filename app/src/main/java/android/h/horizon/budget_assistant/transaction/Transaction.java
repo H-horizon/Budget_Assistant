@@ -3,6 +3,9 @@ package android.h.horizon.budget_assistant.transaction;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Represents a class of attributes that can be used to represent the required data
+ */
 public class Transaction {
     public static final String NEW = "NEW";
     protected String mTitle;
@@ -11,13 +14,6 @@ public class Transaction {
     protected Date mDate;
     protected UUID mId;
     protected String mNew;
-
-    public Transaction(String descriptionArg, double amountArg) {
-        mDescription = descriptionArg;
-        mAmount = amountArg;
-        mId = UUID.randomUUID();
-        mDate = new Date();
-    }
 
     public Transaction(UUID id) {
         mId = id;
