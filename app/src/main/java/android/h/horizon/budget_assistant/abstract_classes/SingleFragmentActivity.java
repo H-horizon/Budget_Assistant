@@ -6,13 +6,12 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
-    private static String TAG = "SingleFragmentActivity";
+    private static final String TAG = "SingleFragmentActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

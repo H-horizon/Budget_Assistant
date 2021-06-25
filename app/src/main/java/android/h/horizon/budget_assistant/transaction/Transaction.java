@@ -25,20 +25,28 @@ public class Transaction {
         mNew = NEW;
     }
 
-    public String getNew() {
-        return mNew;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public void setNew(String aNew) {
-        mNew = aNew;
-    }
-
-    public UUID getId() {
-        return mId;
+    public void setTitle(String title) {
+        mTitle = title;
     }
 
     public String getDescription() {
         return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public double getAmount() {
+        return mAmount;
+    }
+
+    public void setAmount(double amount) {
+        mAmount = amount;
     }
 
     public Date getDate() {
@@ -49,23 +57,19 @@ public class Transaction {
         mDate = date;
     }
 
-    public void setDescription(String description) {
-        this.mDescription = description;
+    public UUID getId() {
+        return mId;
     }
 
-    public double getAmount() {
-        return mAmount;
+    public void setId(UUID id) {
+        mId = id;
     }
 
-    public void setAmount(double amount) {
-        this.mAmount = amount;
+    public String getNew() {
+        return mNew;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getTitle() {
-        return mTitle;
+    public void setNew(String aNew) {
+        mNew = aNew;
     }
 }

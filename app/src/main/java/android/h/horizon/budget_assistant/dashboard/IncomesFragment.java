@@ -22,10 +22,6 @@ import static android.h.horizon.budget_assistant.transaction.TransactionNames.SA
 
 public class IncomesFragment extends Fragment {
     private static final String TAG = "IncomesFragment";
-    private Button mDateButton;
-    private Button mSalaryButton;
-    private Button mAllowanceButton;
-    private Button mOthersButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,10 +36,19 @@ public class IncomesFragment extends Fragment {
         return incomeView;
     }
 
+    private void setDateButton(View incomeView) {
+        Log.d(TAG, "setDateButton called");
+        Button dateButton = (Button) incomeView.findViewById(R.id.date_button);
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateButton.setText(dateFormat.format(currentDate));
+        dateButton.setEnabled(false);
+    }
+
     private void setSalaryButton(View incomeView) {
         Log.d(TAG, "setSalaryButton called");
-        mSalaryButton = (Button) incomeView.findViewById(R.id.salary_button);
-        mSalaryButton.setOnClickListener(new View.OnClickListener() {
+        Button salaryButton = (Button) incomeView.findViewById(R.id.salary_button);
+        salaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Salary Button clicked");
@@ -55,8 +60,8 @@ public class IncomesFragment extends Fragment {
 
     private void setAllowanceButton(View incomeView) {
         Log.d(TAG, "setAllowanceButton called");
-        mAllowanceButton = (Button) incomeView.findViewById(R.id.allowance_button);
-        mAllowanceButton.setOnClickListener(new View.OnClickListener() {
+        Button allowanceButton = (Button) incomeView.findViewById(R.id.allowance_button);
+        allowanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Allowance Button clicked");
@@ -69,8 +74,8 @@ public class IncomesFragment extends Fragment {
 
     private void setOthersButton(View incomeView) {
         Log.d(TAG, "setOthersButton called");
-        mOthersButton = (Button) incomeView.findViewById(R.id.others_button);
-        mOthersButton.setOnClickListener(new View.OnClickListener() {
+        Button othersButton = (Button) incomeView.findViewById(R.id.others_button);
+        othersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Others Button clicked");
@@ -78,16 +83,6 @@ public class IncomesFragment extends Fragment {
                 startActivity(i);
             }
         });
-    }
-
-
-    private void setDateButton(View incomeView) {
-        Log.d(TAG, "setDateButton called");
-        mDateButton = (Button) incomeView.findViewById(R.id.date_button);
-        Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        mDateButton.setText(dateFormat.format(currentDate));
-        mDateButton.setEnabled(false);
     }
 
     @Override
