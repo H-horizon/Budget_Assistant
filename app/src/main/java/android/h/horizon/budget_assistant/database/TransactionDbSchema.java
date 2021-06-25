@@ -1,5 +1,8 @@
 package android.h.horizon.budget_assistant.database;
 
+/**
+ * Represents the attributes' and the database table's names
+ */
 public class TransactionDbSchema {
     public static final String NAME = "transactions";
 

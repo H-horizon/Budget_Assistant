@@ -1,6 +1,9 @@
 package android.h.horizon.budget_assistant.transaction;
 
-public class TransactionNames {
+/**
+ * Represents all transaction titles available
+ */
+public class TransactionTitles {
     public static String FOOD = "Food";
     public static String TRAVELLING = "Travelling";
     public static String RENT = "Rent";

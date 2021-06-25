@@ -5,6 +5,9 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ * This class is the activity that deals with all incomes
+ */
 public class IncomesActivity extends SingleFragmentActivity {
     private static final String TAG = "IncomesActivity";
 

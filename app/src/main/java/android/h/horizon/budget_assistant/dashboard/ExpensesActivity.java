@@ -7,6 +7,9 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ * This class is the activity that deals with all expenses
+ */
 public class ExpensesActivity extends SingleFragmentActivity {
     private static final String TAG = "ExpensesActivity";
 

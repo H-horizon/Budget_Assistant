@@ -28,13 +28,13 @@
         </activity>
 
         <activity
-            android:name=".transaction.TransactionListActivity"
+            android:name=".second_layer.TransactionListActivity"
             android:label="@string/TransactionList">
         </activity>
 
-        <activity android:name=".transaction.TransactionPagerActivity"
+        <activity android:name=".third_layer.TransactionPagerActivity"
             android:label="@string/pager"
-            android:parentActivityName=".transaction.TransactionListActivity">
+            android:parentActivityName=".second_layer.TransactionListActivity">
         </activity>
 
     </application>

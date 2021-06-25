@@ -3,6 +3,9 @@ package android.h.horizon.budget_assistant.transaction;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Represents a class of attributes that can be used to represent the required data
+ */
 public class Transaction {
     public static final String NEW = "NEW";
     protected String mTitle;
@@ -12,33 +15,34 @@ public class Transaction {
     protected UUID mId;
     protected String mNew;
 
-    public Transaction(String descriptionArg, double amountArg) {
-        mDescription = descriptionArg;
-        mAmount = amountArg;
-        mId = UUID.randomUUID();
-        mDate = new Date();
-    }
-
     public Transaction(UUID id) {
         mId = id;
         mDate = new Date();
         mNew = NEW;
     }
 
-    public String getNew() {
-        return mNew;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public void setNew(String aNew) {
-        mNew = aNew;
-    }
-
-    public UUID getId() {
-        return mId;
+    public void setTitle(String title) {
+        mTitle = title;
     }
 
     public String getDescription() {
         return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public double getAmount() {
+        return mAmount;
+    }
+
+    public void setAmount(double amount) {
+        mAmount = amount;
     }
 
     public Date getDate() {
@@ -49,23 +53,19 @@ public class Transaction {
         mDate = date;
     }
 
-    public void setDescription(String description) {
-        this.mDescription = description;
+    public UUID getId() {
+        return mId;
     }
 
-    public double getAmount() {
-        return mAmount;
+    public void setId(UUID id) {
+        mId = id;
     }
 
-    public void setAmount(double amount) {
-        this.mAmount = amount;
+    public String getNew() {
+        return mNew;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getTitle() {
-        return mTitle;
+    public void setNew(String aNew) {
+        mNew = aNew;
     }
 }
