@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 public class TransactionCursorWrapper extends CursorWrapper {
+
     /**
      * Creates a cursor wrapper.
      *

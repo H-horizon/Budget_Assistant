@@ -25,6 +25,7 @@ public class TransactionFragment extends Fragment {
     private Button mSaveButton;
 
     public static TransactionFragment newInstance(UUID transactionId) {
+        Log.d(TAG, "newInstance(UUID transactionId) called");
         Bundle args = new Bundle();
         args.putSerializable(ARG_TRANSACTION_ID, transactionId);
         TransactionFragment fragment = new TransactionFragment();
@@ -42,6 +43,7 @@ public class TransactionFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Save Button clicked");
                 mTransaction.setNew(NOT_NEW);
             }
         });
@@ -58,6 +60,7 @@ public class TransactionFragment extends Fragment {
             @Override
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "Description changed");
                 mTransaction.setDescription(s.toString());
             }
 
@@ -82,6 +85,7 @@ public class TransactionFragment extends Fragment {
                 if (!s.toString().isEmpty()) {
                     mTransaction.setAmount(Double.parseDouble(s.toString()));
                 }
+                Log.d(TAG, "Amount changed");
             }
 
             @Override
@@ -95,6 +99,7 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate(Bundle savedInstanceState)");
         UUID transactionId = (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
         mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
     }
