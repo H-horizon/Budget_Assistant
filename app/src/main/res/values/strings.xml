@@ -16,5 +16,17 @@
     <string name="save_label">Save</string>
     <string name="cancel_label">Cancel</string>
     <string name="travel_label">Travelling</string>
+    <string name="income_button">Income</string>
+    <string name="salary_label">Salary</string>
+    <string name="allowance_label">Allowance</string>
+    <string name="income_title">unknown income</string>
+    <string name="incomes_title">Incomes</string>
+    <string name="Transaction">Transactions</string>
+    <string name="transaction_description">Description</string>
+    <string name="transaction_amount">Amount</string>
+    <string name="transaction_date">Date</string>
+    <string name="TransactionList">Transaction list</string>
+    <string name="pager">Pager</string>
+    <string name="new_transaction">New Transaction</string>
 
 </resources>

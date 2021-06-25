@@ -2,14 +2,7 @@ package android.h.horizon.budget_assistant.dashboard;
 
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
-import android.h.horizon.budget_assistant.expenses_layer.EducationActivity;
-import android.h.horizon.budget_assistant.expenses_layer.FoodActivity;
-import android.h.horizon.budget_assistant.expenses_layer.HealthActivity;
-import android.h.horizon.budget_assistant.expenses_layer.LeisureActivity;
-import android.h.horizon.budget_assistant.expenses_layer.OthersActivity;
-import android.h.horizon.budget_assistant.expenses_layer.RentActivity;
-import android.h.horizon.budget_assistant.expenses_layer.SubscriptionActivity;
-import android.h.horizon.budget_assistant.expenses_layer.TravelActivity;
+import android.h.horizon.budget_assistant.transaction.TransactionListActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.h.horizon.budget_assistant.transaction.TransactionNames.*;
 
 public class ExpensesFragment extends Fragment {
     private static final String TAG = "ExpensesFragment";
@@ -60,7 +55,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Subscription Button clicked");
-                Intent i = new Intent(getActivity(), SubscriptionActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), SUBSCRIPTION);
                 startActivity(i);
             }
         });
@@ -73,7 +68,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Rent Button clicked");
-                Intent i = new Intent(getActivity(), RentActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), RENT);
                 startActivity(i);
             }
         });
@@ -86,7 +81,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Others Button clicked");
-                Intent i = new Intent(getActivity(), OthersActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_EXPENSES);
                 startActivity(i);
             }
         });
@@ -99,7 +94,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Leisure Button clicked");
-                Intent i = new Intent(getActivity(), LeisureActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), LEISURE);
                 startActivity(i);
             }
         });
@@ -112,7 +107,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Health Button clicked");
-                Intent i = new Intent(getActivity(), HealthActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), HEALTH);
                 startActivity(i);
             }
         });
@@ -125,7 +120,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Travel Button clicked");
-                Intent i = new Intent(getActivity(), TravelActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), TRAVELLING);
                 startActivity(i);
             }
         });
@@ -138,7 +133,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Education Button clicked");
-                Intent i = new Intent(getActivity(), EducationActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), EDUCATION);
                 startActivity(i);
             }
         });
@@ -151,7 +146,7 @@ public class ExpensesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Food Button clicked");
-                Intent i = new Intent(getActivity(), FoodActivity.class);
+                Intent i = TransactionListActivity.newIntent(getActivity(), FOOD);
                 startActivity(i);
             }
         });
