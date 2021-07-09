@@ -236,6 +236,7 @@ public class TransactionPagerFragment extends Fragment {
     }
 
     private void deleteTransactionIfNotSaved() {
+        Log.d(TAG, "deleteTransactionIfNotSaved() called");
         if (!(mTransaction.getNew().equals(NOT_NEW))) {
             TransactionContainer.get(getActivity()).deleteTransaction(mTransaction);
         }

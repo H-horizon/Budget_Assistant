@@ -104,10 +104,12 @@ public class TransactionListFragment extends Fragment {
     }
 
     private void setArgumentTo_mTransactionTitle() {
+        Log.d(TAG, "setArgumentTo_mTransactionTitle() called");
         mTransactionTitle = (String) getArguments().getSerializable(ARG_TRANSACTION_TITLE);
     }
 
     private View setRecyclerView(LayoutInflater inflater, ViewGroup container) {
+        Log.d(TAG, "setRecyclerView(LayoutInflater inflater, ViewGroup container) called");
         View view = inflater.inflate(R.layout.transaction_recycler_view, container, false);
         mTransactionRecyclerView = (RecyclerView) view
                 .findViewById(R.id.transactions_recycler_view);
@@ -130,6 +132,7 @@ public class TransactionListFragment extends Fragment {
     }
 
     private void addTransactionUsingToolbar() {
+        Log.d(TAG, "addTransactionUsingToolbar() called");
         Transaction transaction = new Transaction(UUID.randomUUID());
         transaction.setTitle(mTransactionTitle);
         TransactionContainer.get(getActivity()).addTransaction(transaction);
@@ -146,6 +149,7 @@ public class TransactionListFragment extends Fragment {
         private TextView mAmountTextView;
         private TextView mDateTextView;
         private Transaction mTransaction;
+        private static final String TAG = "TransactionHolder";
 
         /**
          * Creates the RecyclerView
@@ -192,6 +196,7 @@ public class TransactionListFragment extends Fragment {
      */
     private class TransactionAdapter extends RecyclerView.Adapter<TransactionHolder> {
         private List<Transaction> mTransactions;
+        private static final String TAG = "TransactionAdapter";
 
         /**
          * Creates an adapter for the RecyclerView
@@ -233,6 +238,7 @@ public class TransactionListFragment extends Fragment {
         }
 
         private View setViewToListFormat(ViewGroup parent) {
+            Log.d(TAG, "setViewToListFormat(ViewGroup parent) called");
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
                     .inflate(R.layout.list_item_transaction, parent, false);

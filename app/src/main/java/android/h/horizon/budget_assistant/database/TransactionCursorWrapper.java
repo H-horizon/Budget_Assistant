@@ -3,11 +3,14 @@ package android.h.horizon.budget_assistant.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.h.horizon.budget_assistant.transaction.Transaction;
+import android.util.Log;
 
 import java.sql.Date;
 import java.util.UUID;
 
 public class TransactionCursorWrapper extends CursorWrapper {
+
+    private static final String TAG = "CursorWrapper";
 
     /**
      * Creates a cursor wrapper.
@@ -16,12 +19,14 @@ public class TransactionCursorWrapper extends CursorWrapper {
      */
     public TransactionCursorWrapper(Cursor cursor) {
         super(cursor);
+        Log.d(TAG, "TransactionCursorWrapper(Cursor cursor) called");
     }
 
     /**
      * @return a Transaction record from the database
      */
     public Transaction getTransaction() {
+        Log.d(TAG, "getTransaction() called");
         String uuidString = getString(getColumnIndex(TransactionDbSchema.Columns.UUID));
         String title = getString(getColumnIndex(TransactionDbSchema.Columns.TITLE));
         long date = getLong(getColumnIndex(TransactionDbSchema.Columns.DATE));

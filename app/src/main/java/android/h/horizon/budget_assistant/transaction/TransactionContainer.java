@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.h.horizon.budget_assistant.database.TransactionCursorWrapper;
 import android.h.horizon.budget_assistant.database.TransactionDbSchema;
 import android.h.horizon.budget_assistant.database.TransactionsBaseHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class TransactionContainer {
     private static TransactionContainer sTransactionContainer;
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private static final String TAG = "TransactionContainer";
 
     /**
      * Gets a singleton of TransactionContainer
@@ -28,6 +30,7 @@ public class TransactionContainer {
      * @return a singleton representing this class
      */
     public static TransactionContainer get(Context context) {
+        Log.d(TAG, "TransactionContainer get(Context context) called");
         if (sTransactionContainer == null) {
             sTransactionContainer = new TransactionContainer(context);
         }
@@ -40,6 +43,7 @@ public class TransactionContainer {
      * @return a list of all transactions stored in the database
      */
     public List<Transaction> getTransactions() {
+        Log.d(TAG, "getTransactions() called");
         List<Transaction> transactions = new ArrayList<>();
         TransactionCursorWrapper cursor = queryTransactions(null, null);
         try {
@@ -61,12 +65,14 @@ public class TransactionContainer {
      * @return a Transaction object
      */
     public Transaction getTransaction(UUID id) {
+        Log.d(TAG, "getTransaction(UUID id) called");
         TransactionCursorWrapper cursor = queryTransactions(
                 TransactionDbSchema.Columns.UUID + " = ?",
                 new String[]{id.toString()}
         );
         try {
             if (cursor.getCount() == 0) {
+                Log.d(TAG, "getTransaction(UUID id): Transaction not found");
                 return null;
             }
             cursor.moveToFirst();
@@ -83,6 +89,7 @@ public class TransactionContainer {
      * @return a list of transactions having the required title
      */
     public List<Transaction> getTransactions(String title) {
+        Log.d(TAG, "getTransactions(String title) called");
         List<Transaction> initialTransactionList = getTransactions();
         List<Transaction> transactionList = new ArrayList<>();
         for (Transaction transaction : initialTransactionList) {
@@ -99,6 +106,7 @@ public class TransactionContainer {
      * @param transaction is the object to be added
      */
     public void addTransaction(Transaction transaction) {
+        Log.d(TAG, "addTransaction(Transaction transaction) called");
         ContentValues values = getContentValues(transaction);
         mDatabase.insert(TransactionDbSchema.NAME, null, values);
     }
@@ -109,6 +117,7 @@ public class TransactionContainer {
      * @param transaction is the updated object
      */
     public void updateTransaction(Transaction transaction) {
+        Log.d(TAG, "updateTransaction(Transaction transaction) called");
         String uuidString = transaction.getId().toString();
         ContentValues values = getContentValues(transaction);
         mDatabase.update(TransactionDbSchema.NAME, values,
@@ -122,6 +131,7 @@ public class TransactionContainer {
      * @param transaction is the object to deleted
      */
     public void deleteTransaction(Transaction transaction) {
+        Log.d(TAG, "deleteTransaction(Transaction transaction) called");
         String uuidString = transaction.getId().toString();
         mDatabase.delete(TransactionDbSchema.NAME,
                 TransactionDbSchema.Columns.UUID + " = ?",
@@ -129,12 +139,14 @@ public class TransactionContainer {
     }
 
     private TransactionContainer(Context context) {
+        Log.d(TAG, "TransactionContainer(Context context) called");
         mContext = context.getApplicationContext();
         mDatabase = new TransactionsBaseHelper(mContext)
                 .getWritableDatabase();
     }
 
     private TransactionCursorWrapper queryTransactions(String whereClause, String[] whereArgs) {
+        Log.d(TAG, "queryTransactions(String whereClause, String[] whereArgs) called");
         Cursor cursor = mDatabase.query(
                 TransactionDbSchema.NAME,
                 null, // Columns - null selects all columns
@@ -148,6 +160,7 @@ public class TransactionContainer {
     }
 
     private static ContentValues getContentValues(Transaction transaction) {
+        Log.d(TAG, "getContentValues(Transaction transaction) called");
         ContentValues values = new ContentValues();
         values.put(TransactionDbSchema.Columns.UUID, transaction.getId().toString());
         values.put(TransactionDbSchema.Columns.TITLE, transaction.getTitle());
