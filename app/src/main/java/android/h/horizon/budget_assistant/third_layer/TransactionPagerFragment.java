@@ -54,7 +54,7 @@ public class TransactionPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate(Bundle savedInstanceState)");
+        Log.d(TAG, "onCreate(Bundle savedInstanceState) called");
         UUID transactionId = getTransactionIdFromArguments();
         mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
     }
@@ -73,7 +73,25 @@ public class TransactionPagerFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult(int requestCode, int resultCode, Intent data) called");
+        if (resultCode != Activity.RESULT_OK) {
+            Log.d(TAG, "onActivityResult() not OK");
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Log.d(TAG, "onActivityResult() requested date");
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            mTransaction.setDate(date);
+            mDateButton.setText(dateFormat.format(date));
+        }
+    }
+
     private UUID getTransactionIdFromArguments() {
+        Log.d(TAG, "getTransactionIdFromArguments() called");
         return (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
     }
 
@@ -84,6 +102,7 @@ public class TransactionPagerFragment extends Fragment {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Date button clicked");
                 FragmentManager manager = getFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment
                         .newInstance(mTransaction.getDate());
@@ -91,7 +110,6 @@ public class TransactionPagerFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-        //dateButton.setEnabled(false);
     }
 
     private void setSaveButton(View view) {
@@ -172,29 +190,18 @@ public class TransactionPagerFragment extends Fragment {
     }
 
     private void saveTransaction() {
+        Log.d(TAG, "saveTransaction() called");
         mTransaction.setNew(NOT_NEW);
         if (tempDescription != null && !tempDescription.isEmpty()) {
+            Log.d(TAG, "saveTransaction() description not empty");
             mTransaction.setDescription(tempDescription);
         }
         if (tempAmount > 0) {
+            Log.d(TAG, "saveTransaction() amount not empty");
             mTransaction.setAmount(tempAmount);
         }
         //Handle null inputs here
         TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == REQUEST_DATE) {
-            Date date = (Date) data
-                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            mTransaction.setDate(date);
-            mDateButton.setText(dateFormat.format(date));
-        }
     }
 
     @Override
@@ -207,7 +214,6 @@ public class TransactionPagerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
-        //TransactionContainer.get(getActivity()).updateTransaction(mTransaction);[To be deleted]
     }
 
     @Override
