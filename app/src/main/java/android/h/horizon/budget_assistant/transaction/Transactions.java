@@ -1,7 +1,6 @@
 package android.h.horizon.budget_assistant.transaction;
 
 import android.content.Context;
-import android.h.horizon.budget_assistant.MainActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,6 +8,9 @@ import java.util.List;
 
 import static android.h.horizon.budget_assistant.transaction.TransactionTitles.*;
 
+/**
+ * This class is a singleton, used to manipulate total revenue, expenditure and savings
+ */
 public class Transactions {
     private static final String TAG = "Transactions";
     private Double mRevenue;
@@ -18,6 +20,12 @@ public class Transactions {
     private static Transactions sTransactions;
 
 
+    /**
+     * Gets a singleton of Transactions
+     *
+     * @param context represents the current state of the application
+     * @return a singleton representing this class
+     */
     public static Transactions get(Context context) {
         Log.d(TAG, "Transactions get(Context context) called");
         if (sTransactions == null) {
@@ -26,7 +34,14 @@ public class Transactions {
         return sTransactions;
     }
 
+    /**
+     * Update all Transactions' variables
+     *
+     * @param transaction is the transaction object before saving
+     * @param newAmount   is the new amount value
+     */
     public void updateTransactions(Transaction transaction, Double newAmount) {
+        Log.d(TAG, "updateTransactions(Transaction transaction, Double newAmount) called");
         if (checkForIncome(transaction)) {
             mRevenue -= transaction.getAmount();
             mRevenue += newAmount;
@@ -60,17 +75,6 @@ public class Transactions {
         updateSavings();
     }
 
-    private void updateSavings() {
-        mSavings = mRevenue - mExpenditure;
-    }
-
-    private boolean checkForIncome(Transaction transaction) {
-        Log.d(TAG, "checkForIncome(Transaction transaction) called");
-        return transaction.getTitle().equals(SALARY) ||
-                transaction.getTitle().equals(ALLOWANCE) ||
-                transaction.getTitle().equals(OTHER_INCOME);
-    }
-
     private boolean checkForExpense(Transaction transaction) {
         Log.d(TAG, "checkForExpense(Transaction transaction) called");
         return transaction.getTitle().equals(FOOD) ||
@@ -81,6 +85,18 @@ public class Transactions {
                 transaction.getTitle().equals(HEALTH) ||
                 transaction.getTitle().equals(SUBSCRIPTION) ||
                 transaction.getTitle().equals(OTHER_EXPENSES);
+    }
+
+    private boolean checkForIncome(Transaction transaction) {
+        Log.d(TAG, "checkForIncome(Transaction transaction) called");
+        return transaction.getTitle().equals(SALARY) ||
+                transaction.getTitle().equals(ALLOWANCE) ||
+                transaction.getTitle().equals(OTHER_INCOME);
+    }
+
+    private void updateSavings() {
+        Log.d(TAG, "updateSavings() called");
+        mSavings = mRevenue - mExpenditure;
     }
 
     public Double getRevenue() {
