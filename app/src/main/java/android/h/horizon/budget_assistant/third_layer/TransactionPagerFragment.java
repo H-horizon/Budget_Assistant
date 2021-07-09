@@ -1,6 +1,9 @@
 package android.h.horizon.budget_assistant.third_layer;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.dialog.DatePickerFragment;
 import android.h.horizon.budget_assistant.transaction.Transaction;
 import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.os.Bundle;
@@ -14,16 +17,23 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class TransactionPagerFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
+    private static final String DIALOG_DATE = "DialogDate";
     public static final String NOT_NEW = "NOT";
+    private static final int REQUEST_DATE = 0;
     private Transaction mTransaction;
     private String tempDescription;
     private double tempAmount;
+    private Button mDateButton;
 
     /**
      * Gets arguments from TransactionPagerActivity when created
@@ -55,6 +65,7 @@ public class TransactionPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transaction_details, container,
                 false);
         Log.d(TAG, "onCreateView(Bundle) called");
+        setDateButton(view);
         setSaveButton(view);
         setCancelButton(view);
         setDescriptionField(view);
@@ -64,6 +75,23 @@ public class TransactionPagerFragment extends Fragment {
 
     private UUID getTransactionIdFromArguments() {
         return (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
+    }
+
+    private void setDateButton(View view) {
+        Log.d(TAG, "setDateButton(View view) called");
+        mDateButton = (Button) view.findViewById(R.id.date_button);
+        mDateButton.setText(mTransaction.getDate().toString());
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment
+                        .newInstance(mTransaction.getDate());
+                dialog.setTargetFragment(TransactionPagerFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
+        //dateButton.setEnabled(false);
     }
 
     private void setSaveButton(View view) {
@@ -153,6 +181,20 @@ public class TransactionPagerFragment extends Fragment {
         }
         //Handle null inputs here
         TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            mTransaction.setDate(date);
+            mDateButton.setText(dateFormat.format(date));
+        }
     }
 
     @Override
