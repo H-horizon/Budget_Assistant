@@ -18,8 +18,8 @@
 | 1 | individual who is dependent on his\her parent(s) | input my allowances | know how much money I have at a particular time. |
 | 1 | outgoing person | be able to input money I spent on my friends or other donations | keep track of all my transactions. |
 | 2 | meticulous person | view my savings | know how much money I saved. |
-| 2 | meticulous person | I want to be able to monitor my transactions on a daily, weekly, monthly, yearly and all-time basis | analyse my expenditures when required. |
-| 2 | meticulous person | I want to follow my transactions categorically or together | viewing my expenditures becomes neater and easier to understand.  |
-| 3 | visual learner | visual aids such as graphs or charts to visualize my expenditures | better analyse my expenditure trends. |
+| 3 | meticulous person | I want to be able to monitor my transactions on a daily, weekly, monthly, yearly and all-time basis | analyse my expenditures when required. |
+| 3 | meticulous person | I want to follow my transactions categorically or together | viewing my expenditures becomes neater and easier to understand.  |
+| 4 | visual learner | visual aids such as graphs or charts to visualize my expenditures | better analyse my expenditure trends. |
 
 &nbsp;
