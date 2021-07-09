@@ -203,8 +203,6 @@ public class TransactionPagerFragment extends Fragment {
             Log.d(TAG, "saveTransaction() amount not empty");
             mTransaction.setAmount(tempAmount);
         }
-
-        //Update total revenue and expenditure here
         //Handle null inputs here
         TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
     }

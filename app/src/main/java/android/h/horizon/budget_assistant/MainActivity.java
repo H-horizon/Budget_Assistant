@@ -30,23 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setValuesField() {
+        Log.d(TAG, "setValuesField() called");
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TextView revenueTextView = (TextView) findViewById(R.id.total_incomes_value);
         TextView expenditureTextView = (TextView) findViewById(R.id.total_expenses_value);
         TextView savingTextView = (TextView) findViewById(R.id.savings_value);
         updateUI(transactionsValues, revenueTextView, expenditureTextView, savingTextView);
-    }
-
-    private void updateUI(Transactions transactionsValues, TextView revenueTextView, TextView expenditureTextView, TextView savingTextView) {
-        DecimalFormat df = new DecimalFormat("###.##");
-        revenueTextView.setText(df.format(transactionsValues.getRevenue()));
-        expenditureTextView.setText(df.format(transactionsValues.getExpenditure()));
-        if (transactionsValues.getSavings() > 0) {
-            savingTextView.setTextColor(Color.parseColor("#01DEFA"));
-        } else {
-            savingTextView.setTextColor(Color.parseColor("#DC0000"));
-        }
-        savingTextView.setText(df.format(transactionsValues.getSavings()));
     }
 
     private void setExpensesButton() {
@@ -73,6 +62,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    private void updateUI(Transactions transactionsValues,
+                          TextView revenueTextView, TextView expenditureTextView,
+                          TextView savingTextView) {
+        Log.d(TAG, "updateUI(Transactions transactionsValues, TextView revenueTextView, " +
+                "TextView expenditureTextView, TextView savingTextView) called");
+        DecimalFormat df = new DecimalFormat("###.##");
+        revenueTextView.setText(df.format(transactionsValues.getRevenue()));
+        expenditureTextView.setText(df.format(transactionsValues.getExpenditure()));
+        if (transactionsValues.getSavings() > 0) {
+            Log.d(TAG, "updateUI():Green");
+            savingTextView.setTextColor(Color.parseColor("#01DEFA"));
+        } else {
+            savingTextView.setTextColor(Color.parseColor("#DC0000"));
+            Log.d(TAG, "updateUI():Red");
+        }
+        savingTextView.setText(df.format(transactionsValues.getSavings()));
     }
 
     @Override
