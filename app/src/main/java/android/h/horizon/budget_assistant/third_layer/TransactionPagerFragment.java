@@ -1,6 +1,9 @@
 package android.h.horizon.budget_assistant.third_layer;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
+import android.h.horizon.budget_assistant.dialog.DatePickerFragment;
 import android.h.horizon.budget_assistant.transaction.Transaction;
 import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.os.Bundle;
@@ -14,16 +17,23 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class TransactionPagerFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
+    private static final String DIALOG_DATE = "DialogDate";
     public static final String NOT_NEW = "NOT";
+    private static final int REQUEST_DATE = 0;
     private Transaction mTransaction;
     private String tempDescription;
     private double tempAmount;
+    private Button mDateButton;
 
     /**
      * Gets arguments from TransactionPagerActivity when created
@@ -44,7 +54,7 @@ public class TransactionPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate(Bundle savedInstanceState)");
+        Log.d(TAG, "onCreate(Bundle savedInstanceState) called");
         UUID transactionId = getTransactionIdFromArguments();
         mTransaction = TransactionContainer.get(getActivity()).getTransaction(transactionId);
     }
@@ -55,6 +65,7 @@ public class TransactionPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_transaction_details, container,
                 false);
         Log.d(TAG, "onCreateView(Bundle) called");
+        setDateButton(view);
         setSaveButton(view);
         setCancelButton(view);
         setDescriptionField(view);
@@ -62,8 +73,43 @@ public class TransactionPagerFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult(int requestCode, int resultCode, Intent data) called");
+        if (resultCode != Activity.RESULT_OK) {
+            Log.d(TAG, "onActivityResult() not OK");
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Log.d(TAG, "onActivityResult() requested date");
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            mTransaction.setDate(date);
+            mDateButton.setText(dateFormat.format(date));
+        }
+    }
+
     private UUID getTransactionIdFromArguments() {
+        Log.d(TAG, "getTransactionIdFromArguments() called");
         return (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
+    }
+
+    private void setDateButton(View view) {
+        Log.d(TAG, "setDateButton(View view) called");
+        mDateButton = (Button) view.findViewById(R.id.date_button);
+        mDateButton.setText(mTransaction.getDate().toString());
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Date button clicked");
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment
+                        .newInstance(mTransaction.getDate());
+                dialog.setTargetFragment(TransactionPagerFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
     }
 
     private void setSaveButton(View view) {
@@ -144,11 +190,14 @@ public class TransactionPagerFragment extends Fragment {
     }
 
     private void saveTransaction() {
+        Log.d(TAG, "saveTransaction() called");
         mTransaction.setNew(NOT_NEW);
         if (tempDescription != null && !tempDescription.isEmpty()) {
+            Log.d(TAG, "saveTransaction() description not empty");
             mTransaction.setDescription(tempDescription);
         }
         if (tempAmount > 0) {
+            Log.d(TAG, "saveTransaction() amount not empty");
             mTransaction.setAmount(tempAmount);
         }
         //Handle null inputs here
@@ -165,7 +214,6 @@ public class TransactionPagerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
-        //TransactionContainer.get(getActivity()).updateTransaction(mTransaction);[To be deleted]
     }
 
     @Override
@@ -188,6 +236,7 @@ public class TransactionPagerFragment extends Fragment {
     }
 
     private void deleteTransactionIfNotSaved() {
+        Log.d(TAG, "deleteTransactionIfNotSaved() called");
         if (!(mTransaction.getNew().equals(NOT_NEW))) {
             TransactionContainer.get(getActivity()).deleteTransaction(mTransaction);
         }

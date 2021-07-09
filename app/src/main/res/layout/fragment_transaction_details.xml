@@ -37,6 +37,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
+        android:id="@+id/date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_label"
+        app:backgroundTint="#A39E9E" />
+
+    <Button
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

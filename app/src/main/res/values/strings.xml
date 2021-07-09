@@ -28,5 +28,6 @@
     <string name="TransactionList">Transaction list</string>
     <string name="pager">Pager</string>
     <string name="new_transaction">New Transaction</string>
+    <string name="date_picker_title">Date</string>
 
 </resources>

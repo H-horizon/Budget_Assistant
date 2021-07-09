@@ -33,8 +33,7 @@
         </activity>
 
         <activity android:name=".third_layer.TransactionPagerActivity"
-            android:label="@string/pager"
-            android:parentActivityName=".second_layer.TransactionListActivity">
+            android:label="@string/pager">
         </activity>
 
     </application>

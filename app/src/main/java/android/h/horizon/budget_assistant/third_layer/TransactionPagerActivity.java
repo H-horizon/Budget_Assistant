@@ -70,11 +70,13 @@ public class TransactionPagerActivity extends AppCompatActivity {
     }
 
     private UUID getTransactionIdFromArguments() {
+        Log.d(TAG, "getTransactionIdFromArguments() called");
         return (UUID) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_ID);
     }
 
     private void setArgumentTo_mTransactionTitle() {
+        Log.d(TAG, "setArgumentTo_mTransactionTitle() called");
         mTransactionTitle = (String) getIntent()
                 .getSerializableExtra(EXTRA_TRANSACTION_TITLE);
     }
@@ -87,6 +89,7 @@ public class TransactionPagerActivity extends AppCompatActivity {
     }
 
     private void setsViewPager(UUID transactionId) {
+        Log.d(TAG, "setsViewPager(UUID transactionId) called");
         mViewPager = (ViewPager) findViewById(R.id.activity_transaction_pager_view_pager);
         mTransactionList = TransactionContainer.get(this).getTransactions();
         FragmentManager fragmentManager = getSupportFragmentManager();
