@@ -26,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Represents the fragment that operates the ViewPager
+ */
 public class TransactionPagerFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
@@ -199,7 +202,7 @@ public class TransactionPagerFragment extends Fragment {
             mTransaction.setDescription(tempDescription);
         }
         if (tempAmount >= 0) {
-            Transactions.get(getActivity()).updateTransactions(mTransaction,tempAmount);
+            Transactions.get(getActivity()).updateTransactions(mTransaction, tempAmount);
             Log.d(TAG, "saveTransaction() amount not empty");
             mTransaction.setAmount(tempAmount);
         }

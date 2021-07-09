@@ -19,6 +19,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Represents the dialog that allows the user to choose a date
+ */
 public class DatePickerFragment extends DialogFragment {
     public static final String EXTRA_DATE = "transaction_date";
 
