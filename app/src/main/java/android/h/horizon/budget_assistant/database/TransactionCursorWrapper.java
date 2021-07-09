@@ -8,6 +8,9 @@ import android.util.Log;
 import java.sql.Date;
 import java.util.UUID;
 
+/**
+ * Represents the cursor wrapper for the Transaction Db
+ */
 public class TransactionCursorWrapper extends CursorWrapper {
 
     private static final String TAG = "CursorWrapper";

@@ -2,10 +2,12 @@ package android.h.horizon.budget_assistant.third_layer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.h.horizon.budget_assistant.MainActivity;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.dialog.DatePickerFragment;
 import android.h.horizon.budget_assistant.transaction.Transaction;
 import android.h.horizon.budget_assistant.transaction.TransactionContainer;
+import android.h.horizon.budget_assistant.transaction.Transactions;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Represents the fragment that operates the ViewPager
+ */
 public class TransactionPagerFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
@@ -196,7 +201,8 @@ public class TransactionPagerFragment extends Fragment {
             Log.d(TAG, "saveTransaction() description not empty");
             mTransaction.setDescription(tempDescription);
         }
-        if (tempAmount > 0) {
+        if (tempAmount >= 0) {
+            Transactions.get(getActivity()).updateTransactions(mTransaction, tempAmount);
             Log.d(TAG, "saveTransaction() amount not empty");
             mTransaction.setAmount(tempAmount);
         }
