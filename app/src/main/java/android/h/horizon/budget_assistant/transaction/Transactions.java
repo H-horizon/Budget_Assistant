@@ -40,13 +40,13 @@ public class Transactions {
      * @param transaction is the transaction object before saving
      * @param newAmount   is the new amount value
      */
-    public void updateTransactions(Transaction transaction, Double newAmount) {
+    public void updateTransactions(Transaction transaction, Double initialAmount, Double newAmount) {
         Log.d(TAG, "updateTransactions(Transaction transaction, Double newAmount) called");
         if (checkForIncome(transaction)) {
-            mRevenue -= transaction.getAmount();
+            mRevenue -= initialAmount;
             mRevenue += newAmount;
         } else if (checkForExpense(transaction)) {
-            mExpenditure -= transaction.getAmount();
+            mExpenditure -= initialAmount;
             mExpenditure += newAmount;
         } else {
             Log.d(TAG, "updateTransactions(): Database contains Invalid data");
