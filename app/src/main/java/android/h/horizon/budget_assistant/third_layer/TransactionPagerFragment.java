@@ -2,13 +2,13 @@ package android.h.horizon.budget_assistant.third_layer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.h.horizon.budget_assistant.MainActivity;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.dialog.DatePickerFragment;
 import android.h.horizon.budget_assistant.transaction.Transaction;
 import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.h.horizon.budget_assistant.transaction.Transactions;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -26,19 +27,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static android.h.horizon.budget_assistant.transaction.Transaction.NEW;
+
 /**
  * Represents the fragment that operates the ViewPager
  */
 public class TransactionPagerFragment extends Fragment {
-    private static final String TAG = "TransactionFragment";
+    private static final String TAG = "TransactionPageFragment";
     private static final String ARG_TRANSACTION_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     public static final String NOT_NEW = "NOT";
     private static final int REQUEST_DATE = 0;
+    public static final String INVALID_AMOUNT_INPUTTED = "Cannot save transaction\n" +
+            "Amount field contains invalid value";
+    public static final String DESCRIPTION_FIELD_IS_EMPTY = "Cannot save transaction\n" +
+            "Description field is empty";
+    private static final int SHORT_DELAY = 1500;
+    public static final String DATABASE_CORRUPTED = "Database has been corrupted\n" +
+            "Cannot save transaction";
     private Transaction mTransaction;
-    private String tempDescription;
-    private double tempAmount;
+    private String mTempDescription;
+    private double mTempAmount;
     private Button mDateButton;
+    private boolean mAmountChange = false;
+    private boolean mDescriptionChange = false;
 
     /**
      * Gets arguments from TransactionPagerActivity when created
@@ -124,8 +136,11 @@ public class TransactionPagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Save Button clicked");
-                saveTransaction();
-                getActivity().finish();
+                if (hasTransactionBeenSaved()) {
+                    getActivity().finish();
+                } else {
+                    //Print toast here
+                }
             }
         });
     }
@@ -151,18 +166,20 @@ public class TransactionPagerFragment extends Fragment {
             public void beforeTextChanged(
                     CharSequence s, int start, int count, int after) {
                 // This space intentionally left blank
+
             }
 
             @Override
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
-                Log.d(TAG, "Description changed");
-                tempDescription = s.toString();
+                // This one too
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // This one too
+                Log.d(TAG, "Description changed");
+                mTempDescription = s.toString();
+                mDescriptionChange = true;
             }
         });
     }
@@ -181,9 +198,12 @@ public class TransactionPagerFragment extends Fragment {
             @Override
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
-                if (!s.toString().isEmpty()) {
-                    tempAmount = Double.parseDouble(s.toString());
+                try {
+                    mTempAmount = Double.parseDouble(s.toString());
+                } catch (NumberFormatException e) {
+                    mTempAmount = -1; // Dummy value because condition in saveTransaction checks for positive value
                 }
+                mAmountChange = true;
                 Log.d(TAG, "Amount changed");
             }
 
@@ -194,20 +214,141 @@ public class TransactionPagerFragment extends Fragment {
         });
     }
 
-    private void saveTransaction() {
-        Log.d(TAG, "saveTransaction() called");
+    private boolean hasTransactionBeenSaved() {
+        boolean areConditionsMet;
+        Log.d(TAG, "hasTransactionBeenSaved() called");
+        double initialAmount = mTransaction.getAmount();
+        areConditionsMet = areConditionsMet();
+        if (areConditionsMet) {
+            Log.d(TAG, "hasTransactionBeenSaved(): Conditions met");
+            saveTransaction(initialAmount);
+        }
+        return areConditionsMet;
+    }
+
+    private boolean areConditionsMet() {
+        Log.d(TAG, "areConditionsMet() called");
+        boolean areConditionsMet;
+        if (mTransaction.getNew().equals(NEW)) {
+            Log.d(TAG, "areConditionsMet(): New");
+            areConditionsMet = areConditionsMetNewRecord();
+        } else if (mTransaction.getNew().equals(NOT_NEW)) {
+            Log.d(TAG, "areConditionsMet(): Existing");
+            areConditionsMet = areConditionsMetExistingRecord();
+        } else {
+            Log.d(TAG, "areConditionsMet(): Invalid");
+            areConditionsMet = areConditionsMetInvalidRecord();
+        }
+        return areConditionsMet;
+    }
+
+    private void saveTransaction(double initialAmount) {
+        Log.d(TAG, "saveTransaction(double initialAmount) called");
         mTransaction.setNew(NOT_NEW);
-        if (tempDescription != null && !tempDescription.isEmpty()) {
-            Log.d(TAG, "saveTransaction() description not empty");
-            mTransaction.setDescription(tempDescription);
+        TransactionContainer.get(getActivity()).updateTransaction(mTransaction);// saving
+        Transactions.get(getActivity()).updateTransactions(mTransaction, initialAmount,
+                mTempAmount);//Update Dashboard
+    }
+
+    private boolean areConditionsMetNewRecord() {
+        Log.d(TAG, "areConditionsMetNewRecord() called");
+        boolean areConditionsMet;
+        boolean isDescriptionFull;
+        boolean isAmountFull;
+        isDescriptionFull = isDescriptionFull();
+        isAmountFull = isAmountFull(isDescriptionFull);// Needs parameter to differentiate between
+        // Toasts
+        areConditionsMet = isAmountFull && isDescriptionFull;
+        return areConditionsMet;
+    }
+
+    private boolean areConditionsMetExistingRecord() {
+        Log.d(TAG, "areConditionsMetExistingRecord() called");
+        boolean areConditionsMet;
+        boolean isDescriptionFull;
+        boolean isAmountFull;
+        isDescriptionFull = true;
+        isAmountFull = true;
+        if (mDescriptionChange) {
+            isDescriptionFull = isDescriptionFull();
+            Log.d(TAG, "areConditionsMetExistingRecord(): Description Changed");
         }
-        if (tempAmount >= 0) {
-            Transactions.get(getActivity()).updateTransactions(mTransaction, tempAmount);
-            Log.d(TAG, "saveTransaction() amount not empty");
-            mTransaction.setAmount(tempAmount);
+        if (mAmountChange) {
+            isAmountFull = isAmountFull(isDescriptionFull);
+            Log.d(TAG, "areConditionsMetExistingRecord(): Amount Changed");
         }
-        //Handle null inputs here
-        TransactionContainer.get(getActivity()).updateTransaction(mTransaction);
+        areConditionsMet = isAmountFull && isDescriptionFull;
+        return areConditionsMet;
+    }
+
+    private boolean areConditionsMetInvalidRecord() {
+        Log.d(TAG, "areConditionsMetInvalidRecord() called");
+        Log.d(TAG, "Database contains invalid data in NEW field");
+        Toast.makeText(getActivity(), DATABASE_CORRUPTED, Toast.LENGTH_SHORT)
+                .show();
+        return false;
+    }
+
+    private boolean isDescriptionFull() {
+        boolean isDescriptionFull;
+        Log.d(TAG, "isDescriptionFull() called");
+        if (mTempDescription != null && !mTempDescription.isEmpty()) {
+            Log.d(TAG, "isDescriptionFull(): Description Field full");
+            mTransaction.setDescription(mTempDescription);
+            isDescriptionFull = true;
+        } else {
+            Log.d(TAG, "isDescriptionFull(): Description Field empty");
+            isDescriptionFull = false;
+            DisplayToastForEmptyDescriptionField();
+        }
+        return isDescriptionFull;
+    }
+
+    private boolean isAmountFull(boolean isDescriptionFull) {
+        Log.d(TAG, "isAmountFull(boolean isDescriptionFull) called");
+        boolean isAmountFull;
+        if (mTempAmount > 0) {
+            Log.d(TAG, "isAmountFull(): Amount value valid");
+            mTransaction.setAmount(mTempAmount);
+            isAmountFull = true;
+        } else {
+            Log.d(TAG, "isAmountFull(): Amount value invalid");
+            isAmountFull = false;
+            DisplayToastForInvalidAmount(isDescriptionFull);
+        }
+        return isAmountFull;
+    }
+
+    private void DisplayToastForEmptyDescriptionField() {
+        Log.d(TAG, "DisplayToastForEmptyDescriptionField() called");
+        Toast.makeText(getActivity(), DESCRIPTION_FIELD_IS_EMPTY, Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    private void DisplayToastForInvalidAmount(boolean isDescriptionFull) {
+        Log.d(TAG, "DisplayToastForInvalidAmount(boolean isDescriptionFull) called");
+        if (isDescriptionFull) {
+            outputToastInvalidAmount();
+        } else {// 2 consecutive Toasts require handler
+            outputToastInvalidAmountWithHandler();
+        }
+    }
+
+    private void outputToastInvalidAmount() {
+        Log.d(TAG, "outputToastInvalidAmount() called");
+        Toast.makeText(getActivity(), INVALID_AMOUNT_INPUTTED, Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    private void outputToastInvalidAmountWithHandler() {
+        Log.d(TAG, "outputToastInvalidAmountWithHandler() called");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                outputToastInvalidAmount();
+            }
+        }, SHORT_DELAY);
     }
 
     @Override
