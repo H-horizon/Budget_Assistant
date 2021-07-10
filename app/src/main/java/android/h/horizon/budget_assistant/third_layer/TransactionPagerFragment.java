@@ -138,7 +138,7 @@ public class TransactionPagerFragment extends Fragment {
                 Log.d(TAG, "Save Button clicked");
                 if (hasTransactionBeenSaved()) {
                     getActivity().finish();
-                } 
+                }
             }
         });
     }
