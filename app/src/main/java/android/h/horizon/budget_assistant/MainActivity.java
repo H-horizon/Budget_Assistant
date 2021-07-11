@@ -23,11 +23,11 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "MainActivity";
-    public static final int ALL_TIME = 0;
-    public static final int TODAY = 1;
-    public static final int THIS_WEEK = 2;
-    public static final int THIS_MONTH = 3;
-    public static final int THIS_YEAR = 4;
+    private static final int ALL_TIME = 0;
+    private static final int TODAY = 1;
+    private static final int THIS_WEEK = 2;
+    private static final int THIS_MONTH = 3;
+    private static final int THIS_YEAR = 4;
     private int mPosition = ALL_TIME;//default value
 
     @Override
