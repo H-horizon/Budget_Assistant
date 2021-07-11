@@ -23,11 +23,11 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "MainActivity";
-    public static final int ALL_TIME = 0;
-    public static final int TODAY = 1;
-    public static final int THIS_WEEK = 2;
-    public static final int THIS_MONTH = 3;
-    public static final int THIS_YEAR = 4;
+    private static final int ALL_TIME = 0;
+    private static final int TODAY = 1;
+    private static final int THIS_WEEK = 2;
+    private static final int THIS_MONTH = 3;
+    private static final int THIS_YEAR = 4;
     private int mPosition = ALL_TIME;//default value
 
     @Override
@@ -109,47 +109,106 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                           TextView savingTextView) {
         Log.d(TAG, "updateUI() called");
         DecimalFormat df = new DecimalFormat("###.##");
+
+        switch (mPosition) {
+            case ALL_TIME:
+                Log.d(TAG, "updateUI(): ALL_TIME");
+                updateUiAllTime(transactionsValues, revenueTextView, expenditureTextView,
+                        savingTextView, df);
+                break;
+            case TODAY:
+                Log.d(TAG, "updateUI(): TODAY");
+                updateUiToday(transactionsValues, revenueTextView, expenditureTextView,
+                        savingTextView, df);
+                break;
+            case THIS_WEEK:
+                Log.d(TAG, "updateUI(): THIS_WEEK");
+                updateUiWeekly(transactionsValues, revenueTextView, expenditureTextView,
+                        savingTextView, df);
+                break;
+            case THIS_MONTH:
+                Log.d(TAG, "updateUI(): THIS_MONTH");
+                updateUiMonthly(transactionsValues, revenueTextView, expenditureTextView,
+                        savingTextView, df);
+                break;
+            case THIS_YEAR:
+                Log.d(TAG, "updateUI(): THIS_YEAR");
+                updateUiYearly(transactionsValues, revenueTextView, expenditureTextView,
+                        savingTextView, df);
+                break;
+            default:
+                Log.d(TAG, "updateUI(): UNKNOWN CONSTANT");
+        }
+    }
+
+    private void updateUiAllTime(Transactions transactionsValues, TextView revenueTextView,
+                                 TextView expenditureTextView, TextView savingTextView,
+                                 DecimalFormat df) {
+        Log.d(TAG, "updateUiAllTime() called");
         double revenue;
         double expenditure;
         double savings;
-        if (mPosition == ALL_TIME) {
-            Log.d(TAG, "updateUI(): ALL_TIME");
-            revenue = transactionsValues.getRevenue();
-            expenditure = transactionsValues.getExpenditure();
-            savings = transactionsValues.getSavings();
-            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
-                    savings);
-        } else if (mPosition == TODAY) {
-            Log.d(TAG, "updateUI(): TODAY");
-            revenue = transactionsValues.getTodayRevenue();
-            expenditure = transactionsValues.getTodayExpenditure();
-            savings = revenue - expenditure;
-            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
-                    savings);
-        } else if (mPosition == THIS_WEEK) {
-            Log.d(TAG, "updateUI(): THIS_WEEK");
-            revenue = transactionsValues.getWeeklyRevenue();
-            expenditure = transactionsValues.getWeeklyExpenditure();
-            savings = revenue - expenditure;
-            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
-                    savings);
-        } else if (mPosition == THIS_MONTH) {
-            Log.d(TAG, "updateUI(): THIS_MONTH");
-            revenue = transactionsValues.getMonthlyRevenue();
-            expenditure = transactionsValues.getMonthlyExpenditure();
-            savings = revenue - expenditure;
-            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
-                    savings);
-        } else if (mPosition == THIS_YEAR) {
-            Log.d(TAG, "updateUI(): THIS_YEAR");
-            revenue = transactionsValues.getYearlyRevenue();
-            expenditure = transactionsValues.getYearlyExpenditure();
-            savings = revenue - expenditure;
-            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
-                    savings);
-        } else {
-            Log.d(TAG, "updateUI(): UNKNOWN CONSTANT");
-        }
+        revenue = transactionsValues.getRevenue();
+        expenditure = transactionsValues.getExpenditure();
+        savings = transactionsValues.getSavings();
+        setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                savings);
+    }
+
+    private void updateUiToday(Transactions transactionsValues, TextView revenueTextView,
+                               TextView expenditureTextView, TextView savingTextView,
+                               DecimalFormat df) {
+        Log.d(TAG, "updateUiToday() called");
+        double revenue;
+        double expenditure;
+        double savings;
+        revenue = transactionsValues.getTodayRevenue();
+        expenditure = transactionsValues.getTodayExpenditure();
+        savings = revenue - expenditure;
+        setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                savings);
+    }
+
+    private void updateUiWeekly(Transactions transactionsValues, TextView revenueTextView,
+                                TextView expenditureTextView, TextView savingTextView,
+                                DecimalFormat df) {
+        Log.d(TAG, "updateUiWeekly() called");
+        double revenue;
+        double expenditure;
+        double savings;
+        revenue = transactionsValues.getWeeklyRevenue();
+        expenditure = transactionsValues.getWeeklyExpenditure();
+        savings = revenue - expenditure;
+        setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                savings);
+    }
+
+    private void updateUiMonthly(Transactions transactionsValues, TextView revenueTextView,
+                                 TextView expenditureTextView, TextView savingTextView,
+                                 DecimalFormat df) {
+        Log.d(TAG, "updateUiMonthly() called");
+        double revenue;
+        double expenditure;
+        double savings;
+        revenue = transactionsValues.getMonthlyRevenue();
+        expenditure = transactionsValues.getMonthlyExpenditure();
+        savings = revenue - expenditure;
+        setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                savings);
+    }
+
+    private void updateUiYearly(Transactions transactionsValues, TextView revenueTextView,
+                                TextView expenditureTextView, TextView savingTextView,
+                                DecimalFormat df) {
+        Log.d(TAG, "updateUiYearly() called");
+        double revenue;
+        double expenditure;
+        double savings;
+        revenue = transactionsValues.getYearlyRevenue();
+        expenditure = transactionsValues.getYearlyExpenditure();
+        savings = revenue - expenditure;
+        setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                savings);
     }
 
     private void setUI(TextView revenueTextView, TextView expenditureTextView,
