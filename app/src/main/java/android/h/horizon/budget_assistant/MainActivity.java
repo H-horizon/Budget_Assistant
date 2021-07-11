@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void updateUiAllTime(Transactions transactionsValues, TextView revenueTextView,
                                  TextView expenditureTextView, TextView savingTextView,
                                  DecimalFormat df) {
+        Log.d(TAG, "updateUiAllTime() called");
         double revenue;
         double expenditure;
         double savings;
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void updateUiToday(Transactions transactionsValues, TextView revenueTextView,
                                TextView expenditureTextView, TextView savingTextView,
                                DecimalFormat df) {
+        Log.d(TAG, "updateUiToday() called");
         double revenue;
         double expenditure;
         double savings;
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void updateUiWeekly(Transactions transactionsValues, TextView revenueTextView,
                                 TextView expenditureTextView, TextView savingTextView,
                                 DecimalFormat df) {
+        Log.d(TAG, "updateUiWeekly() called");
         double revenue;
         double expenditure;
         double savings;
@@ -183,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void updateUiMonthly(Transactions transactionsValues, TextView revenueTextView,
                                  TextView expenditureTextView, TextView savingTextView,
                                  DecimalFormat df) {
+        Log.d(TAG, "updateUiMonthly() called");
         double revenue;
         double expenditure;
         double savings;
@@ -196,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void updateUiYearly(Transactions transactionsValues, TextView revenueTextView,
                                 TextView expenditureTextView, TextView savingTextView,
                                 DecimalFormat df) {
+        Log.d(TAG, "updateUiYearly() called");
         double revenue;
         double expenditure;
         double savings;
