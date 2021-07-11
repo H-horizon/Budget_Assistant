@@ -8,12 +8,12 @@ import java.util.UUID;
  */
 public class Transaction {
     public static final String NEW = "NEW";
-    protected String mTitle;
-    protected String mDescription;
-    protected double mAmount;
-    protected Date mDate;
-    protected UUID mId;
-    protected String mNew;
+    private String mTitle;
+    private String mDescription;
+    private double mAmount;
+    private Date mDate;
+    private UUID mId;
+    private String mNew;
 
     public Transaction(UUID id) {
         mId = id;
