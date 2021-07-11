@@ -31,6 +31,14 @@
     <string name="date_picker_title">Date</string>
     <string name="total_expenses_description">Total Expenditure</string>
     <string name="total_incomes_description">Total Revenue</string>
-    <string name="savings_lable">Savings</string>
+    <string name="savings_label">Savings</string>
+    <string name="time_label">Time</string>
+
+    <string-array name="spinner_time_array">
+        <item>All-time</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Year</item>
+    </string-array>
 
 </resources>
