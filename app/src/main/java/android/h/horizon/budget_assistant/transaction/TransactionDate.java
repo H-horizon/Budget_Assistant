@@ -16,6 +16,21 @@ public class TransactionDate {
     private static final String TAG = "TransactionDate";
 
     /**
+     * checks whether or not both parameters are on the same day
+     *
+     * @param searchValue is the first date
+     * @param targetValue is the second date
+     * @return true if consider is satisfied
+     */
+    public static boolean isToday(Date searchValue, Date targetValue) {
+        Log.d(TAG, "isToday(Date searchValue, Date targetValue) called");
+        if (isWeekSame(searchValue, targetValue)) {
+            return getDay(searchValue) == getDay(targetValue);
+        }
+        return false;
+    }
+
+    /**
      * checks whether or not both parameters are on the same week
      *
      * @param searchValue is the first date
@@ -61,6 +76,13 @@ public class TransactionDate {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    private static int getDay(Date date) {
+        Log.d(TAG, "getDate(Date date) called");
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.DAY_OF_WEEK);
     }
 
     private static int getMonth(Date date) {

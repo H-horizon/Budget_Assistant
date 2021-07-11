@@ -3,6 +3,7 @@ package android.h.horizon.budget_assistant.transaction;
 import android.content.Context;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +57,27 @@ public class Transactions {
             Log.d(TAG, "updateTransactions(): Database contains Invalid data");
         }
         updateSavings();
+    }
+
+    /**
+     * Gets the total revenue from all transactions which happened on the same day as the current
+     * date
+     *
+     * @return the current date's revenue
+     */
+    public double getTodayRevenue() {
+        Log.d(TAG, "getTodayRevenue() called");
+        double todayRevenue = 0;
+        Date currentDate = new Date();
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isIncome(transaction) && TransactionDate.isToday(currentDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getTodayRevenue(): Increment value");
+                todayRevenue += transaction.getAmount();
+            }
+        }
+        return todayRevenue;
     }
 
     /**
@@ -119,6 +141,27 @@ public class Transactions {
             }
         }
         return yearlyRevenue;
+    }
+
+    /**
+     * Gets the total expenditure from all transactions which happened on the same day as the
+     * current date
+     *
+     * @return the current date's expenditure
+     */
+    public double getTodayExpenditure() {
+        Log.d(TAG, "getTodayExpenditure() called");
+        double todayExpenditure = 0;
+        Date currentDate = new Date();
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isExpense(transaction) && TransactionDate.isToday(currentDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getTodayExpenditure(): Increment value");
+                todayExpenditure += transaction.getAmount();
+            }
+        }
+        return todayExpenditure;
     }
 
     /**

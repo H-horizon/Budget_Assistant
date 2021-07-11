@@ -24,9 +24,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private static final String TAG = "MainActivity";
     public static final int ALL_TIME = 0;
-    public static final int THIS_WEEK = 1;
-    public static final int THIS_MONTH = 2;
-    public static final int THIS_YEAR = 3;
+    public static final int TODAY = 1;
+    public static final int THIS_WEEK = 2;
+    public static final int THIS_MONTH = 3;
+    public static final int THIS_YEAR = 4;
     private int mPosition = ALL_TIME;//default value
 
     @Override
@@ -116,6 +117,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             revenue = transactionsValues.getRevenue();
             expenditure = transactionsValues.getExpenditure();
             savings = transactionsValues.getSavings();
+            setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
+                    savings);
+        } else if (mPosition == TODAY) {
+            Log.d(TAG, "updateUI(): TODAY");
+            revenue = transactionsValues.getTodayRevenue();
+            expenditure = transactionsValues.getTodayExpenditure();
+            savings = revenue - expenditure;
             setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
                     savings);
         } else if (mPosition == THIS_WEEK) {
