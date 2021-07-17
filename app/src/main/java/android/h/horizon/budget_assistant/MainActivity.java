@@ -1,14 +1,14 @@
 package android.h.horizon.budget_assistant;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.h.horizon.budget_assistant.dashboard.ExpensesActivity;
 import android.h.horizon.budget_assistant.dashboard.IncomesActivity;
-import android.h.horizon.budget_assistant.transaction.Transaction;
-import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.h.horizon.budget_assistant.transaction.Transactions;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,23 +20,16 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
-
-import static android.h.horizon.budget_assistant.transaction.TransactionDate.isToday;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -48,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final int THIS_YEAR = 4;
     private int mPosition = ALL_TIME;//default value
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "onItemSelected() called");
@@ -87,8 +82,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "onNothingSelected() called");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void createGraph() {//Should be called from update ui
         GraphView transactionGraph = (GraphView) findViewById(R.id.transactions_graph);
+        transactionGraph.removeAllSeries();//remove previous data
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM");
+        transactionGraph.getGridLabelRenderer().setLabelFormatter(
+                new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
+        transactionGraph.getGridLabelRenderer().setNumHorizontalLabels(5);
 //        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
 //                new DataPoint(0, -2),
 //                new DataPoint(1, 5),
@@ -98,47 +99,55 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        });
 //        transactionGraph.addSeries(series);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
-        LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<>(new DataPoint[0]);
-        lineGraphSeries.resetData(getLineDataPoints());
-        transactionGraph.getGridLabelRenderer().setLabelFormatter(
-                new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
-        transactionGraph.addSeries(lineGraphSeries);
+        LineGraphSeries<DataPoint> revenueLineSeries = new LineGraphSeries<>(new DataPoint[0]);
+        revenueLineSeries.resetData(createDataPointsForRevenue());
+        revenueLineSeries.setColor(Color.GREEN);
+        transactionGraph.addSeries(revenueLineSeries);
+
+        LineGraphSeries<DataPoint> expenditureLineSeries = new LineGraphSeries<>(new DataPoint[0]);
+        expenditureLineSeries.resetData(createDataPointsForExpenditure());
+        expenditureLineSeries.setColor(Color.RED);
+        transactionGraph.addSeries(expenditureLineSeries);
 
     }
 
-    private DataPoint[] getLineDataPoints() {
-        TransactionContainer transactionContainer = TransactionContainer.get(getApplicationContext());
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private DataPoint[] createDataPointsForRevenue(){
         Transactions transactionsValues = Transactions.get(MainActivity.this);
-        List<Transaction> transactions = transactionContainer.getTransactions();
-        Collections.sort(transactions, new TransactionDateComparator());
-        Collections.reverse(transactions);
-        DataPoint[] dataPoints = new DataPoint[transactions.size()];
-        boolean areDatesEqual;
-        Date date;
-        Date previous = null;
-        int i = 3;
-        int size = 0;
-        for (Transaction transaction : transactions) {
-            date = transaction.getDate();
-            double value = transactionsValues.getDayRevenue(date);
-            areDatesEqual = isToday(date, previous);
-            if (value > 0 && !areDatesEqual) {
-                previous = date;
-                dataPoints[i] = new DataPoint(date, value);
-                i--;
-                size++;
-            }
-            if (i < 0) {
-                break;
-            }
+        DataPoint[] dataPoints = new DataPoint[4];
+        Instant now = Instant.now();
+        Date today = Date.from(now);
+        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2,ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(1,ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoDaysAgo,transactionsValues.getDayRevenue(twoDaysAgo));
+        dataPoints[1] = new DataPoint(oneDayAgo,transactionsValues.getDayRevenue(oneDayAgo));
+        dataPoints[2] = new DataPoint(today,transactionsValues.getDayRevenue(today));
+        dataPoints[3] = new DataPoint(tomorrow,0);
 
-        }
-        DataPoint[] finalDataPoints = new DataPoint[size];
-        System.arraycopy(dataPoints, 0, finalDataPoints, 0, size);
-        return finalDataPoints;
+        return dataPoints;
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private DataPoint[] createDataPointsForExpenditure(){
+        Transactions transactionsValues = Transactions.get(MainActivity.this);
+        DataPoint[] dataPoints = new DataPoint[4];
+        Instant now = Instant.now();
+        Date today = Date.from(now);
+        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2,ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(1,ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoDaysAgo,transactionsValues.getDayExpenditure(twoDaysAgo));
+        dataPoints[1] = new DataPoint(oneDayAgo,transactionsValues.getDayExpenditure(oneDayAgo));
+        dataPoints[2] = new DataPoint(today,transactionsValues.getDayExpenditure(today));
+        dataPoints[3] = new DataPoint(tomorrow,0);
+
+        return dataPoints;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setValuesField() {
         Log.d(TAG, "setValuesField() called");
         Transactions transactionsValues = Transactions.get(MainActivity.this);
@@ -174,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateUI(Transactions transactionsValues,
                           TextView revenueTextView, TextView expenditureTextView,
                           TextView savingTextView) {
@@ -306,6 +316,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onStart() {
         super.onStart();
