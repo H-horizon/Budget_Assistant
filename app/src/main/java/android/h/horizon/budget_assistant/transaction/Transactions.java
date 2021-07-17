@@ -228,6 +228,33 @@ public class Transactions {
         return yearlyExpenditure;
     }
 
+    public double getDayRevenue(Date searchDate) {
+        Log.d(TAG, " getDayRevenue() called");
+        double dayRevenue = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isIncome(transaction) && TransactionDate.isToday(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, " getDayRevenue(): Increment value");
+                dayRevenue += transaction.getAmount();
+            }
+        }
+        return dayRevenue;
+    }
+
+    public double getDayExpenditure(Date searchDate) {
+        Log.d(TAG, "getDayExpenditure() called");
+        double todayExpenditure = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isExpense(transaction) && TransactionDate.isToday(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getDayExpenditure(): Increment value");
+                todayExpenditure += transaction.getAmount();
+            }
+        }
+        return todayExpenditure;
+    }
 
     private Transactions(Context context) {
         mRevenue = 0.0;

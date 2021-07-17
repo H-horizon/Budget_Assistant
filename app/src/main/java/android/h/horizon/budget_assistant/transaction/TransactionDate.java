@@ -24,8 +24,12 @@ public class TransactionDate {
      */
     public static boolean isToday(Date searchValue, Date targetValue) {
         Log.d(TAG, "isToday(Date searchValue, Date targetValue) called");
-        if (isWeekSame(searchValue, targetValue)) {
-            return getDay(searchValue) == getDay(targetValue);
+        try {
+            if (isWeekSame(searchValue, targetValue)) {
+                return getDay(searchValue) == getDay(targetValue);
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         return false;
     }

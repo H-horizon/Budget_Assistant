@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.h.horizon.budget_assistant.dashboard.ExpensesActivity;
 import android.h.horizon.budget_assistant.dashboard.IncomesActivity;
+import android.h.horizon.budget_assistant.transaction.Transaction;
+import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.h.horizon.budget_assistant.transaction.Transactions;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,23 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+import static android.h.horizon.budget_assistant.transaction.TransactionDate.isToday;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -67,6 +85,58 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.d(TAG, "onNothingSelected() called");
+    }
+
+    public void createGraph() {//Should be called from update ui
+        GraphView transactionGraph = (GraphView) findViewById(R.id.transactions_graph);
+//        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
+//                new DataPoint(0, -2),
+//                new DataPoint(1, 5),
+//                new DataPoint(2, 3),
+//                new DataPoint(3, 2),
+//                new DataPoint(4, 6)
+//        });
+//        transactionGraph.addSeries(series);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
+        LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<>(new DataPoint[0]);
+        lineGraphSeries.resetData(getLineDataPoints());
+        transactionGraph.getGridLabelRenderer().setLabelFormatter(
+                new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
+        transactionGraph.addSeries(lineGraphSeries);
+
+    }
+
+    private DataPoint[] getLineDataPoints() {
+        TransactionContainer transactionContainer = TransactionContainer.get(getApplicationContext());
+        Transactions transactionsValues = Transactions.get(MainActivity.this);
+        List<Transaction> transactions = transactionContainer.getTransactions();
+        Collections.sort(transactions, new TransactionDateComparator());
+        Collections.reverse(transactions);
+        DataPoint[] dataPoints = new DataPoint[transactions.size()];
+        boolean areDatesEqual;
+        Date date;
+        Date previous = null;
+        int i = 3;
+        int size = 0;
+        for (Transaction transaction : transactions) {
+            date = transaction.getDate();
+            double value = transactionsValues.getDayRevenue(date);
+            areDatesEqual = isToday(date, previous);
+            if (value > 0 && !areDatesEqual) {
+                previous = date;
+                dataPoints[i] = new DataPoint(date, value);
+                i--;
+                size++;
+            }
+            if (i < 0) {
+                break;
+            }
+
+        }
+        DataPoint[] finalDataPoints = new DataPoint[size];
+        System.arraycopy(dataPoints, 0, finalDataPoints, 0, size);
+        return finalDataPoints;
     }
 
     private void setValuesField() {
@@ -139,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             default:
                 Log.d(TAG, "updateUI(): UNKNOWN CONSTANT");
         }
+        createGraph();
     }
 
     private void updateUiAllTime(Transactions transactionsValues, TextView revenueTextView,
