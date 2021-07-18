@@ -3,7 +3,6 @@ package android.h.horizon.budget_assistant.transaction;
 import android.content.Context;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
