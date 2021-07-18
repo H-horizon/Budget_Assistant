@@ -349,8 +349,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         double revenue;
         double expenditure;
         double savings;
-        revenue = transactionsValues.getWeeklyRevenue();
-        expenditure = transactionsValues.getWeeklyExpenditure();
+        revenue = transactionsValues.getThisWeekRevenue();
+        expenditure = transactionsValues.getThisWeekExpenditure();
         savings = revenue - expenditure;
         setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
                 savings);
@@ -363,8 +363,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         double revenue;
         double expenditure;
         double savings;
-        revenue = transactionsValues.getMonthlyRevenue();
-        expenditure = transactionsValues.getMonthlyExpenditure();
+        revenue = transactionsValues.getThisMonthRevenue();
+        expenditure = transactionsValues.getThisMonthExpenditure();
         savings = revenue - expenditure;
         setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
                 savings);
@@ -377,8 +377,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         double revenue;
         double expenditure;
         double savings;
-        revenue = transactionsValues.getYearlyRevenue();
-        expenditure = transactionsValues.getYearlyExpenditure();
+        revenue = transactionsValues.getThisYearRevenue();
+        expenditure = transactionsValues.getThisYearExpenditure();
         savings = revenue - expenditure;
         setUI(revenueTextView, expenditureTextView, savingTextView, df, revenue, expenditure,
                 savings);
