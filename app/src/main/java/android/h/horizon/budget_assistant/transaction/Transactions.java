@@ -242,6 +242,48 @@ public class Transactions {
         return dayRevenue;
     }
 
+    public double getWeekRevenue(Date searchDate) {
+        Log.d(TAG, "getWeekRevenue() called");
+        double weeklyRevenue = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isIncome(transaction) && TransactionDate.isWeekSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getWeekRevenue(): Increment value");
+                weeklyRevenue += transaction.getAmount();
+            }
+        }
+        return weeklyRevenue;
+    }
+
+    public double getMonthRevenue(Date searchDate) {
+        Log.d(TAG, "getMonthlyRevenue() called");
+        double monthlyRevenue = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isIncome(transaction) && TransactionDate.isMonthSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getMonthlyRevenue(): Increment");
+                monthlyRevenue += transaction.getAmount();
+            }
+        }
+        return monthlyRevenue;
+    }
+
+    public double getYearRevenue(Date searchDate) {
+        Log.d(TAG, "getYearlyRevenue() called");
+        double yearlyRevenue = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isIncome(transaction) && TransactionDate.isYearSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getYearlyRevenue(): Increment");
+                yearlyRevenue += transaction.getAmount();
+            }
+        }
+        return yearlyRevenue;
+    }
+
     public double getDayExpenditure(Date searchDate) {
         Log.d(TAG, "getDayExpenditure() called");
         double todayExpenditure = 0;

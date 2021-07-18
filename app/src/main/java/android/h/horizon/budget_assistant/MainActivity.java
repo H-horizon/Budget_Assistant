@@ -112,36 +112,79 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private DataPoint[] createDataPointsForRevenue(){
+    private DataPoint[] createDataPointsForRevenue() {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         DataPoint[] dataPoints = new DataPoint[4];
-        Instant now = Instant.now();
-        Date today = Date.from(now);
-        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-        Date twoDaysAgo = Date.from(now.minus(2,ChronoUnit.DAYS));
-        Date tomorrow = Date.from(now.plus(1,ChronoUnit.DAYS));
-        dataPoints[0] = new DataPoint(twoDaysAgo,transactionsValues.getDayRevenue(twoDaysAgo));
-        dataPoints[1] = new DataPoint(oneDayAgo,transactionsValues.getDayRevenue(oneDayAgo));
-        dataPoints[2] = new DataPoint(today,transactionsValues.getDayRevenue(today));
-        dataPoints[3] = new DataPoint(tomorrow,0);
+        switch (mPosition) {
+            case ALL_TIME:
+            case TODAY:
+                Instant now = Instant.now();
+                Date today = Date.from(now);
+                Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
+                Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
+                Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+                dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayRevenue(twoDaysAgo));
+                dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayRevenue(oneDayAgo));
+                dataPoints[2] = new DataPoint(today, transactionsValues.getDayRevenue(today));
+                dataPoints[3] = new DataPoint(tomorrow, 0);
+                break;
+            case THIS_WEEK:
+                Instant currentWeek = Instant.now();
+                Date thisWeek = Date.from(currentWeek);
+                Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
+                Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
+                Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
+                dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekRevenue(twoWeeksAgo));
+                dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekRevenue(oneWeekAgo));
+                dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekRevenue(thisWeek));
+                dataPoints[3] = new DataPoint(nextWeek, 0);
+                break;
+            case THIS_MONTH:
+                Instant currentMonth = Instant.now();
+                Date thisMonth = Date.from(currentMonth);
+                Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
+                Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
+                Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
+                dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthRevenue(twoMonthsAgo));
+                dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthRevenue(oneMonthAgo));
+                dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthRevenue(thisMonth));
+                dataPoints[3] = new DataPoint(nextMonth, 0);
+                break;
+
+            case THIS_YEAR:
+                Instant currentYear = Instant.now();
+                Date thisYear = Date.from(currentYear);
+                Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
+                Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
+                Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
+                dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearRevenue(twoYearsAgo));
+                dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearRevenue(oneYearAgo));
+                dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearRevenue(thisYear));
+                dataPoints[3] = new DataPoint(nextYear, 0);
+                break;
+            default:
+                //Add log here
+                break;
+
+        }
 
         return dataPoints;
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private DataPoint[] createDataPointsForExpenditure(){
+    private DataPoint[] createDataPointsForExpenditure() {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         DataPoint[] dataPoints = new DataPoint[4];
         Instant now = Instant.now();
         Date today = Date.from(now);
         Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-        Date twoDaysAgo = Date.from(now.minus(2,ChronoUnit.DAYS));
-        Date tomorrow = Date.from(now.plus(1,ChronoUnit.DAYS));
-        dataPoints[0] = new DataPoint(twoDaysAgo,transactionsValues.getDayExpenditure(twoDaysAgo));
-        dataPoints[1] = new DataPoint(oneDayAgo,transactionsValues.getDayExpenditure(oneDayAgo));
-        dataPoints[2] = new DataPoint(today,transactionsValues.getDayExpenditure(today));
-        dataPoints[3] = new DataPoint(tomorrow,0);
+        Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayExpenditure(twoDaysAgo));
+        dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayExpenditure(oneDayAgo));
+        dataPoints[2] = new DataPoint(today, transactionsValues.getDayExpenditure(today));
+        dataPoints[3] = new DataPoint(tomorrow, 0);
 
         return dataPoints;
 
