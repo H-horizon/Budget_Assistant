@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
@@ -42,9 +43,11 @@ public class DatePickerFragment extends DialogFragment {
         return fragment;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(TAG, "onCreateDialog(Bundle savedInstanceState) called");
+        assert getArguments() != null;
         Date date = (Date) getArguments().getSerializable(ARG_DATE);//From host fragment(s)
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -60,7 +63,7 @@ public class DatePickerFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_date, null);
 
-        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_date_date_picker);
+        mDatePicker = view.findViewById(R.id.dialog_date_date_picker);
         mDatePicker.init(year, month, day, null);
         return view;
     }
@@ -70,15 +73,13 @@ public class DatePickerFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setView(view)
                 .setTitle(R.string.date_picker_title)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int year = mDatePicker.getYear();
-                        int month = mDatePicker.getMonth();
-                        int day = mDatePicker.getDayOfMonth();
-                        Date date = new GregorianCalendar(year, month, day).getTime();
-                        sendResult(Activity.RESULT_OK, date);//Target Fragment must be set in host fragment before result is sent
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int year = mDatePicker.getYear();
+                    int month = mDatePicker.getMonth();
+                    int day = mDatePicker.getDayOfMonth();
+                    Date date = new GregorianCalendar(year, month, day).getTime();
+                    sendResult(Activity.RESULT_OK, date);
+                    //Target Fragment must be set in host fragment before result is sent
                 })
                 .create();
     }
