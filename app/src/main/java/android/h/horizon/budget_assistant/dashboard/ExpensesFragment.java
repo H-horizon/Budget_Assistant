@@ -47,7 +47,8 @@ public class ExpensesFragment extends Fragment {
         Log.d(TAG, "setDateButton called");
         Button dateButton = expenseView.findViewById(R.id.date_button);
         Date currentDate = new Date();
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat =
+                new SimpleDateFormat("dd/MM/yyyy");
         dateButton.setText(dateFormat.format(currentDate));
         dateButton.setEnabled(false);
     }
