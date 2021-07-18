@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.dashboard;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.second_layer.TransactionListActivity;
@@ -44,16 +45,16 @@ public class ExpensesFragment extends Fragment {
 
     private void setDateButton(View expenseView) {
         Log.d(TAG, "setDateButton called");
-        Button dateButton = (Button) expenseView.findViewById(R.id.date_button);
+        Button dateButton = expenseView.findViewById(R.id.date_button);
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateButton.setText(dateFormat.format(currentDate));
         dateButton.setEnabled(false);
     }
 
     private void setFoodButton(View expenseView) {
         Log.d(TAG, "setFoodButton called");
-        Button foodButton = (Button) expenseView.findViewById(R.id.food_button);
+        Button foodButton = expenseView.findViewById(R.id.food_button);
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +67,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setEducationButton(View expenseView) {
         Log.d(TAG, "setEducationButton called");
-        Button educationButton = (Button) expenseView.findViewById(R.id.education_button);
+        Button educationButton = expenseView.findViewById(R.id.education_button);
         educationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setTravelButton(View expenseView) {
         Log.d(TAG, "setTravelButton called");
-        Button travelButton = (Button) expenseView.findViewById(R.id.travel_button);
+        Button travelButton = expenseView.findViewById(R.id.travel_button);
         travelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +93,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setHealthButton(View expenseView) {
         Log.d(TAG, "setHeathButton called");
-        Button healthButton = (Button) expenseView.findViewById(R.id.health_button);
+        Button healthButton = expenseView.findViewById(R.id.health_button);
         healthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +106,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setLeisureButton(View expenseView) {
         Log.d(TAG, "setLeisureButton called");
-        Button leisureButton = (Button) expenseView.findViewById(R.id.leisure_button);
+        Button leisureButton = expenseView.findViewById(R.id.leisure_button);
         leisureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +119,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setOthersButton(View expenseView) {
         Log.d(TAG, "setOthersButton called");
-        Button othersButton = (Button) expenseView.findViewById(R.id.other_button);
+        Button othersButton = expenseView.findViewById(R.id.other_button);
         othersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +132,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setRentButton(View expenseView) {
         Log.d(TAG, "setRentButton called");
-        Button rentButton = (Button) expenseView.findViewById(R.id.rent_button);
+        Button rentButton = expenseView.findViewById(R.id.rent_button);
         rentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +145,7 @@ public class ExpensesFragment extends Fragment {
 
     private void setSubscriptionButton(View expenseView) {
         Log.d(TAG, "setSubscriptionButton called");
-        Button subscriptionButton = (Button) expenseView.findViewById(R.id.subscription_button);
+        Button subscriptionButton = expenseView.findViewById(R.id.subscription_button);
         subscriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
