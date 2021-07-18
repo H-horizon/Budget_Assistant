@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -31,7 +32,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int ALL_TIME = 0;
@@ -39,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final int THIS_WEEK = 2;
     private static final int THIS_MONTH = 3;
     private static final int THIS_YEAR = 4;
-    private int mPosition = ALL_TIME;//default value
+    private int mTimeSpinnerPosition = ALL_TIME;//default value
+    private int mTransactionSpinnerPosition = 0;
+    //String[] mTransactionCategory = getResources().getStringArray(R.array.transactions_array);
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setExpensesButton();
         setIncomeButton();
         Spinner spinner = (Spinner) findViewById(R.id.transactions_spinner);
+        spinner.setOnItemSelectedListener(new TransactionCategorySpinnerClass());
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.transactions_array, android.R.layout.simple_spinner_item);
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getMenuInflater().inflate(R.menu.activity_main, menu);
         MenuItem item = menu.findItem(R.id.time_spinner);
         Spinner spinner = (Spinner) item.getActionView();
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new TimePeriodSpinnerClass());
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.spinner_time_array, R.layout.spinner_time_list_main);
@@ -77,17 +82,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemSelected() called");
-        mPosition = position;
-        setValuesField();
+    class TimePeriodSpinnerClass implements AdapterView.OnItemSelectedListener {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+            Log.d(TAG, "onItemSelected() for Time period called");
+            mTimeSpinnerPosition = position;
+            setValuesField();
+            //Toast.makeText(v.getContext(), "Your choose :"+ position,Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.d(TAG, "onNothingSelected() called");
+    class TransactionCategorySpinnerClass implements AdapterView.OnItemSelectedListener {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+            Log.d(TAG, "onItemSelected() for Transaction Category called");
+            mTransactionSpinnerPosition = position;
+            setValuesField();
+           // Toast.makeText(v.getContext(), mTransactionCategory[position] + " chosen",
+                  //  Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -123,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private DataPoint[] createDataPointsForRevenue() {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         DataPoint[] dataPoints = new DataPoint[4];
-        switch (mPosition) {
+        switch (mTimeSpinnerPosition) {
             case ALL_TIME:
             case TODAY:
                 Instant now = Instant.now();
@@ -184,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private DataPoint[] createDataPointsForExpenditure() {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         DataPoint[] dataPoints = new DataPoint[4];
-        switch (mPosition) {
+        switch (mTimeSpinnerPosition) {
             case ALL_TIME:
             case TODAY:
                 Instant now = Instant.now();
@@ -282,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "updateUI() called");
         DecimalFormat df = new DecimalFormat("###.##");
 
-        switch (mPosition) {
+        switch (mTimeSpinnerPosition) {
             case ALL_TIME:
                 Log.d(TAG, "updateUI(): ALL_TIME");
                 updateUiAllTime(transactionsValues, revenueTextView, expenditureTextView,
