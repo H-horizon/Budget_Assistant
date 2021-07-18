@@ -257,13 +257,13 @@ public class Transactions {
     }
 
     public double getMonthRevenue(Date searchDate) {
-        Log.d(TAG, "getMonthlyRevenue() called");
+        Log.d(TAG, "getMonthRevenue() called");
         double monthlyRevenue = 0;
         updateTransactionList();
         for (Transaction transaction : mTransactionList) {
             if (isIncome(transaction) && TransactionDate.isMonthSame(searchDate,
                     transaction.getDate())) {
-                Log.d(TAG, "getMonthlyRevenue(): Increment");
+                Log.d(TAG, "getMonthRevenue(): Increment");
                 monthlyRevenue += transaction.getAmount();
             }
         }
@@ -271,13 +271,13 @@ public class Transactions {
     }
 
     public double getYearRevenue(Date searchDate) {
-        Log.d(TAG, "getYearlyRevenue() called");
+        Log.d(TAG, "getYearRevenue() called");
         double yearlyRevenue = 0;
         updateTransactionList();
         for (Transaction transaction : mTransactionList) {
             if (isIncome(transaction) && TransactionDate.isYearSame(searchDate,
                     transaction.getDate())) {
-                Log.d(TAG, "getYearlyRevenue(): Increment");
+                Log.d(TAG, "getYearRevenue(): Increment");
                 yearlyRevenue += transaction.getAmount();
             }
         }
@@ -296,6 +296,49 @@ public class Transactions {
             }
         }
         return todayExpenditure;
+    }
+
+    public double getWeekExpenditure(Date searchDate) {
+        Log.d(TAG, "getWeekExpenditure() called");
+        double weeklyExpenditure = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isExpense(transaction) && TransactionDate.isWeekSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getWeekExpenditure(): Increment");
+                weeklyExpenditure += transaction.getAmount();
+            }
+        }
+        return weeklyExpenditure;
+    }
+
+    public double getMonthExpenditure(Date searchDate) {
+        Log.d(TAG, "getMonthExpenditure() called");
+        double monthlyExpenditure = 0;
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isExpense(transaction) && TransactionDate.isMonthSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getMonthExpenditure(): Increment");
+                monthlyExpenditure += transaction.getAmount();
+            }
+        }
+        return monthlyExpenditure;
+    }
+
+    public double getYearExpenditure(Date searchDate) {
+        Log.d(TAG, "getYearExpenditure() called");
+        double yearlyExpenditure = 0;
+        updateTransactionList();
+        updateTransactionList();
+        for (Transaction transaction : mTransactionList) {
+            if (isExpense(transaction) && TransactionDate.isYearSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getYearExpenditure(): Increment");
+                yearlyExpenditure += transaction.getAmount();
+            }
+        }
+        return yearlyExpenditure;
     }
 
     private Transactions(Context context) {
