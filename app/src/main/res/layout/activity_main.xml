@@ -67,10 +67,16 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="@string/income_button" />
+
+        <Spinner
+            android:id="@+id/transactions_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/transactions_graph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

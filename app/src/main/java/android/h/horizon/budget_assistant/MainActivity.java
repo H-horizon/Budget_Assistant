@@ -50,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setValuesField();
         setExpensesButton();
         setIncomeButton();
+        Spinner spinner = (Spinner) findViewById(R.id.transactions_spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.transactions_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_time_array, R.layout.spinner_items_list_main);
+                R.array.spinner_time_array, R.layout.spinner_time_list_main);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

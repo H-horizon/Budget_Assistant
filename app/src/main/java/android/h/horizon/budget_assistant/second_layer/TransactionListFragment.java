@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -91,7 +90,7 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_time_array, R.layout.spinner_items_list_main);
+                R.array.spinner_time_array, R.layout.spinner_time_list_main);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
