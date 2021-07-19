@@ -14,14 +14,13 @@ public class TransactionListActivity extends SingleFragmentActivity {
     private static final String EXTRA_TRANSACTION_ID = "transaction_title";
     public static final String LIST = " List";
     private static final String TAG = "TransactionListActivity";
-    private String mTransactionTitle;
 
     @Override
     protected Fragment createFragment() {
         Log.d(TAG, "createFragment() called");
-        mTransactionTitle = getIntent().getStringExtra(EXTRA_TRANSACTION_ID);
-        setTitle(mTransactionTitle + LIST);
-        return TransactionListFragment.newInstance(mTransactionTitle);
+        String transactionTitle = getIntent().getStringExtra(EXTRA_TRANSACTION_ID);
+        setTitle(transactionTitle + LIST);
+        return TransactionListFragment.newInstance(transactionTitle);
     }
 
     /**

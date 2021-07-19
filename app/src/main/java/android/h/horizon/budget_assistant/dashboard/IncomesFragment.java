@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.dashboard;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.second_layer.TransactionListActivity;
@@ -41,50 +42,41 @@ public class IncomesFragment extends Fragment {
 
     private void setDateButton(View incomeView) {
         Log.d(TAG, "setDateButton called");
-        Button dateButton = (Button) incomeView.findViewById(R.id.date_button);
+        Button dateButton = incomeView.findViewById(R.id.date_button);
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat =
+                new SimpleDateFormat("dd/MM/yyyy");
         dateButton.setText(dateFormat.format(currentDate));
         dateButton.setEnabled(false);
     }
 
     private void setSalaryButton(View incomeView) {
         Log.d(TAG, "setSalaryButton called");
-        Button salaryButton = (Button) incomeView.findViewById(R.id.salary_button);
-        salaryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Salary Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), SALARY);
-                startActivity(i);
-            }
+        Button salaryButton = incomeView.findViewById(R.id.salary_button);
+        salaryButton.setOnClickListener(v -> {
+            Log.d(TAG, "Salary Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), SALARY);
+            startActivity(i);
         });
     }
 
     private void setAllowanceButton(View incomeView) {
         Log.d(TAG, "setAllowanceButton called");
-        Button allowanceButton = (Button) incomeView.findViewById(R.id.allowance_button);
-        allowanceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Allowance Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), ALLOWANCE);
-                startActivity(i);
-                //Implement RecyclerView
-            }
+        Button allowanceButton = incomeView.findViewById(R.id.allowance_button);
+        allowanceButton.setOnClickListener(v -> {
+            Log.d(TAG, "Allowance Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), ALLOWANCE);
+            startActivity(i);
         });
     }
 
     private void setOthersButton(View incomeView) {
         Log.d(TAG, "setOthersButton called");
-        Button othersButton = (Button) incomeView.findViewById(R.id.others_button);
-        othersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Others Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_INCOME);
-                startActivity(i);
-            }
+        Button othersButton = incomeView.findViewById(R.id.others_button);
+        othersButton.setOnClickListener(v -> {
+            Log.d(TAG, "Others Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_INCOME);
+            startActivity(i);
         });
     }
 

@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.third_layer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
@@ -101,7 +102,7 @@ public class TransactionPagerFragment extends Fragment {
             Log.d(TAG, "onActivityResult() requested date");
             Date date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             mTransaction.setDate(date);
             mDateButton.setText(dateFormat.format(date));
         }
@@ -109,55 +110,48 @@ public class TransactionPagerFragment extends Fragment {
 
     private UUID getTransactionIdFromArguments() {
         Log.d(TAG, "getTransactionIdFromArguments() called");
+        assert getArguments() != null;
         return (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
     }
 
     private void setDateButton(View view) {
         Log.d(TAG, "setDateButton(View view) called");
-        mDateButton = (Button) view.findViewById(R.id.date_button);
+        mDateButton = view.findViewById(R.id.date_button);
         mDateButton.setText(mTransaction.getDate().toString());
-        mDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Date button clicked");
-                FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment
-                        .newInstance(mTransaction.getDate());
-                dialog.setTargetFragment(TransactionPagerFragment.this, REQUEST_DATE);
-                dialog.show(manager, DIALOG_DATE);
-            }
+        mDateButton.setOnClickListener(v -> {
+            Log.d(TAG, "Date button clicked");
+            FragmentManager manager = getFragmentManager();
+            DatePickerFragment dialog = DatePickerFragment
+                    .newInstance(mTransaction.getDate());
+            dialog.setTargetFragment(TransactionPagerFragment.this, REQUEST_DATE);
+            assert manager != null;
+            dialog.show(manager, DIALOG_DATE);
         });
     }
 
     private void setSaveButton(View view) {
         Log.d(TAG, "setSaveButton(View view) called");
-        Button saveButton = (Button) view.findViewById(R.id.save_button);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Save Button clicked");
-                if (hasTransactionBeenSaved()) {
-                    getActivity().finish();
-                }
+        Button saveButton = view.findViewById(R.id.save_button);
+        saveButton.setOnClickListener(v -> {
+            Log.d(TAG, "Save Button clicked");
+            if (hasTransactionBeenSaved()) {
+                getActivity().finish();
             }
         });
     }
 
     private void setCancelButton(View view) {
         Log.d(TAG, "setCancelButton(View view) called");
-        Button cancelButton = (Button) view.findViewById(R.id.cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Cancel Button clicked");
-                getActivity().finish();
-            }
+        Button cancelButton = view.findViewById(R.id.cancel);
+        cancelButton.setOnClickListener(v -> {
+            Log.d(TAG, "Cancel Button clicked");
+            getActivity().finish();
         });
     }
 
     private void setDescriptionField(View view) {
         Log.d(TAG, "setDescriptionField(View view) called");
-        EditText descriptionField = (EditText) view.findViewById(R.id.description_field);
+        EditText descriptionField = view.findViewById(R.id.description_field);
         descriptionField.setText(mTransaction.getDescription());
         descriptionField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -184,7 +178,7 @@ public class TransactionPagerFragment extends Fragment {
 
     private void setAmountField(View view) {
         Log.d(TAG, "setAmountField(View view) called");
-        EditText amountField = (EditText) view.findViewById(R.id.amount_field);
+        EditText amountField = view.findViewById(R.id.amount_field);
         amountField.setText(Double.toString(mTransaction.getAmount()));
         amountField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -341,12 +335,7 @@ public class TransactionPagerFragment extends Fragment {
     private void outputToastInvalidAmountWithHandler() {
         Log.d(TAG, "outputToastInvalidAmountWithHandler() called");
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                outputToastInvalidAmount();
-            }
-        }, SHORT_DELAY);
+        handler.postDelayed(this::outputToastInvalidAmount, SHORT_DELAY);
     }
 
     @Override

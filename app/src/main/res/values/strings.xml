@@ -42,4 +42,18 @@
         <item>This Year</item>
     </string-array>
 
+    <string-array name="transactions_array">
+        <item>None</item>
+        <item>Food</item>
+        <item>Travelling</item>
+        <item>Rent</item>
+        <item>Education</item>
+        <item>Health</item>
+        <item>Subscription</item>
+        <item>Other Expenses</item>
+        <item>Salary</item>
+        <item>Allowance</item>
+        <item>Other Incomes</item>
+    </string-array>
+
 </resources>

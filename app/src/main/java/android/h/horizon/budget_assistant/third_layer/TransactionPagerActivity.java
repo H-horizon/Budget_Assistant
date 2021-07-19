@@ -8,6 +8,7 @@ import android.h.horizon.budget_assistant.transaction.TransactionContainer;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,7 +24,6 @@ import java.util.UUID;
 public class TransactionPagerActivity extends AppCompatActivity {
     private static final String EXTRA_TRANSACTION_TITLE = "transaction_title";
     private static final String TAG = "TransactionPager";
-    private ViewPager mViewPager;
     private List<Transaction> mTransactionList;
     private String mTransactionTitle;
     private static final String EXTRA_TRANSACTION_ID =
@@ -89,11 +89,12 @@ public class TransactionPagerActivity extends AppCompatActivity {
     }
 
     private void setsViewPager(UUID transactionId) {
-        Log.d(TAG, "setsViewPager(UUID transactionId) called");
-        mViewPager = (ViewPager) findViewById(R.id.activity_transaction_pager_view_pager);
+        Log.d(TAG, "setsViewPager transactionId) called");
+        ViewPager mViewPager = findViewById(R.id.activity_transaction_pager_view_pager);
         mTransactionList = TransactionContainer.get(this).getTransactions();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+            @NonNull
             @Override
             public Fragment getItem(int position) {
                 Log.d(TAG, "getItem(int position) called");

@@ -20,12 +20,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +33,8 @@ import java.util.UUID;
 /**
  * Represents the class that create a RecyclerView for a list of transactions
  */
-public class TransactionListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class TransactionListFragment extends Fragment
+        implements AdapterView.OnItemSelectedListener {
     private static final String ARG_TRANSACTION_TITLE = "transaction_title";
     private static final int REQUEST_CODE_TITLE = 0;
     private static final String TAG = "TransactionListFragment";
@@ -71,7 +72,7 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView(LayoutInflater inflater, ViewGroup container,\n" +
                 "                             Bundle savedInstanceState) called");
@@ -81,7 +82,7 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         Log.d(TAG, "onCreateOptionsMenu(Menu menu, MenuInflater inflater called)");
         inflater.inflate(R.menu.fragment_transaction_list, menu);
@@ -91,7 +92,7 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_time_array, R.layout.spinner_items_list_main);
+                R.array.spinner_time_array, R.layout.spinner_time_list_main);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -133,20 +134,21 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
             if (data == null) {
                 return;
             }
-            mTransactionTitle = TransactionPagerActivity.returnArgumentTitle(data);//Gets argument from
-            // third layer
+            mTransactionTitle = TransactionPagerActivity.returnArgumentTitle(data);
+            //Gets argument from third layer
         }
     }
 
     private void setArgumentTo_mTransactionTitle() {
         Log.d(TAG, "setArgumentTo_mTransactionTitle() called");
+        assert getArguments() != null;
         mTransactionTitle = (String) getArguments().getSerializable(ARG_TRANSACTION_TITLE);
     }
 
     private View setRecyclerView(LayoutInflater inflater, ViewGroup container) {
         Log.d(TAG, "setRecyclerView(LayoutInflater inflater, ViewGroup container) called");
         View view = inflater.inflate(R.layout.transaction_recycler_view, container, false);
-        mTransactionRecyclerView = (RecyclerView) view
+        mTransactionRecyclerView = view
                 .findViewById(R.id.transactions_recycler_view);
         mTransactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
@@ -256,7 +258,8 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
     /**
      * Represents the ViewHolder for the RecyclerView
      */
-    private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class TransactionHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         private TextView mDescriptionTextView;
         private TextView mAmountTextView;
         private TextView mDateTextView;
@@ -272,19 +275,16 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
             super(itemView);
             Log.d(TAG, "TransactionHolder(View itemView) called");
             itemView.setOnClickListener(this);
-            mDescriptionTextView = (TextView)
-                    itemView.findViewById(R.id.list_transaction_description);
-            mAmountTextView = (TextView)
-                    itemView.findViewById(R.id.list_transaction_amount);
-            mDateTextView = (TextView)
-                    itemView.findViewById(R.id.list_transaction_date);
+            mDescriptionTextView = itemView.findViewById(R.id.list_transaction_description);
+            mAmountTextView = itemView.findViewById(R.id.list_transaction_amount);
+            mDateTextView = itemView.findViewById(R.id.list_transaction_date);
 
         }
 
         /**
          * Sets the required data of a transaction on the UI
          *
-         * @param transaction
+         * @param transaction is the object that will bind to the RecyclerView
          */
         public void bindTransaction(Transaction transaction) {
             Log.d(TAG, "bindTransaction(Transaction transaction) called");
@@ -320,8 +320,9 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
             mTransactions = transactions;
         }
 
+        @NonNull
         @Override
-        public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public TransactionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             Log.d(TAG, "TransactionHolder onCreateViewHolder(ViewGroup parent, " +
                     "int viewType) called");
             View view = setViewToListFormat(parent);
@@ -329,7 +330,8 @@ public class TransactionListFragment extends Fragment implements AdapterView.OnI
         }
 
         @Override
-        public void onBindViewHolder(TransactionListFragment.TransactionHolder holder, int position) {
+        public void onBindViewHolder(@NonNull TransactionListFragment.TransactionHolder holder,
+                                     int position) {
             Log.d(TAG, "onBindViewHolder(TransactionListFragment.TransactionHolder holder, " +
                     "int position) called");
             Transaction transaction = mTransactions.get(position);

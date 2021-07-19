@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant.dashboard;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.h.horizon.budget_assistant.R;
 import android.h.horizon.budget_assistant.second_layer.TransactionListActivity;
@@ -44,114 +45,91 @@ public class ExpensesFragment extends Fragment {
 
     private void setDateButton(View expenseView) {
         Log.d(TAG, "setDateButton called");
-        Button dateButton = (Button) expenseView.findViewById(R.id.date_button);
+        Button dateButton = expenseView.findViewById(R.id.date_button);
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat =
+                new SimpleDateFormat("dd/MM/yyyy");
         dateButton.setText(dateFormat.format(currentDate));
         dateButton.setEnabled(false);
     }
 
     private void setFoodButton(View expenseView) {
         Log.d(TAG, "setFoodButton called");
-        Button foodButton = (Button) expenseView.findViewById(R.id.food_button);
-        foodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Food Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), FOOD);
-                startActivity(i);
-            }
+        Button foodButton = expenseView.findViewById(R.id.food_button);
+        foodButton.setOnClickListener(v -> {
+            Log.d(TAG, "Food Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), FOOD);
+            startActivity(i);
         });
     }
 
     private void setEducationButton(View expenseView) {
         Log.d(TAG, "setEducationButton called");
-        Button educationButton = (Button) expenseView.findViewById(R.id.education_button);
-        educationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Education Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), EDUCATION);
-                startActivity(i);
-            }
+        Button educationButton = expenseView.findViewById(R.id.education_button);
+        educationButton.setOnClickListener(v -> {
+            Log.d(TAG, "Education Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), EDUCATION);
+            startActivity(i);
         });
     }
 
     private void setTravelButton(View expenseView) {
         Log.d(TAG, "setTravelButton called");
-        Button travelButton = (Button) expenseView.findViewById(R.id.travel_button);
-        travelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Travel Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), TRAVELLING);
-                startActivity(i);
-            }
+        Button travelButton = expenseView.findViewById(R.id.travel_button);
+        travelButton.setOnClickListener(v -> {
+            Log.d(TAG, "Travel Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), TRAVELLING);
+            startActivity(i);
         });
     }
 
     private void setHealthButton(View expenseView) {
         Log.d(TAG, "setHeathButton called");
-        Button healthButton = (Button) expenseView.findViewById(R.id.health_button);
-        healthButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Health Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), HEALTH);
-                startActivity(i);
-            }
+        Button healthButton = expenseView.findViewById(R.id.health_button);
+        healthButton.setOnClickListener(v -> {
+            Log.d(TAG, "Health Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), HEALTH);
+            startActivity(i);
         });
     }
 
     private void setLeisureButton(View expenseView) {
         Log.d(TAG, "setLeisureButton called");
-        Button leisureButton = (Button) expenseView.findViewById(R.id.leisure_button);
-        leisureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Leisure Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), LEISURE);
-                startActivity(i);
-            }
+        Button leisureButton = expenseView.findViewById(R.id.leisure_button);
+        leisureButton.setOnClickListener(v -> {
+            Log.d(TAG, "Leisure Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), LEISURE);
+            startActivity(i);
         });
     }
 
     private void setOthersButton(View expenseView) {
         Log.d(TAG, "setOthersButton called");
-        Button othersButton = (Button) expenseView.findViewById(R.id.other_button);
-        othersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Others Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_EXPENSES);
-                startActivity(i);
-            }
+        Button othersButton = expenseView.findViewById(R.id.other_button);
+        othersButton.setOnClickListener(v -> {
+            Log.d(TAG, "Others Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), OTHER_EXPENSES);
+            startActivity(i);
         });
     }
 
     private void setRentButton(View expenseView) {
         Log.d(TAG, "setRentButton called");
-        Button rentButton = (Button) expenseView.findViewById(R.id.rent_button);
-        rentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Rent Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), RENT);
-                startActivity(i);
-            }
+        Button rentButton = expenseView.findViewById(R.id.rent_button);
+        rentButton.setOnClickListener(v -> {
+            Log.d(TAG, "Rent Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), RENT);
+            startActivity(i);
         });
     }
 
     private void setSubscriptionButton(View expenseView) {
         Log.d(TAG, "setSubscriptionButton called");
-        Button subscriptionButton = (Button) expenseView.findViewById(R.id.subscription_button);
-        subscriptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Subscription Button clicked");
-                Intent i = TransactionListActivity.newIntent(getActivity(), SUBSCRIPTION);
-                startActivity(i);
-            }
+        Button subscriptionButton = expenseView.findViewById(R.id.subscription_button);
+        subscriptionButton.setOnClickListener(v -> {
+            Log.d(TAG, "Subscription Button clicked");
+            Intent i = TransactionListActivity.newIntent(getActivity(), SUBSCRIPTION);
+            startActivity(i);
         });
     }
 

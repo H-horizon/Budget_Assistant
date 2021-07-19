@@ -3,7 +3,6 @@ package android.h.horizon.budget_assistant.transaction;
 import android.content.Context;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -67,17 +66,8 @@ public class Transactions {
      */
     public double getTodayRevenue() {
         Log.d(TAG, "getTodayRevenue() called");
-        double todayRevenue = 0;
-        Date currentDate = new Date();
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isIncome(transaction) && TransactionDate.isToday(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getTodayRevenue(): Increment value");
-                todayRevenue += transaction.getAmount();
-            }
-        }
-        return todayRevenue;
+        return getDayRevenue(new Date(), mTransactionList);
     }
 
     /**
@@ -86,19 +76,10 @@ public class Transactions {
      *
      * @return that week's revenue
      */
-    public double getWeeklyRevenue() {
-        Log.d(TAG, "getWeeklyRevenue() called");
-        double weeklyRevenue = 0;
-        Date currentDate = new Date();
+    public double getThisWeekRevenue() {
+        Log.d(TAG, "getThisWeekRevenue() called");
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isIncome(transaction) && TransactionDate.isWeekSame(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getWeeklyRevenue(): Increment value");
-                weeklyRevenue += transaction.getAmount();
-            }
-        }
-        return weeklyRevenue;
+        return getWeekRevenue(new Date(), mTransactionList);
     }
 
     /**
@@ -107,19 +88,10 @@ public class Transactions {
      *
      * @return that month's revenue
      */
-    public double getMonthlyRevenue() {
-        Log.d(TAG, "getMonthlyRevenue() called");
-        double monthlyRevenue = 0;
-        Date currentDate = new Date();
+    public double getThisMonthRevenue() {
+        Log.d(TAG, "getThisMonthRevenue() called");
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isIncome(transaction) && TransactionDate.isMonthSame(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getMonthlyRevenue(): Increment");
-                monthlyRevenue += transaction.getAmount();
-            }
-        }
-        return monthlyRevenue;
+        return getMonthRevenue(new Date(), mTransactionList);
     }
 
     /**
@@ -128,19 +100,10 @@ public class Transactions {
      *
      * @return that year's revenue
      */
-    public double getYearlyRevenue() {
-        Log.d(TAG, "getYearlyRevenue() called");
-        double yearlyRevenue = 0;
-        Date currentDate = new Date();
+    public double getThisYearRevenue() {
+        Log.d(TAG, "getThisYearRevenue() called");
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isIncome(transaction) && TransactionDate.isYearSame(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getYearlyRevenue(): Increment");
-                yearlyRevenue += transaction.getAmount();
-            }
-        }
-        return yearlyRevenue;
+        return getYearRevenue(new Date(), mTransactionList);
     }
 
     /**
@@ -151,17 +114,8 @@ public class Transactions {
      */
     public double getTodayExpenditure() {
         Log.d(TAG, "getTodayExpenditure() called");
-        double todayExpenditure = 0;
-        Date currentDate = new Date();
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isExpense(transaction) && TransactionDate.isToday(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getTodayExpenditure(): Increment value");
-                todayExpenditure += transaction.getAmount();
-            }
-        }
-        return todayExpenditure;
+        return getDayExpenditure(new Date(), mTransactionList);
     }
 
     /**
@@ -170,19 +124,10 @@ public class Transactions {
      *
      * @return that week's expenditure
      */
-    public double getWeeklyExpenditure() {
-        Log.d(TAG, "getWeeklyExpenditure() called");
-        double weeklyExpenditure = 0;
-        Date currentDate = new Date();
+    public double getThisWeekExpenditure() {
+        Log.d(TAG, "getThisWeekExpenditure() called");
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isExpense(transaction) && TransactionDate.isWeekSame(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getWeeklyExpenditure(): Increment");
-                weeklyExpenditure += transaction.getAmount();
-            }
-        }
-        return weeklyExpenditure;
+        return getWeekExpenditure(new Date(), mTransactionList);
     }
 
     /**
@@ -191,19 +136,10 @@ public class Transactions {
      *
      * @return that month's expenditure
      */
-    public double getMonthlyExpenditure() {
-        Log.d(TAG, "getMonthlyExpenditure() called");
-        double monthlyExpenditure = 0;
-        Date currentDate = new Date();
+    public double getThisMonthExpenditure() {
+        Log.d(TAG, "getThisMonthExpenditure() called");
         updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isExpense(transaction) && TransactionDate.isMonthSame(currentDate,
-                    transaction.getDate())) {
-                Log.d(TAG, "getMonthlyExpenditure(): Increment");
-                monthlyExpenditure += transaction.getAmount();
-            }
-        }
-        return monthlyExpenditure;
+        return getMonthExpenditure(new Date(), mTransactionList);
     }
 
     /**
@@ -212,22 +148,171 @@ public class Transactions {
      *
      * @return that year's expenditure
      */
-    public double getYearlyExpenditure() {
-        Log.d(TAG, "getYearlyExpenditure() called");
-        double yearlyExpenditure = 0;
+    public double getThisYearExpenditure() {
+        Log.d(TAG, "getThisYearExpenditure() called");
         updateTransactionList();
-        Date currentDate = new Date();
-        updateTransactionList();
-        for (Transaction transaction : mTransactionList) {
-            if (isExpense(transaction) && TransactionDate.isYearSame(currentDate,
+        return getYearExpenditure(new Date(), mTransactionList);
+    }
+
+    /**
+     * Gets the total revenue from all transactions which happened on the date specified
+     *
+     * @param searchDate      is the date specified
+     * @param transactionList is the list of transactions that the value will be processed from
+     * @return the current date's revenue
+     */
+    public double getDayRevenue(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, " getDayRevenue() called");
+        double dayRevenue = 0;
+        for (Transaction transaction : transactionList) {
+            if (isIncome(transaction) && TransactionDate.isToday(searchDate,
                     transaction.getDate())) {
-                Log.d(TAG, "getYearlyExpenditure(): Increment");
+                Log.d(TAG, " getDayRevenue(): Increment value");
+                dayRevenue += transaction.getAmount();
+            }
+        }
+        return dayRevenue;
+    }
+
+    /**
+     * Returns the revenue value for the specified week
+     *
+     * @param searchDate      is the specified week
+     * @param transactionList is the list from which the revenue value will be calculated
+     * @return that week's revenue
+     */
+    public double getWeekRevenue(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getWeekRevenue() called");
+        double weeklyRevenue = 0;
+        for (Transaction transaction : transactionList) {
+            if (isIncome(transaction) && TransactionDate.isWeekSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getWeekRevenue(): Increment value");
+                weeklyRevenue += transaction.getAmount();
+            }
+        }
+        return weeklyRevenue;
+    }
+
+    /**
+     * Returns the revenue value for a specified month
+     *
+     * @param searchDate      is the specified month
+     * @param transactionList is the list from which the revenue will be calculated
+     * @return that month's revenue
+     */
+    public double getMonthRevenue(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getMonthRevenue() called");
+        double monthlyRevenue = 0;
+        for (Transaction transaction : transactionList) {
+            if (isIncome(transaction) && TransactionDate.isMonthSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getMonthRevenue(): Increment");
+                monthlyRevenue += transaction.getAmount();
+            }
+        }
+        return monthlyRevenue;
+    }
+
+    /**
+     * Returns the revenue value for the specified year
+     *
+     * @param searchDate      is the specified year
+     * @param transactionList is the list from which the revenue will be calculated
+     * @return that year's revenue
+     */
+    public double getYearRevenue(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getYearRevenue() called");
+        double yearlyRevenue = 0;
+        for (Transaction transaction : transactionList) {
+            if (isIncome(transaction) && TransactionDate.isYearSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getYearRevenue(): Increment");
+                yearlyRevenue += transaction.getAmount();
+            }
+        }
+        return yearlyRevenue;
+    }
+
+    /**
+     * Returns the expenditure value for the specified day
+     *
+     * @param searchDate      is the specified day
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that day's expenditure
+     */
+    public double getDayExpenditure(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getDayExpenditure() called");
+        double todayExpenditure = 0;
+        for (Transaction transaction : transactionList) {
+            if (isExpense(transaction) && TransactionDate.isToday(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getDayExpenditure(): Increment value");
+                todayExpenditure += transaction.getAmount();
+            }
+        }
+        return todayExpenditure;
+    }
+
+    /**
+     * Returns the expenditure value for the specified week
+     *
+     * @param searchDate      is the specified week
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that week's expenditure
+     */
+    public double getWeekExpenditure(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getWeekExpenditure() called");
+        double weeklyExpenditure = 0;
+        for (Transaction transaction : transactionList) {
+            if (isExpense(transaction) && TransactionDate.isWeekSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getWeekExpenditure(): Increment");
+                weeklyExpenditure += transaction.getAmount();
+            }
+        }
+        return weeklyExpenditure;
+    }
+
+    /**
+     * Returns the expenditure value for the specified month
+     *
+     * @param searchDate      is the specified month
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that month's expenditure
+     */
+    public double getMonthExpenditure(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getMonthExpenditure() called");
+        double monthlyExpenditure = 0;
+        for (Transaction transaction : transactionList) {
+            if (isExpense(transaction) && TransactionDate.isMonthSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getMonthExpenditure(): Increment");
+                monthlyExpenditure += transaction.getAmount();
+            }
+        }
+        return monthlyExpenditure;
+    }
+
+    /**
+     * Returns the expenditure value for the specified year
+     *
+     * @param searchDate      is the specified year
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that year's expenditure
+     */
+    public double getYearExpenditure(Date searchDate, List<Transaction> transactionList) {
+        Log.d(TAG, "getYearExpenditure() called");
+        double yearlyExpenditure = 0;
+        for (Transaction transaction : transactionList) {
+            if (isExpense(transaction) && TransactionDate.isYearSame(searchDate,
+                    transaction.getDate())) {
+                Log.d(TAG, "getYearExpenditure(): Increment");
                 yearlyExpenditure += transaction.getAmount();
             }
         }
         return yearlyExpenditure;
     }
-
 
     private Transactions(Context context) {
         mRevenue = 0.0;
@@ -255,7 +340,7 @@ public class Transactions {
         mTransactionList = mTransactionContainer.getTransactions();
     }
 
-    private boolean isExpense(Transaction transaction) {
+    public boolean isExpense(Transaction transaction) {
         Log.d(TAG, "isExpense(Transaction transaction) called");
         return transaction.getTitle().equals(FOOD) ||
                 transaction.getTitle().equals(TRAVELLING) ||
@@ -267,7 +352,7 @@ public class Transactions {
                 transaction.getTitle().equals(OTHER_EXPENSES);
     }
 
-    private boolean isIncome(Transaction transaction) {
+    public boolean isIncome(Transaction transaction) {
         Log.d(TAG, "isIncome(Transaction transaction) called");
         return transaction.getTitle().equals(SALARY) ||
                 transaction.getTitle().equals(ALLOWANCE) ||
