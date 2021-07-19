@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTransactionSpinner() {
+        Log.d(TAG, "setTransactionSpinner() called");
         Spinner spinner = findViewById(R.id.transactions_spinner);
         spinner.setOnItemSelectedListener(new TransactionCategorySpinnerClass());
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -150,10 +151,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTransactionCategory() {
+        Log.d(TAG, "setTransactionCategory() called");
         mTransactionCategory = getResources().getStringArray(R.array.transactions_array);
     }
 
     private void setTimePeriodSpinner(MenuItem item) {
+        Log.d(TAG, "setTimePeriodSpinner(MenuItem item) called");
         Spinner spinner = (Spinner) item.getActionView();
         spinner.setOnItemSelectedListener(new TimePeriodSpinnerClass());
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -300,7 +303,8 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createGraph() {//Should be called from update ui
+    private void createGraph() {
+        Log.d(TAG, "createGraph() called");
         GraphView transactionGraph = findViewById(R.id.transactions_graph);
         transactionGraph.removeAllSeries();//remove previous data
         SimpleDateFormat simpleDateFormat;
@@ -313,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SimpleDateFormat")
     @NonNull
     private SimpleDateFormat getSimpleDateFormat() {
+        Log.d(TAG, "getSimpleDateFormat() called");
         SimpleDateFormat simpleDateFormat;
         switch (mTimeSpinnerPosition) {
             case TODAY:
@@ -331,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseGraphView(GraphView transactionGraph, SimpleDateFormat simpleDateFormat) {
+        Log.d(TAG, "initialiseGraphView() called");
         transactionGraph.getGridLabelRenderer().setLabelFormatter(
                 new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
         transactionGraph.getGridLabelRenderer().setNumHorizontalLabels(5);
@@ -340,6 +346,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setGraphs(GraphView transactionGraph) {
+        Log.d(TAG, "setGraphs() called");
         if (mTransactionSpinnerPosition == 0) {
             setRevenueLineGraph(transactionGraph);
             setExpenditureLineGraph(transactionGraph);
@@ -350,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setRevenueLineGraph(GraphView transactionGraph) {
+        Log.d(TAG, "setRevenueLineGraph() called");
         LineGraphSeries<DataPoint> revenueLineSeries = new LineGraphSeries<>(new DataPoint[0]);
         revenueLineSeries.resetData(createDataPointsForRevenue());
         revenueLineSeries.setColor(Color.GREEN);
@@ -358,6 +366,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setExpenditureLineGraph(GraphView transactionGraph) {
+        Log.d(TAG, "setExpenditureLineGraph() called");
         LineGraphSeries<DataPoint> expenditureLineSeries = new LineGraphSeries<>(new DataPoint[0]);
         expenditureLineSeries.resetData(createDataPointsForExpenditure());
         expenditureLineSeries.setColor(Color.RED);
@@ -366,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setCategoryBarChart(GraphView transactionGraph) {
+        Log.d(TAG, "setCategoryBarChart() called");
         BarGraphSeries<DataPoint> categoryBarChart = new BarGraphSeries<>(new DataPoint[0]);
         categoryBarChart.resetData(createDataPointsForBarChart());
         transactionGraph.addSeries(categoryBarChart);
@@ -373,6 +383,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private DataPoint[] createDataPointsForRevenue() {
+        Log.d(TAG, "createDataPointsForRevenue() called");
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
         List<Transaction> transactions = transactionContainer.getTransactions();
@@ -385,6 +396,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private DataPoint[] createDataPointsForExpenditure() {
+        Log.d(TAG, "createDataPointsForExpenditure() called");
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
         List<Transaction> transactions = transactionContainer.getTransactions();
@@ -397,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private DataPoint[] createDataPointsForBarChart() {
+        Log.d(TAG, "createDataPointsForBarChart() called");
         DataPoint[] dataPoints = new DataPoint[4];
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
@@ -411,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setDataPointsForBarChart(DataPoint[] dataPoints, Transactions transactionsValues,
                                           List<Transaction> transactions, int position) {
+        Log.d(TAG, "setDataPointsForBarChart() called");
         if (mTransactionSpinnerPosition > NONE_INDEX && mTransactionSpinnerPosition <=
                 LAST_EXPENSE_INDEX) {
             setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
@@ -424,6 +438,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForRevenue(Transactions transactionsValues,
                                          List<Transaction> transactions,
                                          DataPoint[] dataPoints, int position) {
+        Log.d(TAG, "setDataPointsForRevenue() called");
         switch (position) {
             case TODAY:
                 setDataPointsForTodayRevenue(transactionsValues, transactions, dataPoints);
@@ -439,7 +454,7 @@ public class MainActivity extends AppCompatActivity {
                 setDataPointsForThisYearRevenue(transactionsValues, transactions, dataPoints);
                 break;
             default:
-                //Add log here
+                Log.d(TAG, "Invalid TimePeriodSpinner index");
                 break;
 
         }
@@ -449,6 +464,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForTodayRevenue(Transactions transactionsValues,
                                               List<Transaction> transactions,
                                               DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForTodayRevenue() called");
         Instant now = Instant.now();
         Date today = Date.from(now);
         Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
@@ -467,6 +483,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisWeekRevenue(Transactions transactionsValues,
                                                  List<Transaction> transactions,
                                                  DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisWeekRevenue() called");
         Instant currentWeek = Instant.now();
         Date thisWeek = Date.from(currentWeek);
         Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
@@ -485,6 +502,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisMonthRevenue(Transactions transactionsValues,
                                                   List<Transaction> transactions,
                                                   DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisMonthRevenue() called");
         Instant currentMonth = Instant.now();
         Date thisMonth = Date.from(currentMonth);
         Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
@@ -503,6 +521,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisYearRevenue(Transactions transactionsValues,
                                                  List<Transaction> transactions,
                                                  DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisYearRevenue() called");
         Instant currentYear = Instant.now();
         Date thisYear = Date.from(currentYear);
         Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
@@ -521,6 +540,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForExpenditure(Transactions transactionsValues,
                                              List<Transaction> transactions,
                                              DataPoint[] dataPoints, int position) {
+        Log.d(TAG, "setDataPointsForExpenditure() called");
         switch (position) {
             case TODAY:
                 setDataPointForTodayExpenditure(transactionsValues, transactions, dataPoints);
@@ -536,7 +556,7 @@ public class MainActivity extends AppCompatActivity {
                 setDataPointsForThisYearExpenditure(transactionsValues, transactions, dataPoints);
                 break;
             default:
-                //Add log here
+                Log.d(TAG, "Invalid TransactionCategorySpinner index");
                 break;
         }
     }
@@ -545,6 +565,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointForTodayExpenditure(Transactions transactionsValues,
                                                  List<Transaction> transactions,
                                                  DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointForTodayExpenditure() called");
         Instant now = Instant.now();
         Date today = Date.from(now);
         Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
@@ -563,6 +584,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisWeekExpenditure(Transactions transactionsValues,
                                                      List<Transaction> transactions,
                                                      DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisWeekExpenditure() called");
         Instant currentWeek = Instant.now();
         Date thisWeek = Date.from(currentWeek);
         Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
@@ -581,6 +603,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisMonthExpenditure(Transactions transactionsValues,
                                                       List<Transaction> transactions,
                                                       DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisMonthExpenditure() called");
         Instant currentMonth = Instant.now();
         Date thisMonth = Date.from(currentMonth);
         Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
@@ -599,6 +622,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDataPointsForThisYearExpenditure(Transactions transactionsValues,
                                                      List<Transaction> transactions,
                                                      DataPoint[] dataPoints) {
+        Log.d(TAG, "setDataPointsForThisYearExpenditure() called");
         Instant currentYear = Instant.now();
         Date thisYear = Date.from(currentYear);
         Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
