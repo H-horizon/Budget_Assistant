@@ -1,5 +1,6 @@
 package android.h.horizon.budget_assistant;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int THIS_WEEK = 2;
     private static final int THIS_MONTH = 3;
     private static final int THIS_YEAR = 4;
+    public static final int NONE_INDEX = 0;
+    public static final int LAST_EXPENSE_INDEX = 7;
+    public static final int LAST_INCOME_INDEX = 10;
     private int mTimeSpinnerPosition = ALL_TIME;//default value
-    private int mTransactionSpinnerPosition = 0;
+    private int mTransactionSpinnerPosition = NONE_INDEX;
     String[] mTransactionCategory;
 
 
@@ -60,17 +64,8 @@ public class MainActivity extends AppCompatActivity {
         setValuesField();
         setExpensesButton();
         setIncomeButton();
-        Spinner spinner = findViewById(R.id.transactions_spinner);
-        spinner.setOnItemSelectedListener(new TransactionCategorySpinnerClass());
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.transactions_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-        mTransactionCategory = getResources().getStringArray(R.array.transactions_array);
+        setTransactionSpinner();
+        setTransactionCategory();
     }
 
     @Override
@@ -78,15 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreateOptionsMenu(Menu menu) called");
         getMenuInflater().inflate(R.menu.activity_main, menu);
         MenuItem item = menu.findItem(R.id.time_spinner);
-        Spinner spinner = (Spinner) item.getActionView();
-        spinner.setOnItemSelectedListener(new TimePeriodSpinnerClass());
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_time_array, R.layout.spinner_time_list_main);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
+        setTimePeriodSpinner(item);
         return true;
     }
 
@@ -96,12 +83,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onItemSelected() for Time period called");
             mTimeSpinnerPosition = position;
             setValuesField();
-            //Toast.makeText(v.getContext(), "Your choose :"+ position,Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
+            //Intentionally left blank
         }
     }
 
@@ -117,161 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private DataPoint[] createDataPointsForBarChart() {
-        DataPoint[] dataPoints = new DataPoint[4];
-        Transactions transactionsValues = Transactions.get(MainActivity.this);
-        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
-        List<Transaction> transactions = transactionContainer.
-                getTransactions(mTransactionCategory[mTransactionSpinnerPosition]);
-        int position = mTimeSpinnerPosition;
-        if (mTransactionSpinnerPosition > 0 && mTransactionSpinnerPosition <= 7) {
-            setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
-        } else if (mTransactionSpinnerPosition > 7 && mTransactionSpinnerPosition <= 10) {
-            setDataPointsForRevenue(transactionsValues, transactions, dataPoints, position);
-        }
-        return dataPoints;
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private DataPoint[] createDataPointsForRevenue() {
-        Transactions transactionsValues = Transactions.get(MainActivity.this);
-        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
-        List<Transaction> transactions = transactionContainer.getTransactions();
-        DataPoint[] dataPoints = new DataPoint[4];
-        int position = mTimeSpinnerPosition;
-        setDataPointsForRevenue(transactionsValues, transactions, dataPoints, position);
-        return dataPoints;
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setDataPointsForRevenue(Transactions transactionsValues,
-                                         List<Transaction> transactions,
-                                         DataPoint[] dataPoints, int position) {
-        switch (position) {
-            case TODAY:
-                Instant now = Instant.now();
-                Date today = Date.from(now);
-                Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-                Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
-                Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayRevenue(twoDaysAgo, transactions));
-                dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayRevenue(oneDayAgo, transactions));
-                dataPoints[2] = new DataPoint(today, transactionsValues.getDayRevenue(today, transactions));
-                dataPoints[3] = new DataPoint(tomorrow, 0);
-                break;
-            case THIS_WEEK:
-                Instant currentWeek = Instant.now();
-                Date thisWeek = Date.from(currentWeek);
-                Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
-                Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
-                Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekRevenue(twoWeeksAgo, transactions));
-                dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekRevenue(oneWeekAgo, transactions));
-                dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekRevenue(thisWeek, transactions));
-                dataPoints[3] = new DataPoint(nextWeek, 0);
-                break;
-            case THIS_MONTH:
-                Instant currentMonth = Instant.now();
-                Date thisMonth = Date.from(currentMonth);
-                Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
-                Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
-                Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthRevenue(twoMonthsAgo, transactions));
-                dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthRevenue(oneMonthAgo, transactions));
-                dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthRevenue(thisMonth, transactions));
-                dataPoints[3] = new DataPoint(nextMonth, 0);
-                break;
-
-            case ALL_TIME:
-            case THIS_YEAR:
-                Instant currentYear = Instant.now();
-                Date thisYear = Date.from(currentYear);
-                Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
-                Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
-                Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearRevenue(twoYearsAgo, transactions));
-                dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearRevenue(oneYearAgo, transactions));
-                dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearRevenue(thisYear, transactions));
-                dataPoints[3] = new DataPoint(nextYear, 0);
-                break;
-            default:
-                //Add log here
-                break;
-
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private DataPoint[] createDataPointsForExpenditure() {
-        Transactions transactionsValues = Transactions.get(MainActivity.this);
-        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
-        List<Transaction> transactions = transactionContainer.getTransactions();
-        DataPoint[] dataPoints = new DataPoint[4];
-        int position = mTimeSpinnerPosition;
-        setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
-        return dataPoints;
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setDataPointsForExpenditure(Transactions transactionsValues, List<Transaction> transactions, DataPoint[] dataPoints, int position) {
-        switch (position) {
-            case TODAY:
-                Instant now = Instant.now();
-                Date today = Date.from(now);
-                Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-                Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
-                Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayExpenditure(twoDaysAgo, transactions));
-                dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayExpenditure(oneDayAgo, transactions));
-                dataPoints[2] = new DataPoint(today, transactionsValues.getDayExpenditure(today, transactions));
-                dataPoints[3] = new DataPoint(tomorrow, 0);
-                break;
-            case THIS_WEEK:
-                Instant currentWeek = Instant.now();
-                Date thisWeek = Date.from(currentWeek);
-                Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
-                Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
-                Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekExpenditure(twoWeeksAgo, transactions));
-                dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekExpenditure(oneWeekAgo, transactions));
-                dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekExpenditure(thisWeek, transactions));
-                dataPoints[3] = new DataPoint(nextWeek, 0);
-                break;
-            case THIS_MONTH:
-                Instant currentMonth = Instant.now();
-                Date thisMonth = Date.from(currentMonth);
-                Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
-                Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
-                Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthExpenditure(twoMonthsAgo, transactions));
-                dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthExpenditure(oneMonthAgo, transactions));
-                dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthExpenditure(thisMonth, transactions));
-                dataPoints[3] = new DataPoint(nextMonth, 0);
-                break;
-
-            case ALL_TIME:
-            case THIS_YEAR:
-                Instant currentYear = Instant.now();
-                Date thisYear = Date.from(currentYear);
-                Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
-                Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
-                Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
-                dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearExpenditure(twoYearsAgo, transactions));
-                dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearExpenditure(oneYearAgo, transactions));
-                dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearExpenditure(thisYear, transactions));
-                dataPoints[3] = new DataPoint(nextYear, 0);
-                break;
-            default:
-                //Add log here
-                break;
+            //Intentionally left blank
         }
     }
 
@@ -303,6 +135,34 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this, IncomesActivity.class);
             startActivity(i);
         });
+    }
+
+    private void setTransactionSpinner() {
+        Spinner spinner = findViewById(R.id.transactions_spinner);
+        spinner.setOnItemSelectedListener(new TransactionCategorySpinnerClass());
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.transactions_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+    }
+
+    private void setTransactionCategory() {
+        mTransactionCategory = getResources().getStringArray(R.array.transactions_array);
+    }
+
+    private void setTimePeriodSpinner(MenuItem item) {
+        Spinner spinner = (Spinner) item.getActionView();
+        spinner.setOnItemSelectedListener(new TimePeriodSpinnerClass());
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner_time_array, R.layout.spinner_time_list_main);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -444,6 +304,16 @@ public class MainActivity extends AppCompatActivity {
         GraphView transactionGraph = findViewById(R.id.transactions_graph);
         transactionGraph.removeAllSeries();//remove previous data
         SimpleDateFormat simpleDateFormat;
+        simpleDateFormat = getSimpleDateFormat();
+        initialiseGraphView(transactionGraph, simpleDateFormat);
+        setGraphs(transactionGraph);
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    @NonNull
+    private SimpleDateFormat getSimpleDateFormat() {
+        SimpleDateFormat simpleDateFormat;
         switch (mTimeSpinnerPosition) {
             case TODAY:
             case THIS_WEEK:
@@ -457,31 +327,290 @@ public class MainActivity extends AppCompatActivity {
             default:
                 simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");//dummy format
         }
+        return simpleDateFormat;
+    }
+
+    private void initialiseGraphView(GraphView transactionGraph, SimpleDateFormat simpleDateFormat) {
         transactionGraph.getGridLabelRenderer().setLabelFormatter(
                 new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
         transactionGraph.getGridLabelRenderer().setNumHorizontalLabels(5);
         transactionGraph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
         transactionGraph.getViewport().setDrawBorder(true);
+    }
 
-        //set revenue line graph
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setGraphs(GraphView transactionGraph) {
         if (mTransactionSpinnerPosition == 0) {
-            LineGraphSeries<DataPoint> revenueLineSeries = new LineGraphSeries<>(new DataPoint[0]);
-            revenueLineSeries.resetData(createDataPointsForRevenue());
-            revenueLineSeries.setColor(Color.GREEN);
-            transactionGraph.addSeries(revenueLineSeries);
-
-            // set Expenditure line graph
-            LineGraphSeries<DataPoint> expenditureLineSeries = new LineGraphSeries<>(new DataPoint[0]);
-            expenditureLineSeries.resetData(createDataPointsForExpenditure());
-            expenditureLineSeries.setColor(Color.RED);
-            transactionGraph.addSeries(expenditureLineSeries);
+            setRevenueLineGraph(transactionGraph);
+            setExpenditureLineGraph(transactionGraph);
         } else if (mTransactionSpinnerPosition > 0 && mTransactionSpinnerPosition <= 10) {
-            // set category bar chart
-            BarGraphSeries<DataPoint> categoryBarChart = new BarGraphSeries<>(new DataPoint[0]);
-            categoryBarChart.resetData(createDataPointsForBarChart());
-            transactionGraph.addSeries(categoryBarChart);
+            setCategoryBarChart(transactionGraph);
         }
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setRevenueLineGraph(GraphView transactionGraph) {
+        LineGraphSeries<DataPoint> revenueLineSeries = new LineGraphSeries<>(new DataPoint[0]);
+        revenueLineSeries.resetData(createDataPointsForRevenue());
+        revenueLineSeries.setColor(Color.GREEN);
+        transactionGraph.addSeries(revenueLineSeries);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setExpenditureLineGraph(GraphView transactionGraph) {
+        LineGraphSeries<DataPoint> expenditureLineSeries = new LineGraphSeries<>(new DataPoint[0]);
+        expenditureLineSeries.resetData(createDataPointsForExpenditure());
+        expenditureLineSeries.setColor(Color.RED);
+        transactionGraph.addSeries(expenditureLineSeries);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setCategoryBarChart(GraphView transactionGraph) {
+        BarGraphSeries<DataPoint> categoryBarChart = new BarGraphSeries<>(new DataPoint[0]);
+        categoryBarChart.resetData(createDataPointsForBarChart());
+        transactionGraph.addSeries(categoryBarChart);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private DataPoint[] createDataPointsForRevenue() {
+        Transactions transactionsValues = Transactions.get(MainActivity.this);
+        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
+        List<Transaction> transactions = transactionContainer.getTransactions();
+        DataPoint[] dataPoints = new DataPoint[4];
+        int position = mTimeSpinnerPosition;
+        setDataPointsForRevenue(transactionsValues, transactions, dataPoints, position);
+        return dataPoints;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private DataPoint[] createDataPointsForExpenditure() {
+        Transactions transactionsValues = Transactions.get(MainActivity.this);
+        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
+        List<Transaction> transactions = transactionContainer.getTransactions();
+        DataPoint[] dataPoints = new DataPoint[4];
+        int position = mTimeSpinnerPosition;
+        setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
+        return dataPoints;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private DataPoint[] createDataPointsForBarChart() {
+        DataPoint[] dataPoints = new DataPoint[4];
+        Transactions transactionsValues = Transactions.get(MainActivity.this);
+        TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
+        List<Transaction> transactions = transactionContainer.
+                getTransactions(mTransactionCategory[mTransactionSpinnerPosition]);
+        int position = mTimeSpinnerPosition;
+        setDataPointsForBarChart(dataPoints, transactionsValues, transactions, position);
+        return dataPoints;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForBarChart(DataPoint[] dataPoints, Transactions transactionsValues,
+                                          List<Transaction> transactions, int position) {
+        if (mTransactionSpinnerPosition > NONE_INDEX && mTransactionSpinnerPosition <=
+                LAST_EXPENSE_INDEX) {
+            setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
+        } else if (mTransactionSpinnerPosition > LAST_EXPENSE_INDEX
+                && mTransactionSpinnerPosition <= LAST_INCOME_INDEX) {
+            setDataPointsForRevenue(transactionsValues, transactions, dataPoints, position);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForRevenue(Transactions transactionsValues,
+                                         List<Transaction> transactions,
+                                         DataPoint[] dataPoints, int position) {
+        switch (position) {
+            case TODAY:
+                setDataPointsForTodayRevenue(transactionsValues, transactions, dataPoints);
+                break;
+            case THIS_WEEK:
+                setDataPointsForThisWeekRevenue(transactionsValues, transactions, dataPoints);
+                break;
+            case THIS_MONTH:
+                setDataPointsForThisMonthRevenue(transactionsValues, transactions, dataPoints);
+                break;
+            case ALL_TIME:
+            case THIS_YEAR:
+                setDataPointsForThisYearRevenue(transactionsValues, transactions, dataPoints);
+                break;
+            default:
+                //Add log here
+                break;
+
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForTodayRevenue(Transactions transactionsValues,
+                                              List<Transaction> transactions,
+                                              DataPoint[] dataPoints) {
+        Instant now = Instant.now();
+        Date today = Date.from(now);
+        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayRevenue(twoDaysAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayRevenue(oneDayAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(today, transactionsValues.getDayRevenue(today,
+                transactions));
+        dataPoints[3] = new DataPoint(tomorrow, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisWeekRevenue(Transactions transactionsValues,
+                                                 List<Transaction> transactions,
+                                                 DataPoint[] dataPoints) {
+        Instant currentWeek = Instant.now();
+        Date thisWeek = Date.from(currentWeek);
+        Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
+        Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
+        Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekRevenue(twoWeeksAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekRevenue(oneWeekAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekRevenue(thisWeek,
+                transactions));
+        dataPoints[3] = new DataPoint(nextWeek, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisMonthRevenue(Transactions transactionsValues,
+                                                  List<Transaction> transactions,
+                                                  DataPoint[] dataPoints) {
+        Instant currentMonth = Instant.now();
+        Date thisMonth = Date.from(currentMonth);
+        Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
+        Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
+        Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthRevenue(twoMonthsAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthRevenue(oneMonthAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthRevenue(thisMonth,
+                transactions));
+        dataPoints[3] = new DataPoint(nextMonth, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisYearRevenue(Transactions transactionsValues,
+                                                 List<Transaction> transactions,
+                                                 DataPoint[] dataPoints) {
+        Instant currentYear = Instant.now();
+        Date thisYear = Date.from(currentYear);
+        Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
+        Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
+        Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearRevenue(twoYearsAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearRevenue(oneYearAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearRevenue(thisYear,
+                transactions));
+        dataPoints[3] = new DataPoint(nextYear, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForExpenditure(Transactions transactionsValues,
+                                             List<Transaction> transactions,
+                                             DataPoint[] dataPoints, int position) {
+        switch (position) {
+            case TODAY:
+                setDataPointForTodayExpenditure(transactionsValues, transactions, dataPoints);
+                break;
+            case THIS_WEEK:
+                setDataPointsForThisWeekExpenditure(transactionsValues, transactions, dataPoints);
+                break;
+            case THIS_MONTH:
+                setDataPointsForThisMonthExpenditure(transactionsValues, transactions, dataPoints);
+                break;
+            case ALL_TIME:
+            case THIS_YEAR:
+                setDataPointsForThisYearExpenditure(transactionsValues, transactions, dataPoints);
+                break;
+            default:
+                //Add log here
+                break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointForTodayExpenditure(Transactions transactionsValues,
+                                                 List<Transaction> transactions,
+                                                 DataPoint[] dataPoints) {
+        Instant now = Instant.now();
+        Date today = Date.from(now);
+        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayExpenditure(twoDaysAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayExpenditure(oneDayAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(today, transactionsValues.getDayExpenditure(today,
+                transactions));
+        dataPoints[3] = new DataPoint(tomorrow, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisWeekExpenditure(Transactions transactionsValues,
+                                                     List<Transaction> transactions,
+                                                     DataPoint[] dataPoints) {
+        Instant currentWeek = Instant.now();
+        Date thisWeek = Date.from(currentWeek);
+        Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
+        Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
+        Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekExpenditure(twoWeeksAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekExpenditure(oneWeekAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekExpenditure(thisWeek,
+                transactions));
+        dataPoints[3] = new DataPoint(nextWeek, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisMonthExpenditure(Transactions transactionsValues,
+                                                      List<Transaction> transactions,
+                                                      DataPoint[] dataPoints) {
+        Instant currentMonth = Instant.now();
+        Date thisMonth = Date.from(currentMonth);
+        Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
+        Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
+        Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthExpenditure(
+                twoMonthsAgo, transactions));
+        dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthExpenditure(
+                oneMonthAgo, transactions));
+        dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthExpenditure(
+                thisMonth, transactions));
+        dataPoints[3] = new DataPoint(nextMonth, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataPointsForThisYearExpenditure(Transactions transactionsValues,
+                                                     List<Transaction> transactions,
+                                                     DataPoint[] dataPoints) {
+        Instant currentYear = Instant.now();
+        Date thisYear = Date.from(currentYear);
+        Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
+        Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
+        Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearExpenditure(twoYearsAgo,
+                transactions));
+        dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearExpenditure(oneYearAgo,
+                transactions));
+        dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearExpenditure(thisYear,
+                transactions));
+        dataPoints[3] = new DataPoint(nextYear, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
