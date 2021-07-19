@@ -154,6 +154,13 @@ public class Transactions {
         return getYearExpenditure(new Date(), mTransactionList);
     }
 
+    /**
+     * Gets the total revenue from all transactions which happened on the date specified
+     *
+     * @param searchDate      is the date specified
+     * @param transactionList is the list of transactions that the value will be processed from
+     * @return the current date's revenue
+     */
     public double getDayRevenue(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, " getDayRevenue() called");
         double dayRevenue = 0;
@@ -167,6 +174,13 @@ public class Transactions {
         return dayRevenue;
     }
 
+    /**
+     * Returns the revenue value for the specified week
+     *
+     * @param searchDate      is the specified week
+     * @param transactionList is the list from which the revenue value will be calculated
+     * @return that week's revenue
+     */
     public double getWeekRevenue(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getWeekRevenue() called");
         double weeklyRevenue = 0;
@@ -180,6 +194,13 @@ public class Transactions {
         return weeklyRevenue;
     }
 
+    /**
+     * Returns the revenue value for a specified month
+     *
+     * @param searchDate      is the specified month
+     * @param transactionList is the list from which the revenue will be calculated
+     * @return that month's revenue
+     */
     public double getMonthRevenue(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getMonthRevenue() called");
         double monthlyRevenue = 0;
@@ -193,6 +214,13 @@ public class Transactions {
         return monthlyRevenue;
     }
 
+    /**
+     * Returns the revenue value for the specified year
+     *
+     * @param searchDate      is the specified year
+     * @param transactionList is the list from which the revenue will be calculated
+     * @return that year's revenue
+     */
     public double getYearRevenue(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getYearRevenue() called");
         double yearlyRevenue = 0;
@@ -206,6 +234,13 @@ public class Transactions {
         return yearlyRevenue;
     }
 
+    /**
+     * Returns the expenditure value for the specified day
+     *
+     * @param searchDate      is the specified day
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that day's expenditure
+     */
     public double getDayExpenditure(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getDayExpenditure() called");
         double todayExpenditure = 0;
@@ -219,6 +254,13 @@ public class Transactions {
         return todayExpenditure;
     }
 
+    /**
+     * Returns the expenditure value for the specified week
+     *
+     * @param searchDate      is the specified week
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that week's expenditure
+     */
     public double getWeekExpenditure(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getWeekExpenditure() called");
         double weeklyExpenditure = 0;
@@ -232,6 +274,13 @@ public class Transactions {
         return weeklyExpenditure;
     }
 
+    /**
+     * Returns the expenditure value for the specified month
+     *
+     * @param searchDate      is the specified month
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that month's expenditure
+     */
     public double getMonthExpenditure(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getMonthExpenditure() called");
         double monthlyExpenditure = 0;
@@ -245,6 +294,13 @@ public class Transactions {
         return monthlyExpenditure;
     }
 
+    /**
+     * Returns the expenditure value for the specified year
+     *
+     * @param searchDate      is the specified year
+     * @param transactionList is the list from which the expenditure value will be calculated
+     * @return that year's expenditure
+     */
     public double getYearExpenditure(Date searchDate, List<Transaction> transactionList) {
         Log.d(TAG, "getYearExpenditure() called");
         double yearlyExpenditure = 0;
