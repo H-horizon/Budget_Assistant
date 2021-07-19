@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
     public static final int NONE_INDEX = 0;
     public static final int LAST_EXPENSE_INDEX = 7;
     public static final int LAST_INCOME_INDEX = 10;
+    public static final int NUM_HORIZONTAL_LABELS = 5;
+    public static final int NUMBER_OF_DATA_POINTS = 4;
+    public static final int ONE_DAY = 1;
+    public static final int ONE_WEEK = 7;
+    public static final int ONE_MONTH = 30;
+    public static final int ONE_YEAR = 365;
     private int mTimeSpinnerPosition = ALL_TIME;//default value
     private int mTransactionSpinnerPosition = NONE_INDEX;
     String[] mTransactionCategory;
@@ -335,11 +341,12 @@ public class MainActivity extends AppCompatActivity {
         return simpleDateFormat;
     }
 
-    private void initialiseGraphView(GraphView transactionGraph, SimpleDateFormat simpleDateFormat) {
+    private void initialiseGraphView(GraphView transactionGraph,
+                                     SimpleDateFormat simpleDateFormat) {
         Log.d(TAG, "initialiseGraphView() called");
         transactionGraph.getGridLabelRenderer().setLabelFormatter(
                 new DateAsXAxisLabelFormatter(MainActivity.this, simpleDateFormat));
-        transactionGraph.getGridLabelRenderer().setNumHorizontalLabels(5);
+        transactionGraph.getGridLabelRenderer().setNumHorizontalLabels(NUM_HORIZONTAL_LABELS);
         transactionGraph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
         transactionGraph.getViewport().setDrawBorder(true);
     }
@@ -347,10 +354,11 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setGraphs(GraphView transactionGraph) {
         Log.d(TAG, "setGraphs() called");
-        if (mTransactionSpinnerPosition == 0) {
+        if (mTransactionSpinnerPosition == NONE_INDEX) {
             setRevenueLineGraph(transactionGraph);
             setExpenditureLineGraph(transactionGraph);
-        } else if (mTransactionSpinnerPosition > 0 && mTransactionSpinnerPosition <= 10) {
+        } else if (mTransactionSpinnerPosition > NONE_INDEX
+                && mTransactionSpinnerPosition <= LAST_INCOME_INDEX) {
             setCategoryBarChart(transactionGraph);
         }
     }
@@ -387,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
         List<Transaction> transactions = transactionContainer.getTransactions();
-        DataPoint[] dataPoints = new DataPoint[4];
+        DataPoint[] dataPoints = new DataPoint[NUMBER_OF_DATA_POINTS];
         int position = mTimeSpinnerPosition;
         setDataPointsForRevenue(transactionsValues, transactions, dataPoints, position);
         return dataPoints;
@@ -400,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
         List<Transaction> transactions = transactionContainer.getTransactions();
-        DataPoint[] dataPoints = new DataPoint[4];
+        DataPoint[] dataPoints = new DataPoint[NUMBER_OF_DATA_POINTS];
         int position = mTimeSpinnerPosition;
         setDataPointsForExpenditure(transactionsValues, transactions, dataPoints, position);
         return dataPoints;
@@ -410,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private DataPoint[] createDataPointsForBarChart() {
         Log.d(TAG, "createDataPointsForBarChart() called");
-        DataPoint[] dataPoints = new DataPoint[4];
+        DataPoint[] dataPoints = new DataPoint[NUMBER_OF_DATA_POINTS];
         Transactions transactionsValues = Transactions.get(MainActivity.this);
         TransactionContainer transactionContainer = TransactionContainer.get(MainActivity.this);
         List<Transaction> transactions = transactionContainer.
@@ -467,16 +475,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForTodayRevenue() called");
         Instant now = Instant.now();
         Date today = Date.from(now);
-        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-        Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
-        Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+        Date oneDayAgo = Date.from(now.minus(ONE_DAY, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2 * ONE_DAY, ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(ONE_DAY, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayRevenue(twoDaysAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayRevenue(oneDayAgo,
                 transactions));
         dataPoints[2] = new DataPoint(today, transactionsValues.getDayRevenue(today,
                 transactions));
-        dataPoints[3] = new DataPoint(tomorrow, 0);
+        dataPoints[3] = new DataPoint(tomorrow, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -486,16 +494,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisWeekRevenue() called");
         Instant currentWeek = Instant.now();
         Date thisWeek = Date.from(currentWeek);
-        Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
-        Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
-        Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
+        Date oneWeekAgo = Date.from(currentWeek.minus(ONE_WEEK, ChronoUnit.DAYS));
+        Date twoWeeksAgo = Date.from(currentWeek.minus(2 * ONE_WEEK,
+                ChronoUnit.DAYS));
+        Date nextWeek = Date.from(currentWeek.plus(ONE_WEEK, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekRevenue(twoWeeksAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekRevenue(oneWeekAgo,
                 transactions));
         dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekRevenue(thisWeek,
                 transactions));
-        dataPoints[3] = new DataPoint(nextWeek, 0);
+        dataPoints[3] = new DataPoint(nextWeek, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -505,16 +514,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisMonthRevenue() called");
         Instant currentMonth = Instant.now();
         Date thisMonth = Date.from(currentMonth);
-        Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
-        Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
-        Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
+        Date oneMonthAgo = Date.from(currentMonth.minus(ONE_MONTH, ChronoUnit.DAYS));
+        Date twoMonthsAgo = Date.from(currentMonth.minus(2 * ONE_MONTH,
+                ChronoUnit.DAYS));
+        Date nextMonth = Date.from(currentMonth.plus(ONE_MONTH, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthRevenue(twoMonthsAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthRevenue(oneMonthAgo,
                 transactions));
         dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthRevenue(thisMonth,
                 transactions));
-        dataPoints[3] = new DataPoint(nextMonth, 0);
+        dataPoints[3] = new DataPoint(nextMonth, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -524,16 +534,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisYearRevenue() called");
         Instant currentYear = Instant.now();
         Date thisYear = Date.from(currentYear);
-        Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
-        Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
-        Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
+        Date oneYearAgo = Date.from(currentYear.minus(ONE_YEAR, ChronoUnit.DAYS));
+        Date twoYearsAgo = Date.from(currentYear.minus(2 * ONE_YEAR,
+                ChronoUnit.DAYS));
+        Date nextYear = Date.from(currentYear.plus(ONE_YEAR, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearRevenue(twoYearsAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearRevenue(oneYearAgo,
                 transactions));
         dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearRevenue(thisYear,
                 transactions));
-        dataPoints[3] = new DataPoint(nextYear, 0);
+        dataPoints[3] = new DataPoint(nextYear, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -568,16 +579,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointForTodayExpenditure() called");
         Instant now = Instant.now();
         Date today = Date.from(now);
-        Date oneDayAgo = Date.from(now.minus(1, ChronoUnit.DAYS));
-        Date twoDaysAgo = Date.from(now.minus(2, ChronoUnit.DAYS));
-        Date tomorrow = Date.from(now.plus(1, ChronoUnit.DAYS));
+        Date oneDayAgo = Date.from(now.minus(ONE_DAY, ChronoUnit.DAYS));
+        Date twoDaysAgo = Date.from(now.minus(2 * ONE_DAY, ChronoUnit.DAYS));
+        Date tomorrow = Date.from(now.plus(ONE_DAY, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoDaysAgo, transactionsValues.getDayExpenditure(twoDaysAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneDayAgo, transactionsValues.getDayExpenditure(oneDayAgo,
                 transactions));
         dataPoints[2] = new DataPoint(today, transactionsValues.getDayExpenditure(today,
                 transactions));
-        dataPoints[3] = new DataPoint(tomorrow, 0);
+        dataPoints[3] = new DataPoint(tomorrow, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -587,16 +598,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisWeekExpenditure() called");
         Instant currentWeek = Instant.now();
         Date thisWeek = Date.from(currentWeek);
-        Date oneWeekAgo = Date.from(currentWeek.minus(7, ChronoUnit.DAYS));
-        Date twoWeeksAgo = Date.from(currentWeek.minus(14, ChronoUnit.DAYS));
-        Date nextWeek = Date.from(currentWeek.plus(7, ChronoUnit.DAYS));
-        dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekExpenditure(twoWeeksAgo,
-                transactions));
+        Date oneWeekAgo = Date.from(currentWeek.minus(ONE_WEEK, ChronoUnit.DAYS));
+        Date twoWeeksAgo = Date.from(currentWeek.minus(2 * ONE_WEEK,
+                ChronoUnit.DAYS));
+        Date nextWeek = Date.from(currentWeek.plus(ONE_WEEK, ChronoUnit.DAYS));
+        dataPoints[0] = new DataPoint(twoWeeksAgo, transactionsValues.getWeekExpenditure(
+                twoWeeksAgo, transactions));
         dataPoints[1] = new DataPoint(oneWeekAgo, transactionsValues.getWeekExpenditure(oneWeekAgo,
                 transactions));
         dataPoints[2] = new DataPoint(thisWeek, transactionsValues.getWeekExpenditure(thisWeek,
                 transactions));
-        dataPoints[3] = new DataPoint(nextWeek, 0);
+        dataPoints[3] = new DataPoint(nextWeek, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -606,16 +618,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisMonthExpenditure() called");
         Instant currentMonth = Instant.now();
         Date thisMonth = Date.from(currentMonth);
-        Date oneMonthAgo = Date.from(currentMonth.minus(30, ChronoUnit.DAYS));
-        Date twoMonthsAgo = Date.from(currentMonth.minus(60, ChronoUnit.DAYS));
-        Date nextMonth = Date.from(currentMonth.plus(1, ChronoUnit.DAYS));
+        Date oneMonthAgo = Date.from(currentMonth.minus(ONE_MONTH, ChronoUnit.DAYS));
+        Date twoMonthsAgo = Date.from(currentMonth.minus(2 * ONE_MONTH,
+                ChronoUnit.DAYS));
+        Date nextMonth = Date.from(currentMonth.plus(ONE_MONTH, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoMonthsAgo, transactionsValues.getMonthExpenditure(
                 twoMonthsAgo, transactions));
         dataPoints[1] = new DataPoint(oneMonthAgo, transactionsValues.getMonthExpenditure(
                 oneMonthAgo, transactions));
         dataPoints[2] = new DataPoint(thisMonth, transactionsValues.getMonthExpenditure(
                 thisMonth, transactions));
-        dataPoints[3] = new DataPoint(nextMonth, 0);
+        dataPoints[3] = new DataPoint(nextMonth, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -625,16 +638,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setDataPointsForThisYearExpenditure() called");
         Instant currentYear = Instant.now();
         Date thisYear = Date.from(currentYear);
-        Date oneYearAgo = Date.from(currentYear.minus(365, ChronoUnit.DAYS));
-        Date twoYearsAgo = Date.from(currentYear.minus(730, ChronoUnit.DAYS));
-        Date nextYear = Date.from(currentYear.plus(365, ChronoUnit.DAYS));
+        Date oneYearAgo = Date.from(currentYear.minus(ONE_YEAR, ChronoUnit.DAYS));
+        Date twoYearsAgo = Date.from(currentYear.minus(2 * ONE_YEAR,
+                ChronoUnit.DAYS));
+        Date nextYear = Date.from(currentYear.plus(ONE_YEAR, ChronoUnit.DAYS));
         dataPoints[0] = new DataPoint(twoYearsAgo, transactionsValues.getYearExpenditure(twoYearsAgo,
                 transactions));
         dataPoints[1] = new DataPoint(oneYearAgo, transactionsValues.getYearExpenditure(oneYearAgo,
                 transactions));
         dataPoints[2] = new DataPoint(thisYear, transactionsValues.getYearExpenditure(thisYear,
                 transactions));
-        dataPoints[3] = new DataPoint(nextYear, 0);
+        dataPoints[3] = new DataPoint(nextYear, 0);//No value will be associated
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
