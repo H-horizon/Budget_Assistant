@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int THIS_MONTH = 3;
     private static final int THIS_YEAR = 4;
     public static final int NONE_INDEX = 0;
-    public static final int LAST_EXPENSE_INDEX = 7;
-    public static final int LAST_INCOME_INDEX = 10;
+    public static final int LAST_EXPENSE_INDEX = 8;
+    public static final int LAST_INCOME_INDEX = 11;
     public static final int NUM_HORIZONTAL_LABELS = 5;
     public static final int NUMBER_OF_DATA_POINTS = 4;
     public static final int ONE_DAY = 1;
