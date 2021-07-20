@@ -235,5 +235,14 @@ Sliding to the right:
 
 ----
 
+## Contributor(s)
+
+[Hemrish](https://github.com/Hemrish)
+
+&nbsp;
+
+[🡅 Back to Table of Contents](#table-of-contents)
+
+----
 
 
