@@ -13,11 +13,11 @@
 ## Table of Contents
 
 * [About](#about)
-    * [How to use this guide](how-to-use-this-guide)
-    * [Transaction Categories](transaction-categories)
-* [Getting Started](getting-started)
-* [Features](features)
-* [Contributor(s)](contributors)
+    * [How to use this guide](#how-to-use-this-guide)
+    * [Transaction Categories](#transaction-categories)
+* [Getting Started](#getting-started)
+* [Features](#features)
+* [Contributor(s)](#contributors)
 
 &nbsp;
 
