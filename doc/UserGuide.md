@@ -81,8 +81,9 @@
 
 When you'll open the application, you will be able a similar page as the one below
 
+<p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
-
+</p>
 
 &nbsp;
 
