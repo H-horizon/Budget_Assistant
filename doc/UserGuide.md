@@ -123,12 +123,23 @@ Next to the Income button, there's a category list which allows you to view the 
 If you change the time period again, this graph will also change.
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisMonth.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisWeek.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodToday.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodAllTime.jpg" alt="Today" width="200"/>
-
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisMonth.jpg" alt="Food Month" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisWeek.jpg" alt="Food Week" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodToday.jpg" alt="Food Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodAllTime.jpg" alt="Food All-Time" width="200"/>
 </p>
+
+### Second page
+
+Clicking on the expenses and income buttons should bring you to the following pages respectively:
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Expenses.jpg" alt="Expenses" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Income.jpg" alt="Income" width="200"/>
+</p>
+
+
+
+
 &nbsp;
 
 [🡅 Back to Table of Contents](#table-of-contents)
