@@ -202,28 +202,27 @@ If you want to view a record which is on the third page, just click on it and a 
  You can update the record and choose to save or cancel the changes.
  
  Also sliding to right will open a record before the current one and sliding to left will show the record after the current
+
+Current Record:
+
  <p align="center">
- Current Record:
- 
  <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
  </p>
  
- <p align="center">
- Sliding to the left:
+Sliding to the left:
 
+<p align="center">
  <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/LeftSwipe.jpg" alt="Selected Date" width="200"/>
 </p>
 
-<p align="center">
 Sliding to the right from the above record will bring the initial record:
 
+<p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected Date" width="200"/>
-
 </p>
 
-<p align="center">
 Sliding to the right:
-
+<p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
 ⚠ For this feature to work, you should have more than one records.
