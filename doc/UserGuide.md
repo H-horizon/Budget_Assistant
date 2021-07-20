@@ -196,26 +196,34 @@ If you want to add the entry, just choose the save button. Clicking on the Cance
 If you want to view a record which is on the third page, just click on it and a nearly similar page as below will be opened:
  <p align="center">
  <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/UpdateList.jpg" alt="Updated list" width="200"/>
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Chosen%20Record.jpg" alt="Selected record" width="200"/>
  <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
 
  </p>
  You can update the record and choose to save or cancel the changes.
  
- Also sliding to right will open a record before the current one and sliding to left will the record after the current
+ Also sliding to right will open a record before the current one and sliding to left will show the record after the current
  <p align="center">
  Current Record:
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
  
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
+ </p>
+ 
+ <p align="center">
  Sliding to the left:
 
  <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/LeftSwipe.jpg" alt="Selected Date" width="200"/>
+</p>
 
+<p align="center">
 Sliding to the right from the above record will bring the initial record:
 
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected Date" width="200"/>
 
+</p>
+
+<p align="center">
 Sliding to the right:
+
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
 ⚠ For this feature to work, you should have more than one records.
