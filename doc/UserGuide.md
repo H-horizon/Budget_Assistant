@@ -82,7 +82,7 @@
 When you'll open the application, you will be able a similar page as the one below
 
 <p align="center">
-     src="userGuideImages/StartFrame.jpg" alt="Start Page"><br>
+    <img width="600" src="userGuideImages/StartFrame.jpg" alt="Start Page"><br>
 </p>
 
 
