@@ -48,7 +48,7 @@ Budget Assistant is an android mobile application that will help keep track of y
     1. Expenses
         * Any transaction that requires you to spend money
     1. Incomes
-        * Any transaction that allows to gain capital
+        * Any transaction that allows you to gain capital
 1. Expenses can consist of:
     1. Food
     1. Travelling
@@ -96,7 +96,7 @@ Budget Assistant is an android mobile application that will help keep track of y
 
 ### Start
 
-When you'll open the application, you will be able a similar page as the one below
+When you'll open the application, you will be able to see a similar page to the one below
 
 <p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
@@ -126,7 +126,7 @@ The graph at the bottom will also change showing you your trends for the last th
 
 ### Choose your category
 
-Next to the Income button, there's a category list which allows you to view the trend for a particular transaction category. 
+Next to the Income button, there's a category list that allows you to view the trend for a particular transaction category. 
 
 💡 When you open your application, the default for the transaction category will always be none, which shows your revenue and expenditure trends instead.
 
@@ -135,7 +135,7 @@ Next to the Income button, there's a category list which allows you to view the 
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisYear.jpg" alt="Choose Food" width="200"/>
 </p>
 
-💡 The time period option also affects the category bar chart. In the above picture, it is showing the spending for food for that particular year.
+💡 The time period option also affects the category bar chart. The above picture shows the spending on food for that particular year.
 
 If you change the time period again, this graph will also change.
 
@@ -235,7 +235,7 @@ Sliding to the right:
 <p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
-⚠ For this feature to work, you should have more than one records.
+⚠ For this feature to work, you should have more than one record.
 </p>
 
 
