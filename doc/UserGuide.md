@@ -155,6 +155,61 @@ Changing the time period will then filter the current list and display a filtere
 
 </p>
 
+### Adding a New Entry
+
+If you press the plus icon on the toolbar of the third page, the following page will be brought up:
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/NewEntry.jpg" alt="New Entry" width="200"/>
+</p>
+
+Fill up both fields.
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/FillUpField.jpg" alt="Filled Entry" width="200"/>
+
+⚠ Both fields must be filled by saving entry!
+
+⚠ The amount field should contain numeric values(includes decimal numbers as well) only!
+</p>
+
+The date button contains the current date. If you need to change the date, click on the button and a pop-up will appear as follows:
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/DateDialog.jpg" alt="Date Dialog" width="200"/>
+</p>
+
+Choose your date and press. The button should display the selected date as shown below:
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Updated%20date.jpg" alt="Updated Date" width="200"/>
+</p>
+
+If you want to add the entry, just choose the save button. Clicking on the Cancel button will discard the entry and redirect you to the third page.
+
+### Viewing a record
+
+If you want to view a record which is on the third page, just click on it and a nearly similar page as below will be opened:
+ <p align="center">
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+ </p>
+ You can update the record and choose to save or cancel the changes.
+ 
+ Also sliding to right will open a record before the current one and sliding to left will the record after the current
+ <p align="center">
+ Current Record:
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+ 
+ Sliding to the left:
+
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+
+Sliding to the right from the above record will bring the initial record:
+
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+
+Sliding to the right:
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+</p>
+
+
 &nbsp;
 
 [🡅 Back to Table of Contents](#table-of-contents)
