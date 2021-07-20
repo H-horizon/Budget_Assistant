@@ -90,10 +90,11 @@ If you touch, the dropdown list on the toolbar, you should see a list of time pe
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/TimePeriodList.jpg" alt="Time list" width="200"/>
 </p>
 
+### Choose your time period
 
 If you need to look at how much money you saved during a particular time period, just choose it. You will see your revenue, expenditure and savings for that particular period.
 
-The graph at the bottom will also change showing you your trends for the last three time periods; the green line represent your revenue while the red one represents your expenditure.
+The graph at the bottom will also change showing you your trends for the last three time periods; the green line represents your revenue while the red one represents your expenditure.
 
 <p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartToday.jpg" alt="Today" width="200"/>
@@ -106,6 +107,28 @@ The graph at the bottom will also change showing you your trends for the last th
 💡 When you open your application, the default for the time period will always be on All-time! 
 </p>
 
+### Choose your category
+
+Next to the Income button, there's a category list which allows you to view the trend for a particular transaction category. 
+
+💡 When you open your application, the default for the transaction category will always be none, which shows your revenue and expenditure trends instead.
+
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartCategories.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisYear.jpg" alt="Choose Food" width="200"/>
+</p>
+
+💡 The time period option also affects the category bar chart. In the above picture, it is showing the spending for food for that particular year.
+
+If you change the time period again, this graph will also change.
+
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisMonth.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisWeek.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodToday.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodAllTime.jpg" alt="Today" width="200"/>
+
+</p>
 &nbsp;
 
 [🡅 Back to Table of Contents](#table-of-contents)
