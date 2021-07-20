@@ -1,9 +1,9 @@
-[<== Back to Home](README.md)
+[<== Back to Home](https://github.com/Hemrish/Budget_Assistant/tree/Document#readme)
 
 
 # User Guide
 
-** Budget Assistant is an android mobile application that will help keep track of your transactions in an organised manner. It will also set up visual aids to enable you to analyse your spending and income. 
+Budget Assistant is an android mobile application that will help keep track of your transactions in an organised manner. It will also set up visual aids to enable you to analyse your spending and income. 
 
 
 &nbsp;
