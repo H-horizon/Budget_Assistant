@@ -137,8 +137,23 @@ Clicking on the expenses and income buttons should bring you to the following pa
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Income.jpg" alt="Income" width="200"/>
 </p>
 
+### Third page
 
+Pressing any category buttons should show you a list of transactions belonging to that category only. Each item in the list contains a description field, an amount field and a date of occurrence field.
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ShowList.jpg" alt="List items" width="200"/>
+</p>
 
+There's also a dropdown list on the toolbar for time periods
+💡 When your list is opened, the default for the time period will always be on All-time! 
+Changing the time period will then filter the current list and display a filtered one.
+<p align="center">
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListToday.jpg" alt="List Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisWeek.jpg" alt="List Week" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisMonth.jpg" alt="List Month" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisYear.jpg" alt="List Year" width="200"/>
+
+</p>
 
 &nbsp;
 
