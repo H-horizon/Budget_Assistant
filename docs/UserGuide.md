@@ -76,15 +76,15 @@ Budget Assistant is an android mobile application that will help keep track of y
 1. Download the [APK](https://github.com/Hemrish/Budget_Assistant/releases/download/v1.0/Budget.Assistant.apk).
 1. Open the APK
    <p align="center">
-   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/OpenAPK.jpg" alt="Open APK" width="200"/>
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/OpenAPK.jpg" alt="Open APK" width="200"/>
    </p>
 1. Install the APK
    <p align="center">
-   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/InstallApk.jpg" alt="Install APK" width="200"/>
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/InstallApk.jpg" alt="Install APK" width="200"/>
    </p>
 ⚠ If your system security is blocking the installation, just Allow Install from Unknown Sources from your settings
 <p align="center">
-   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Security.jpg" alt="Security" width="200"/>
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/Security.jpg" alt="Security" width="200"/>
    </p>
 &nbsp;
 
@@ -99,12 +99,12 @@ Budget Assistant is an android mobile application that will help keep track of y
 When you'll open the application, you will be able to see a similar page to the one below
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
 </p>
 
 If you touch, the dropdown list on the toolbar, you should see a list of time periods:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/TimePeriodList.jpg" alt="Time list" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/TimePeriodList.jpg" alt="Time list" width="200"/>
 </p>
 
 ### Choose your time period
@@ -114,10 +114,10 @@ If you need to look at how much money you saved during a particular time period,
 The graph at the bottom will also change showing you your trends for the last three time periods; the green line represents your revenue while the red one represents your expenditure.
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartToday.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisWeek.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisMonth.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisYear.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartToday.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartThisWeek.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartThisMonth.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartThisYear.jpg" alt="Today" width="200"/>
 
 &nbsp;
 
@@ -131,8 +131,8 @@ Next to the Income button, there's a category list that allows you to view the t
 💡 When you open your application, the default for the transaction category will always be none, which shows your revenue and expenditure trends instead.
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartCategories.jpg" alt="Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisYear.jpg" alt="Choose Food" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartCategories.jpg" alt="Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFoodThisYear.jpg" alt="Choose Food" width="200"/>
 </p>
 
 💡 The time period option also affects the category bar chart. The above picture shows the spending on food for that particular year.
@@ -140,35 +140,35 @@ Next to the Income button, there's a category list that allows you to view the t
 If you change the time period again, this graph will also change.
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisMonth.jpg" alt="Food Month" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodThisWeek.jpg" alt="Food Week" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodToday.jpg" alt="Food Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartFoodAllTime.jpg" alt="Food All-Time" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFoodThisMonth.jpg" alt="Food Month" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFoodThisWeek.jpg" alt="Food Week" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFoodToday.jpg" alt="Food Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFoodAllTime.jpg" alt="Food All-Time" width="200"/>
 </p>
 
 ### Second page
 
 Clicking on the expenses and income buttons should bring you to the following pages respectively:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Expenses.jpg" alt="Expenses" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Income.jpg" alt="Income" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/Expenses.jpg" alt="Expenses" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/Income.jpg" alt="Income" width="200"/>
 </p>
 
 ### Third page
 
 Pressing any category buttons should show you a list of transactions belonging to that category only. Each item in the list contains a description field, an amount field and a date of occurrence field.
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ShowList.jpg" alt="List items" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ShowList.jpg" alt="List items" width="200"/>
 </p>
 
 There's also a dropdown list on the toolbar for time periods
 💡 When your list is opened, the default for the time period will always be on All-time! 
 Changing the time period will then filter the current list and display a filtered one.
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListToday.jpg" alt="List Today" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisWeek.jpg" alt="List Week" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisMonth.jpg" alt="List Month" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ListThisYear.jpg" alt="List Year" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ListToday.jpg" alt="List Today" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ListThisWeek.jpg" alt="List Week" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ListThisMonth.jpg" alt="List Month" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ListThisYear.jpg" alt="List Year" width="200"/>
 
 </p>
 
@@ -176,12 +176,12 @@ Changing the time period will then filter the current list and display a filtere
 
 If you press the plus icon on the toolbar of the third page, the following page will be brought up:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/NewEntry.jpg" alt="New Entry" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/NewEntry.jpg" alt="New Entry" width="200"/>
 </p>
 
 Fill up both fields.
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/FillUpField.jpg" alt="Filled Entry" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/FillUpField.jpg" alt="Filled Entry" width="200"/>
 
 ⚠ Both fields must be filled by saving entry!
 
@@ -190,13 +190,13 @@ Fill up both fields.
 
 The date button contains the current date. If you need to change the date, click on the button and a pop-up will appear as follows:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/DateDialog.jpg" alt="Date Dialog" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/DateDialog.jpg" alt="Date Dialog" width="200"/>
 </p>
 
 Choose your date and press OK. The button should display the selected date as shown below:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Updated%20date.jpg" alt="Updated Date" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ChooseDate.jpg" alt="Selected Date" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/Updated%20date.jpg" alt="Updated Date" width="200"/>
 </p>
 
 If you want to add the entry, just choose the save button. Clicking on the Cancel button will discard the entry and redirect you to the third page.
@@ -205,8 +205,8 @@ If you want to add the entry, just choose the save button. Clicking on the Cance
 
 If you want to view a record which is on the third page, just click on it and a nearly similar page as below will be opened:
  <p align="center">
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/UpdateList.jpg" alt="Updated list" width="200"/>
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/UpdateList.jpg" alt="Updated list" width="200"/>
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
 
  </p>
  You can update the record and choose to save or cancel the changes.
@@ -216,24 +216,24 @@ If you want to view a record which is on the third page, just click on it and a 
 Current Record:
 
  <p align="center">
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ChosenEntry.jpg" alt="Selected entry" width="200"/>
  </p>
  
 Sliding to the left:
 
 <p align="center">
- <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/LeftSwipe.jpg" alt="Selected Date" width="200"/>
+ <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/LeftSwipe.jpg" alt="Selected Date" width="200"/>
 </p>
 
 Sliding to the right from the above record will bring the initial record:
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/ChosenEntry.jpg" alt="Selected Date" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/ChosenEntry.jpg" alt="Selected Date" width="200"/>
 </p>
 
 Sliding to the right:
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
+<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
 ⚠ For this feature to work, you should have more than one record.
 </p>
