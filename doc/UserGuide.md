@@ -93,8 +93,6 @@ If you touch, the dropdown list on the toolbar, you should see a list of time pe
 
 If you need to look at how much money you saved during a particular time period, just choose it. You will see your revenue, expenditure and savings for that particular period.
 
-&nbsp;
-
 The graph at the bottom will also change showing you your trends for the last three time periods; the green line represent your revenue while the red one represents your expenditure.
 
 <p align="center">
