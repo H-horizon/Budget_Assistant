@@ -3,7 +3,7 @@
 
 # User Guide
 
-**Budget Assistant is an android mobile application that will help keep track of your transactions in an organised manner. It will also set up visual aids to enable you to analyse your spending and income. 
+** Budget Assistant is an android mobile application that will help keep track of your transactions in an organised manner. It will also set up visual aids to enable you to analyse your spending and income. 
 
 
 &nbsp;
@@ -34,9 +34,9 @@
 
 ### How to Use This Guide
 
-1. If you need help setting up your Budget Assistant, you can always look into the [Getting Started](getting-started) section.
-1. You can learn more about the features, the application offers, by viewing the [Features](features) section.
-1. If you are experiencing any issue with your application, you can get in touch with the [Contributor(s)](contributors).
+1. If you need help setting up your Budget Assistant, you can always look into the [Getting Started](#getting-started) section.
+1. You can learn more about the features, the application offers, by viewing the [Features](#features) section.
+1. If you are experiencing any issue with your application, you can get in touch with the [Contributor(s)](#contributors).
 
 💡 - indicates a tip that may be useful to you.<br>
 ⚠ - indicates a warning that you should take note of.<br>
@@ -73,9 +73,19 @@
 ## Getting Started
 
 1. Ensure your android uses at least Android Oreo(Android 8.0.0 / API level 26) ⚠.
-1. Download the APK [here](https://github.com/Hemrish/Budget_Assistant/releases/download/v1.0/Budget.Assistant.apk).
-1. To be continued
-
+1. Download the [APK](https://github.com/Hemrish/Budget_Assistant/releases/download/v1.0/Budget.Assistant.apk).
+1. Open the APK
+   <p align="center">
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/OpenAPK.jpg" alt="Open APK" width="200"/>
+   </p>
+1. Install the APK
+   <p align="center">
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/InstallApk.jpg" alt="Install APK" width="200"/>
+   </p>
+⚠ If your system security is blocking the installation, just Allow Install from Unknown Sources from your settings
+<p align="center">
+   <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/Security.jpg" alt="Security" width="200"/>
+   </p>
 &nbsp;
 
 [🡅 Back to Table of Contents](#table-of-contents)
