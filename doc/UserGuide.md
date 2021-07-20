@@ -92,14 +92,19 @@ If you touch, the dropdown list on the toolbar, you should see a list of time pe
 
 
 If you need to look at how much money you saved during a particular time period, just choose it. You will see your revenue, expenditure and savings for that particular period.
+
+&nbsp;
+
 The graph at the bottom will also change showing you your trends for the last three time periods; the green line represent your revenue while the red one represents your expenditure.
-If you touch, the dropdown list on the toolbar, you should see a list of time periods:
 
 <p align="center">
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartToday.jpg" alt="Today" width="200"/>
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisWeek.jpg" alt="Today" width="200"/>
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisMonth.jpg" alt="Today" width="200"/>
 <img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/doc/UserGuideImages/StartThisYear.jpg" alt="Today" width="200"/>
+
+&nbsp;
+
 💡 When you open your application, the default for the time period will always be on All-time! 
 </p>
 
