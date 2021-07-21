@@ -99,7 +99,7 @@ Budget Assistant is an android mobile application that will help keep track of y
 When you'll open the application, you will be able to see a similar page to the one below
 
 <p align="center">
-<img src="https://github.com/Hemrish/Budget_Assistant/blob/Document/docs/UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
+<img src="UserGuideImages/StartFrame.jpg" alt="Start Page" width="200"/>
 </p>
 
 If you touch, the dropdown list on the toolbar, you should see a list of time periods:
