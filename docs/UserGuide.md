@@ -185,9 +185,11 @@ Fill up both fields.
 <p align="center">
 <img src="UserGuideImages/FillUpField.jpg" alt="Filled Entry" width="200"/>
 
-⚠ Both fields must be filled by saving entry!
 
-⚠ The amount field should contain numeric values(includes decimal numbers as well) only!
+   ⚠ Both fields must be filled by saving entry!
+
+
+   ⚠ The amount field should contain numeric values(includes decimal numbers as well) only!
 </p>
 
 The date button contains the current date. If you need to change the date, click on the button and a pop-up will appear as follows:
@@ -237,7 +239,8 @@ Sliding to the right:
 <p align="center">
 <img src="UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
-⚠ For this feature to work, you should have more than one record.
+
+   ⚠ For this feature to work, you should have more than one record.
 </p>
 
 
