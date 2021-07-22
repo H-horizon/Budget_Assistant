@@ -82,7 +82,8 @@ The following images will display the four layers respectively
 <img src="DeveloperGuideImages/ShowList.jpg" alt="List" width="200"/>
 <img src="DeveloperGuideImages/NewEntry.jpg" alt="New" width="200"/>
 
-    Figure 1 - Visualisation of Budget Assistant’s 4-layer system
+    
+   Figure 1 - Visualisation of Budget Assistant’s 4-layer system
 </p>
 
 
@@ -106,7 +107,8 @@ This document describes the software architecture and software design decisions 
 <p align="center">
     <img src="DeveloperGuideImages/Architecture.png" alt="Income" width="800"/>
     
-    Figure 2 - Budget Architecture Diagram
+   
+   Figure 2 - Budget Architecture Diagram
 </p>
 
 
@@ -128,7 +130,8 @@ This document describes the software architecture and software design decisions 
 <p align="center">
     <img src="DeveloperGuideImages/UI.png" alt="UI" width="800"/>
     
-    Figure 3 - UI Component 
+    
+   Figure 3 - UI Component 
 </p>
 
 The layout of these UI parts is defined in matching .xml files that are in the src/main/res/layout. 
@@ -148,7 +151,8 @@ For example, the layout of the MainActivity is specified in activity_main.xml
 <p align="center">
     <img src="DeveloperGuideImages/ModelComponent.png" alt="Model" width="800"/>
     
-    Figure 4 - Model Component
+    
+   Figure 4 - Model Component
 </p>
 
 💡 TransactionContainer is implemented as Singleton.
@@ -167,7 +171,8 @@ For example, the layout of the MainActivity is specified in activity_main.xml
 <p align="center">
     <img src="DeveloperGuideImages/Logic.png" alt="Logic" width="800"/>
     
-    Figure 5 - Logic Component
+    
+   Figure 5 - Logic Component
 </p>
 
 💡 Transactions is implemented as Singleton.
@@ -186,7 +191,8 @@ For example, the layout of the MainActivity is specified in activity_main.xml
 <p align="center">
     <img src="DeveloperGuideImages/Storage.png" alt="Storage" width="800"/>
     
-    Figure 5 - Storage Component
+    
+   Figure 6 - Storage Component
 </p>
 
 💡 SQLite library was made avail of.
