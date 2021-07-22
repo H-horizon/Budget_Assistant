@@ -57,7 +57,7 @@ _Italic_ - Indicates that the content is a component.<br>
 
 1. Fork [this repo](https://github.com/Hemrish/Budget_Assistant), and clone the fork into your computer.
 1. Ensure you are using Java 11 or above.
-1. Import the project in your IDE.
+1. Import the project into your IDE.
 
 > 💡 You are highly recommended to use Android Studio.
 .
@@ -114,7 +114,7 @@ This document describes the software architecture and software design decisions 
 
 * _UI_ : Displays graphical user interface and captures user input
 * _Model_ : Contains data required by the application in memory
-* _Logic_ : Manipulates and process data for the UI
+* _Logic_ : Manipulates and processes data for the UI
 * _Storage_ : Handles loading and storing of data into an SQLite database 
 
 &nbsp;
@@ -131,7 +131,7 @@ This document describes the software architecture and software design decisions 
     Figure 3 - UI Component 
 </p>
 
-The layout of these UI parts are defined in matching .xml files that are in the src/main/res/layout. 
+The layout of these UI parts is defined in matching .xml files that are in the src/main/res/layout. 
 For example, the layout of the MainActivity is specified in activity_main.xml
 
 &nbsp;
