@@ -14,39 +14,24 @@ This guide is for developers looking to modify the Budget Assistant. For users, 
 ## Table of Contents
 
 * [How to Use This Guide](#how-to-use-this-guide)
+    * [Icons & labels used in this guide](#icons--labels-used-in-this-guide)
 * [Setting up Budget Assistant on Your Computer](#setting-up-budget-assistant-on-your-computer)
 * [Introduction](#introduction)
+    * [Background of Budget Assistant](#background-of-budget-assistant)
+    * [Scope](#scope)
 * [Design](#design)
     * [Architecture](#architecture)
-    * [UI Component](#ui-component)
-    * [Parser Component](#parser-component)
-    * [Command Component](#command-component)
-    * [Model Component](#model-component)
-    * [Storage Component](#storage-component)
-    * [Editor Component](#editor-component)
-    * [Common Classes](#common-classes)
-* [Implementation](#implementation)
-    * [Adding of Lesson](#adding-of-lesson)
-    * [Adding of Cheat-Sheet](#adding-of-cheat-sheet)
-    * [Loading & Storing of Data](#loading--storing-of-data)
-    * [Design Considerations](#design-considerations)
-    * [Future Features](#future-features)
+    * [UI component](#ui-component)
+    * [Model component](#model-component)
+    * [Logic component](#logic-component)
+    * [Storage component](#storage-component)
 * [Appendix: Requirements](#appendix-requirements)
     * [Product Scope](#product-scope)
+        * [Target user profile](#target-user-profile)
+        * [Value proposition](#value-proposition)
     * [User Stories](#user-stories)
     * [Non-Functional Requirements](#non-functional-requirements)
-    * [Glossary](#glossary)
 * [Appendix: Instruction for Manual Testing](#appendix-instruction-for-manual-testing)
-    * [Launching GULIO](#launching-gulio)
-    * [Exiting GULIO](#exiting-gulio)
-    * [Adding a Module](#adding-a-module)
-    * [Deleting a Module](#deleting-a-module)
-    * [Opening a Module](#opening-a-module)
-    * [Closing a Module](#closing-a-module)
-    * [Adding a Lesson](#adding-a-lesson)
-    * [Deleting a Lesson](#deleting-a-lesson)
-    * [Opening a Link](#opening-a-link)
-* [Appendix: Command Summary](#command-summary)
 
 &nbsp;
 
@@ -120,6 +105,7 @@ This document describes the software architecture and software design decisions 
 
 <p align="center">
     <img src="DeveloperGuideImages/Architecture.png" alt="Income" width="800"/>
+    
     Figure 2 - Budget Architecture Diagram
 </p>
 
@@ -141,6 +127,7 @@ This document describes the software architecture and software design decisions 
 
 <p align="center">
     <img src="DeveloperGuideImages/UI.png" alt="UI" width="800"/>
+    
     Figure 3 - UI Component 
 </p>
 
@@ -154,6 +141,62 @@ For example, the layout of the MainActivity is specified in activity_main.xml
 
 ----
 
+### Model Component
+
+**API**: 
+
+<p align="center">
+    <img src="DeveloperGuideImages/ModelComponent.png" alt="Model" width="800"/>
+    
+    Figure 4 - Model Component
+</p>
+
+💡 TransactionContainer is implemented as Singleton.
+
+&nbsp;
+
+
+[🡅 Back to Table of Contents](#table-of-contents)
+
+----
+
+### Logic Component
+
+**API**: 
+
+<p align="center">
+    <img src="DeveloperGuideImages/Logic.png" alt="Logic" width="800"/>
+    
+    Figure 5 - Logic Component
+</p>
+
+💡 Transactions is implemented as Singleton.
+
+&nbsp;
+
+
+[🡅 Back to Table of Contents](#table-of-contents)
+
+----
+
+### Storage Component
+
+**API**: 
+
+<p align="center">
+    <img src="DeveloperGuideImages/Storage.png" alt="Storage" width="800"/>
+    
+    Figure 5 - Storage Component
+</p>
+
+💡 SQLite library was made avail of.
+
+&nbsp;
+
+
+[🡅 Back to Table of Contents](#table-of-contents)
+
+----
 ## Appendix: Requirements
 
 ### Product Scope
