@@ -186,9 +186,11 @@ Fill up both fields.
 <img src="UserGuideImages/FillUpField.jpg" alt="Filled Entry" width="200"/>
 
 
+   
    ⚠ Both fields must be filled by saving entry!
 
 
+   
    ⚠ The amount field should contain numeric values(includes decimal numbers as well) only!
 </p>
 
@@ -240,6 +242,7 @@ Sliding to the right:
 <img src="UserGuideImages/RightSwipe.jpg" alt="Selected Date" width="200"/>
 
 
+   
    ⚠ For this feature to work, you should have more than one record.
 </p>
 
