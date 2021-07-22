@@ -1,4 +1,4 @@
-[<== Back to Home](https://github.com/Hemrish/Budget_Assistant#readme)
+[<== Back to Home](../README.md)
 
 
 # Developer Guide
