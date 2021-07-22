@@ -1,6 +1,6 @@
 # Budget_Assistant
 
-Programming language(Main): Java
+Programming language: Java
 
 OS: Android
 
